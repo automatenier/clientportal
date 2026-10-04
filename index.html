@@ -135,24 +135,19 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
 .pillar-target-summary{font-size:12px;font-weight:700;background:var(--mint);color:var(--green);padding:5px 10px;border-radius:99px}
 
 .metrics-3grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.metric-card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:space-between}
-.metric-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.metric-card{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:space-between}
+.metric-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:12px}
 .metric-code{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.05em}
-.metric-status-badge{font-size:10px;font-weight:800;padding:3px 7px;border-radius:99px;background:#def7ec;color:#03543f}
+.metric-status-badge{font-size:10px;font-weight:800;padding:3px 8px;border-radius:99px;background:#def7ec;color:#03543f}
 .metric-status-badge.alert{background:#fde8e8;color:#9b1c1c}
-.metric-title{font-size:15px;font-weight:800;margin:0 0 10px;line-height:1.3}
+.metric-title{font-size:15px;font-weight:800;margin:0;line-height:1.35;min-height:42px}
 
-.metric-numbers{display:flex;align-items:baseline;justify-content:space-between;margin:12px 0 6px}
-.metric-actual{font-size:26px;font-weight:850;color:var(--ink)}
+.metric-numbers{display:flex;align-items:baseline;justify-content:space-between;margin:14px 0 8px}
+.metric-actual{font-size:28px;font-weight:850;color:var(--ink)}
 .metric-target{font-size:12px;color:var(--muted);font-weight:600}
-.metric-bar{height:6px;background:#e9f0ea;border-radius:99px;overflow:hidden;margin-bottom:14px}
+.metric-bar{height:6px;background:#e9f0ea;border-radius:99px;overflow:hidden;margin-bottom:2px}
 .metric-bar i{display:block;height:100%;border-radius:99px;background:var(--green)}
 .metric-bar.exceeded i{background:#10b981}
-
-.metric-details{border-top:1px solid #f0f4f0;padding-top:10px;font-size:11.5px;color:var(--muted);display:grid;gap:6px}
-.metric-row{display:flex;justify-content:space-between;gap:6px;line-height:1.4}
-.metric-row b{color:var(--ink);font-weight:700;flex-shrink:0}
-.metric-row span{text-align:right}
 
 /* Live Workforce Grid */
 .agent-live-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -483,8 +478,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
         </div>
         <div class="metrics-3grid">
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 01 · METRIK 1</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -494,18 +488,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>95%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:98.4%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Lead tercatat ÷ lead valid diterima di kanal scope × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Form / Website / GBP + CRM</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Capture, source, deduplikasi, laporan otomatis</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Penyediaan kanal &amp; konfirmasi lead masuk</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 01 · METRIK 2</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -515,18 +501,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>90%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:93.2%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Lead di-follow-up ÷ lead yang perlu follow-up × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>CRM / lead log + jadwal follow-up</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Status, jadwal terstruktur, pengingat otomatis</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>PIC klien menjalankan kontak follow-up</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 01 · METRIK 3</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -536,13 +514,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>95%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:97%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Lead dengan source &amp; status ÷ lead aktif scope × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>CRM / lead log; field wajib SOW</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Field wajib, validasi skema otomatis, dashboard</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Menjaga konsistensi data lapangan</span></div>
-            </div>
           </article>
         </div>
       </div>
@@ -561,8 +532,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
         </div>
         <div class="metrics-3grid">
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 02 · METRIK 1</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -572,18 +542,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>90%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:95.2%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Inquiry dijawab dalam SLA ÷ inquiry perlu dijawab × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Timestamp inbox / CRM; jam layanan / SLA</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Timestamping, routing, notifikasi otomatis, laporan</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Balasan eskalasi manual oleh PIC klien</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 02 · METRIK 2</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -593,18 +555,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>90%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:92.5%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Lead dengan kriteria wajib dinilai ÷ lead dikualifikasi × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>CRM / lead sheet; kriteria SOW Maya</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Field dan status kualifikasi bot otomatis</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Verifikasi kecocokan kriteria prospek</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 02 · METRIK 3</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -614,13 +568,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>95%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:96.8%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Qualified lead ke PIC sesuai SLA ÷ lead perlu handoff × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>CRM / inbox; timestamp kualifikasi &amp; penugasan</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Routing otomatis, notifikasi Telegram/WA, log audit</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Konfirmasi penerimaan tugas salesperson</span></div>
-            </div>
           </article>
         </div>
       </div>
@@ -639,8 +586,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
         </div>
         <div class="metrics-3grid">
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 03 · METRIK 1</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -650,18 +596,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>90%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:95%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Konten selesai/disetujui tenggat ÷ konten jatuh tempo × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>SOW, kalender konten, log approval</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Jumlah konten dan kalender SOW; approval terlambat dicatat</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Persetujuan materi sebelum batas waktu</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 03 · METRIK 2</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -671,18 +609,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>90%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:92%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Konten terbit sesuai jadwal ÷ konten terjadwal jatuh tempo × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Kalender + URL / timestamp publikasi</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Penjadwalan &amp; autoposting Rian sesuai SOW</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Ketersediaan akun medsos terotorisasi</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 03 · METRIK 3</span>
                 <span class="metric-status-badge" style="background:#d1fae5;color:#065f46">Sempurna 100% ✓</span>
               </div>
@@ -692,13 +622,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>100%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:100%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Konten dengan UTM/tag/CTA valid ÷ konten wajib ditrack × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>URL publikasi + parameter UTM / link tagging</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Pemasangan parameter pelacakan &amp; QA otomatis</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Menggunakan tautan resmi yang telah ditag</span></div>
-            </div>
           </article>
         </div>
       </div>
@@ -717,8 +640,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
         </div>
         <div class="metrics-3grid">
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 04 · METRIK 1</span>
                 <span class="metric-status-badge" style="background:#d1fae5;color:#065f46">Sempurna 100% ✓</span>
               </div>
@@ -728,18 +650,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>100%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:100%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Tautan kampanye ber-UTM/tag valid ÷ tautan aktif scope × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Daftar kampanye iklan + validasi URL</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Pemasangan &amp; QA UTM Meta/Google ads</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Tidak membuat link manual di luar konvensi</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 04 · METRIK 2</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -749,18 +663,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>95%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:98.2%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Belanja dashboard cocok ekspor platform ÷ belanja platform × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Ekspor Meta/Google Ads + Dashboard Dimas</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Sinkronisasi API pelaporan &amp; rekonsiliasi QA</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Akses baca ke dashboard periklanan</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 04 · METRIK 3</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -770,13 +676,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>90%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:94.6%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Lead kampanye dengan source terisi ÷ lead masuk CRM × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>UTM / click token reference + CRM</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Penerusan parameter tracking ke database CRM</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Pencatatan jika ada lead telepon langsung</span></div>
-            </div>
           </article>
         </div>
       </div>
@@ -795,8 +694,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
         </div>
         <div class="metrics-3grid">
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 05 · METRIK 1</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -806,18 +704,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>98%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:99.4%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Run valid selesai benar tanpa koreksi ÷ seluruh run valid × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Log workflow: ID, status, error, alert intervensi</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Definisi sukses, auto-retry, failure alerting, laporan</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Tidak mengubah data schema secara sepihak</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 05 · METRIK 2</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -827,18 +717,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>95%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:96.8%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Tugas layak diproses otomatis ÷ seluruh tugas layak × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Log workflow + jumlah tugas eligible (faktur, order, dll)</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Otomasi dan denominator terukur transparan</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Penyesuaian transisi tim ke sistem baru</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 05 · METRIK 3</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -848,13 +730,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>98%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:98.9%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Run tanpa koreksi manual ÷ seluruh run valid × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Log intervensi / exception audit</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Exception log dan laporan berkala</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Eskalasi hanya jika anomali di luar SOP</span></div>
-            </div>
           </article>
         </div>
       </div>
@@ -873,8 +748,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
         </div>
         <div class="metrics-3grid">
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 06 · METRIK 1</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -884,18 +758,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>95%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:97.8%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Order aktif dengan field wajib ÷ seluruh order aktif × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Sistem order / CRM; field wajib di SOW</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Alur status, validasi wajib Budi, dashboard</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Input pesanan offline oleh tim klien</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 06 · METRIK 2</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -905,18 +771,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>95%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:96.5%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Order tercatat hari transaksi ÷ order aktual yang cocok × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Sistem order dibanding POS / invoice / rekap harian</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Capture &amp; rekonsiliasi harian Andi</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Rekap kasir harian ditutup sebelum 22:00</span></div>
-            </div>
           </article>
 
           <article class="metric-card">
-            <div>
-              <div class="metric-top">
+            <div class="metric-top">
                 <span class="metric-code">PILAR 06 · METRIK 3</span>
                 <span class="metric-status-badge">Memenuhi Target ✓</span>
               </div>
@@ -926,13 +784,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
                 <span class="metric-target">Target Garansi: <b>90%</b></span>
               </div>
               <div class="metric-bar exceeded"><i style="width:93.7%"></i></div>
-            </div>
-            <div class="metric-details">
-              <div class="metric-row"><b>Rumus:</b><span>Order selesai sesuai tenggat ÷ order jatuh tempo × 100%</span></div>
-              <div class="metric-row"><b>Sumber:</b><span>Order / delivery log dengan due timestamp</span></div>
-              <div class="metric-row"><b>Tanggung Jawab:</b><span>Due time alert, tracking status, notifikasi driver</span></div>
-              <div class="metric-row"><b>PIC Klien:</b><span>Kapasitas armada pengiriman tim klien</span></div>
-            </div>
           </article>
         </div>
       </div>
