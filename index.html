@@ -2,37 +2,1493 @@
 <html lang="id">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AGentZ · Client Progress Portal</title>
+<title>AGentZ · Client Progress & Live KPI Portal</title>
 <style>
-:root{--ink:#14342b;--muted:#60746c;--line:#dce7df;--paper:#fff;--bg:#f3f7f3;--green:#177251;--mint:#e3f2ea;--amber:#fff3d7;--red:#fae5e2;--blue:#e6eef9;--shadow:0 14px 40px #17382b10}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}.shell{max-width:1220px;margin:auto;padding:26px 22px 64px}.top{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:20px}.brand{font-weight:850;letter-spacing:.02em;font-size:19px}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.12em}.demo{border:1px solid #e7ce8a;background:#fff7e4;color:#7b5914;border-radius:99px;padding:7px 12px;font-size:12px;font-weight:700}.hero{padding:34px 0 22px}.eyebrow{text-transform:uppercase;color:var(--green);letter-spacing:.14em;font-weight:800;font-size:11px}.hero h1{font-size:clamp(28px,4vw,42px);line-height:1.08;margin:8px 0}.hero p{color:var(--muted);max-width:750px;margin:0}.summary{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:12px;margin:20px 0}.stat,.card,.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.stat{padding:16px}.stat b{display:block;font-size:20px}.stat span{font-size:12px;color:var(--muted)}.progressbar{height:7px;background:#e8eee9;border-radius:99px;margin:12px 0 5px;overflow:hidden}.progressbar i{display:block;width:25%;height:100%;background:var(--green);border-radius:99px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 14px}.tabs button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:9px 14px;color:var(--ink);font:inherit;font-weight:700;cursor:pointer}.tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:16px 0}.toolbar h2{margin:0;font-size:22px}.filter{border:1px solid var(--line);background:white;border-radius:9px;padding:9px 12px;font:inherit;color:var(--ink)}.board{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:12px;overflow:auto;padding-bottom:8px}.column{background:#eaf0eb;border-radius:14px;padding:12px;min-height:250px}.colhead{display:flex;justify-content:space-between;font-weight:800;margin:0 2px 10px}.count{color:var(--muted);font-weight:600}.task{background:white;border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:9px}.task h3{font-size:14px;line-height:1.3;margin:7px 0 5px}.task p{color:var(--muted);font-size:12px;margin:0 0 10px}.pill{font-size:10px;font-weight:800;padding:4px 7px;border-radius:99px;background:var(--mint);color:var(--green)}.pill.owner{background:var(--amber);color:#8a6216}.meta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;border-top:1px solid #eef2ee;padding-top:8px}.section{margin-top:34px}.section h2{margin:0 0 5px;font-size:23px}.section>p{margin:0 0 14px;color:var(--muted)}.content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.content-card{padding:16px}.content-card h3{margin:8px 0 4px;font-size:16px}.content-card p{margin:0;color:var(--muted);font-size:13px}.number{font-size:28px;font-weight:850;color:var(--green)}.checklist{margin:13px 0 0;padding:0;list-style:none;display:grid;gap:7px;font-size:12px}.checklist li{display:flex;gap:7px}.checklist li:before{content:'✓';color:var(--green);font-weight:900}.panel{padding:18px;margin-top:14px}.panel h3{margin:0 0 8px}.panel p{margin:0;color:var(--muted);font-size:13px}.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.kpi{padding:15px}.kpi strong{display:block}.kpi small{display:block;color:var(--muted);margin-top:5px}.state{display:inline-block;font-size:10px;padding:4px 7px;background:var(--blue);color:#3b5e91;border-radius:99px;margin-top:10px}.foot{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}.hide{display:none}@media(max-width:800px){.summary{grid-template-columns:repeat(2,1fr)}.board{grid-template-columns:repeat(4,minmax(250px,1fr))}.content-grid,.kpi-grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.shell{padding:18px 14px 44px}}
+:root{
+  --ink:#14342b;
+  --muted:#60746c;
+  --line:#dce7df;
+  --paper:#fff;
+  --bg:#f3f7f3;
+  --green:#177251;
+  --green-bright:#1db97d;
+  --mint:#e3f2ea;
+  --mint-light:#f0f8f3;
+  --amber:#fff3d7;
+  --amber-dark:#8a6216;
+  --red:#fae5e2;
+  --red-dark:#9b2c2c;
+  --blue:#e6eef9;
+  --blue-dark:#2b5282;
+  --shadow:0 14px 40px #17382b10;
+  --shadow-sm:0 4px 14px #17382b08;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.shell{max-width:1240px;margin:auto;padding:22px 22px 64px}
 
-.plan-intro{color:var(--muted);margin:-6px 0 18px}.build-list{max-width:900px;display:grid;gap:11px;position:relative;padding:4px 0 4px 4px}.build-list:before{content:"";position:absolute;left:20px;top:19px;bottom:19px;width:2px;background:#d6e5da}.build-item{display:grid;grid-template-columns:42px 1fr;gap:12px;position:relative;align-items:stretch}.build-node{z-index:1;width:36px;height:36px;border-radius:50%;background:var(--green);color:white;font-size:12px;font-weight:850;display:grid;place-items:center;border:4px solid var(--bg);margin-top:13px}.build-card{background:white;border:1px solid var(--line);border-radius:13px;padding:13px 16px;box-shadow:var(--shadow)}.build-brands{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}.agentz-lockup,.service-lockup{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:8px;background:#f2f7f3;color:#294b3f;font-size:11px;font-weight:700}.agentz-lockup b{display:grid;place-items:center;width:22px;height:22px;border-radius:7px;background:#173a30;color:#fff;font-size:10px}.service-lockup{font-size:10px;background:#f2f4f2;color:#53675e}.build-card h3{margin:0 0 3px;font-size:15px}.build-card>p{margin:0 0 10px;color:var(--muted);font-size:12px}.build-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;border-top:1px solid #e8eee9;color:var(--muted);font-size:11px}.build-meta b{color:var(--ink)}
-.asset-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}.asset-fields span{display:grid;gap:2px;background:#f5f8f6;border:1px solid #e7eee8;border-radius:8px;padding:7px 9px;font-size:11px;color:var(--muted)}.asset-fields b{font-size:10px;color:var(--ink)}.asset-flow{max-width:900px}.asset-flow p+p{margin-top:9px}.asset-note{font-size:11px!important;border-top:1px solid var(--line);padding-top:9px}@media(max-width:800px){.asset-fields{grid-template-columns:1fr}}
-</style></head>
-<body><main class="shell">
-<header class="top"><div class="brand">AGentZ <small>AI WORKFORCE · CLIENT PROGRESS</small></div><span class="demo">PROTOTIPE · DATA CONTOH</span></header>
-<section class="hero"><div class="eyebrow">Transparansi proyek · satu sumber progres</div><h1>Progres yang jelas. Kendali tetap di tangan Anda.</h1><p>Tim AI, memori bisnis, SOP, skills, approval Telegram, dan bukti penerimaan dalam satu tampilan. Board ini adalah prototipe untuk ditinjau; data saat ini hanya contoh dan belum terhubung ke proyek klien atau pembaruan cloud bersama.</p></section>
-<section class="summary"><div class="stat"><span>Progres keseluruhan · contoh</span><b>25%</b><div class="progressbar"><i></i></div><span>2 dari 8 milestone contoh selesai</span></div><div class="stat"><span>Paket contoh</span><b id="selectedPackage">Tier 2 · Growth Workforce</b></div><div class="stat"><span>Fase aktif</span><b>Build</b></div><div class="stat"><span>Pembaruan terakhir</span><b>Demo</b></div></section>
-<div class="tabs" role="tablist"><button class="active" data-tab="build">Rencana build</button><button data-tab="workforce">Tim AI & approval</button><button data-tab="assets">Personal brand assets</button><button data-tab="board">Kanban</button><button data-tab="content">Rincian konten Tier 2</button><button data-tab="kpi">KPI & penerimaan</button></div>
-<section id="build" class="view"><div class="toolbar"><h2>Rencana build</h2><select class="filter" id="tier"><option value="1">Tier 1 · Operations Workforce</option><option value="2" selected>Tier 2 · Growth Workforce</option><option value="3">Tier 3 · Business OS & Academy</option></select></div><p class="plan-intro">Pilih tim AI sesuai kebutuhan. Tier 2 mencakup seluruh Tier 1; Tier 3 mencakup seluruh Tier 1 & 2. Harga setup, scope, SOP, volume, dan penerimaan disepakati sebelum aktivasi.</p><div class="build-list" id="buildList"></div></section>
-<section id="workforce" class="view hide"><div class="toolbar"><h2>Managed AI Workforce</h2><span class="demo">SIMULASI · TIDAK TERHUBUNG</span></div><p class="plan-intro">Agents memahami konteks dan SOP. Skills menjalankan tugas. Approval gates menjaga keputusan sensitif di tangan pemilik.</p><div id="teamGrid" class="content-grid"></div><div class="panel"><h3>Permission Level 0–3</h3><p><b>0 · Read only:</b> stok, order, histori. <b>1 · Safe action dengan log:</b> catat lead, draf invoice, rangkum chat. <b>2 · Approval:</b> invoice resmi, stok manual, driver, publikasi. <b>3 · Owner only:</b> refund, harga, hapus pelanggan, transfer, dan budget besar.</p></div><div class="panel"><span class="eyebrow">TELEGRAM PEMILIK · CONTOH</span><h3>Sari · Konfirmasi invoice #ORD-289</h3><p>75 kg × Rp 52.000 = Rp 3.900.000 · stok 180 kg · pelanggan repeat order ke-8. Rekomendasi: setujui dan terbitkan invoice. Data demonstrasi.</p><div class="tabs"><button id="approveDemo">Setujui & kirim invoice</button><button id="editDemo">Ubah</button><button id="rejectDemo">Tolak</button><button id="resetApprovalDemo">Ulangi demo</button></div><label id="approvalEdit" hidden>Instruksi revisi<input id="approvalInstruction" class="filter" maxlength="300" placeholder="Contoh: cek jumlah dahulu"></label><p id="approvalResult" role="status">Menunggu keputusan pemilik. Belum ada invoice dikirim.</p><p class="asset-note">Demo lokal: tombol tidak mengirim invoice atau pesan nyata. Keputusan simulasi dicatat di bawah.</p><ul id="approvalLog" class="checklist"></ul></div><div class="panel"><h3>Model-independent & memori persisten</h3><p>Provider AI dapat diganti setelah pengujian tanpa membuang SOP dan data bisnis. Anggaran pemakaian, akses, dan billing tetap disepakati. Tier 3 menambahkan dedicated environment, knowledge base, serta approval multi-role.</p></div></section><section id="board" class="view hide"><div class="toolbar"><h2>Board implementasi · demo</h2></div><div class="board" id="kanban"></div><div class="panel"><h3>Aturan scope board</h3><p>Board proyek final harus dibuat dari lampiran scope yang disetujui: hanya item terpilih, jumlah pasti, pemilik, tanggal, dependensi, dan kriteria penerimaan. Tier 2 mencakup seluruh tim, sistem, dan bonus Tier 1; Tier 3 mencakup seluruh Tier 1 & 2. Implementasi rinci, volume, dan ketergantungan ditetapkan pada proposal. Pada prototipe ini, status dan bukti belum tersinkron ke ruang kerja cloud; board proyek aktif perlu backend dan akses editor sebelum dipakai untuk pelaporan klien.</p></div></section>
-<section id="assets" class="view hide"><div class="toolbar"><h2>Personal brand asset checklist</h2><span class="demo">CONTOH · BELUM DIMINTA</span></div><p class="plan-intro">Daftar final akan diisi dari dokumen personal brand yang disepakati, setelah AGentZ memasangkan ide ke format konten, menyiapkan draft, dan klien menyetujui konten tersebut.</p><div class="build-list"><article class="build-item"><span class="build-node">01</span><div class="build-card"><div class="build-brands"><span class="agentz-lockup"><b>A°</b><strong>AGentZ</strong></span><span class="service-lockup">Personal brand · Evidence</span></div><h3>Your proof</h3><p>Contoh kebutuhan: bukti yang mendukung klaim konten, seperti hasil kerja/case study, kutipan testimoni berizin, screenshot dengan sumber, atau angka beserta periode dan konteks. Item spesifik ditentukan dari personal brand brief dan draft yang disetujui.</p><div class="asset-fields"><span><b>Konten / format</b>Belum ditautkan</span><span><b>Sumber brief</b>Menunggu dokumen personal brand</span><span><b>Approval</b>Belum diminta</span></div><div class="build-meta"><b>AGentZ + Klien</b><span>Menunggu pemetaan konten</span></div></div></article><article class="build-item"><span class="build-node">02</span><div class="build-card"><div class="build-brands"><span class="agentz-lockup"><b>A°</b><strong>AGentZ</strong></span><span class="service-lockup">Personal brand · Visual</span></div><h3>Your before &amp; after image</h3><p>Contoh kebutuhan: visual before/after dengan konteks dan kondisi pembanding yang jelas, tanggal atau periode yang relevan, serta izin penggunaan. Kebutuhan final mengikuti angle dan format konten yang disetujui.</p><div class="asset-fields"><span><b>Konten / format</b>Belum ditautkan</span><span><b>Sumber brief</b>Menunggu dokumen personal brand</span><span><b>Approval</b>Belum diminta</span></div><div class="build-meta"><b>AGentZ + Klien</b><span>Menunggu pemetaan konten</span></div></div></article></div><div class="panel asset-flow"><h3>Alur checklist aset</h3><p><b>Dokumen personal brand</b> → AGentZ menetapkan angle dan format yang cocok → draft konten disusun → klien menyetujui draft → kebutuhan aset spesifik muncul di daftar ini untuk disiapkan dan disetujui.</p><p class="asset-note">Dua kartu di atas hanya contoh kategori, bukan permintaan aktif kepada klien. Pada prototipe ini, checklist belum otomatis tersambung dengan dokumen atau workflow approval.</p></div></section>
-<section id="content" class="view hide"><div class="toolbar"><h2>Bonus konten Tier 2 · 14 aset siap posting</h2></div><div class="content-grid"><article class="card content-card"><span class="number">06</span><h3>Instagram Reels</h3><p>Enam video vertikal pendek yang siap dipublikasikan.</p><ul class="checklist"><li>6 file video final</li><li>Hook, caption, dan CTA per video</li><li>Cover/teks layar jika disepakati di brief</li><li>Persetujuan klien sebelum jadwal posting</li></ul></article><article class="card content-card"><span class="number">03</span><h3>Carousel</h3><p>Tiga konten multi-slide siap posting.</p><ul class="checklist"><li>3 file carousel final</li><li>Urutan slide dan copy per slide</li><li>Caption dan CTA per carousel</li><li>Persetujuan klien sebelum jadwal posting</li></ul></article><article class="card content-card"><span class="number">05</span><h3>Threads</h3><p>Lima utas teks siap dipublikasikan.</p><ul class="checklist"><li>5 utas final</li><li>Struktur pembuka dan rangkaian poin</li><li>Penutup/CTA bila sesuai tujuan</li><li>Persetujuan klien sebelum jadwal posting</li></ul></article></div><div class="panel"><h3>Definisi selesai untuk 14 konten</h3><p>Setiap aset dihitung selesai setelah format final sesuai spesifikasi platform, copy/caption terkait tersedia, dan status persetujuan klien tercatat. Publikasi, jumlah sesi shooting, talent, revisi tambahan, dan jadwal posting mengikuti scope tertulis. Bonus ini terpisah dari deliverable YouTube.</p></div><div class="content-grid" style="margin-top:12px"><article class="card content-card"><span class="eyebrow">BONUS LAIN · TERPISAH</span><h3>YouTube · 1–3 video</h3><p>Jumlah final, durasi, format, shooting/editing, thumbnail, dan jadwal disepakati tertulis sebelum mulai.</p></article><article class="card content-card"><span class="eyebrow">BONUS LAIN · TERPISAH</span><h3>Setup tracking & analytics</h3><p>Daftar event, kanal, dashboard, sumber data, definisi KPI, dan akses yang termasuk dicatat dalam scope.</p></article><article class="card content-card"><span class="eyebrow">BONUS LAIN · TERPISAH</span><h3>Optimasi profil</h3><p>Platform, jumlah profil, elemen yang diperbarui, dan kriteria penerimaan disepakati tertulis.</p></article></div></section>
-<section id="kpi" class="view hide"><div class="toolbar"><h2>Metrik tim AI & penerimaan</h2></div><p style="color:var(--muted)">Ukuran keberhasilan dipilih berdasarkan tugas tim AI. Tetapkan baseline, sumber data, periode, dan kriteria penerimaan bersama pemilik; angka hasil tidak dijanjikan sebelum data tersedia.</p><div class="kpi-grid" id="kpis"></div><div class="panel"><h3>Standar ukur &amp; jaminan delivery</h3><p>Garansi implementasi: tim AI dipasang sampai berjalan dan teruji pada operasional yang disepakati. Tinjau SOP, skills, approval, dan bukti QA. Anggaran, stok, harga, serta respons manusia dapat memengaruhi kinerja; bukan jaminan omzet atau ROAS.</p></div></section>
-<div class="panel"><h3>Dokumen AI Workforce</h3><p>Penawaran baru: tim, SOP, skills, approval, harga setup, bonus, dan rollout 14 hari.</p><div class="tabs"><a class="filter" href="workforce/Penawaran_AGentZ_AI_Workforce.pdf" target="_blank" rel="noopener">Buka penawaran workforce ↗</a><a class="filter" href="workforce/Checklist_Setup_AI_Workforce.pdf" download>Unduh checklist setup</a></div></div><footer class="foot">AGentZ · Portal demonstrasi terpisah dari sales meeting. Prototype cloud ini dapat dilihat melalui tautan publik. Data contoh bukan status proyek klien dan belum tersinkron ke database bersama.</footer></main>
+/* Header & Main Mode Toggle */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:18px;flex-wrap:wrap}
+.brand{font-weight:850;letter-spacing:.02em;font-size:19px;line-height:1.2}
+.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.12em;font-weight:700}
+
+/* Mode Switcher Segment */
+.mode-switch-wrapper{display:flex;align-items:center;background:#e5eee7;padding:4px;border-radius:99px;border:1px solid var(--line);box-shadow:inset 0 1px 3px rgba(20,52,43,0.08)}
+.mode-toggle-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:99px;border:none;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .18s ease;text-decoration:none}
+.mode-toggle-btn:hover{color:var(--ink)}
+.mode-toggle-btn.active{background:var(--ink);color:#fff;box-shadow:0 2px 8px rgba(20,52,43,0.2)}
+.mode-icon{font-size:14px}
+.pulse-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 0 0 rgba(16,185,129,0.7);animation:pulseDot 2s infinite}
+@keyframes pulseDot{0%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(16,185,129,0.7)}70%{transform:scale(1);box-shadow:0 0 0 6px rgba(16,185,129,0)}100%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+
+.demo{border:1px solid #e7ce8a;background:#fff7e4;color:#7b5914;border-radius:99px;padding:7px 13px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.demo.live-badge{background:#e3f7ed;border-color:#a5dcbe;color:var(--green)}
+
+/* Hero Section */
+.hero{padding:28px 0 20px}
+.eyebrow{text-transform:uppercase;color:var(--green);letter-spacing:.14em;font-weight:800;font-size:11px}
+.hero h1{font-size:clamp(26px,3.8vw,40px);line-height:1.12;margin:8px 0}
+.hero p{color:var(--muted);max-width:820px;margin:0;font-size:15px;line-height:1.6}
+
+/* Cards & Layout */
+.summary{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:12px;margin:20px 0}
+.stat,.card,.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.stat{padding:16px}
+.stat b{display:block;font-size:21px;font-weight:850;margin-top:2px}
+.stat span{font-size:12px;color:var(--muted);font-weight:600}
+.progressbar{height:7px;background:#e8eee9;border-radius:99px;margin:12px 0 5px;overflow:hidden}
+.progressbar i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .4s ease}
+.progressbar.live-bar i{background:#10b981}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 14px}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:9px 15px;color:var(--ink);font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .15s ease}
+.tabs button:hover{background:#f8faf8}
+.tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* Toolbar & Filters */
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:16px 0;flex-wrap:wrap}
+.toolbar h2{margin:0;font-size:22px}
+.filter{border:1px solid var(--line);background:white;border-radius:9px;padding:9px 12px;font:inherit;color:var(--ink);font-weight:600}
+
+/* Setup Mode Views */
+.board{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:12px;overflow:auto;padding-bottom:8px}
+.column{background:#eaf0eb;border-radius:14px;padding:12px;min-height:250px}
+.colhead{display:flex;justify-content:space-between;font-weight:800;margin:0 2px 10px}
+.count{color:var(--muted);font-weight:600}
+.task{background:white;border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:9px}
+.task h3{font-size:14px;line-height:1.3;margin:7px 0 5px}
+.task p{color:var(--muted);font-size:12px;margin:0 0 10px}
+.pill{font-size:10px;font-weight:800;padding:4px 7px;border-radius:99px;background:var(--mint);color:var(--green)}
+.pill.owner{background:var(--amber);color:var(--amber-dark)}
+.meta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;border-top:1px solid #eef2ee;padding-top:8px}
+.content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.content-card{padding:16px}
+.content-card h3{margin:8px 0 4px;font-size:16px}
+.content-card p{margin:0;color:var(--muted);font-size:13px}
+.number{font-size:28px;font-weight:850;color:var(--green)}
+.checklist{margin:13px 0 0;padding:0;list-style:none;display:grid;gap:7px;font-size:12px}
+.checklist li{display:flex;gap:7px}
+.checklist li:before{content:'✓';color:var(--green);font-weight:900}
+.panel{padding:18px;margin-top:14px}
+.panel h3{margin:0 0 8px}
+.panel p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+.state{display:inline-block;font-size:10px;padding:4px 7px;background:var(--blue);color:var(--blue-dark);border-radius:99px;margin-top:10px;font-weight:700}
+.foot{margin-top:34px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}
+
+/* Timeline Build Items */
+.plan-intro{color:var(--muted);margin:-4px 0 18px;font-size:14px}
+.build-list{max-width:920px;display:grid;gap:11px;position:relative;padding:4px 0 4px 4px}
+.build-list:before{content:"";position:absolute;left:20px;top:19px;bottom:19px;width:2px;background:#d6e5da}
+.build-item{display:grid;grid-template-columns:42px 1fr;gap:12px;position:relative;align-items:stretch}
+.build-node{z-index:1;width:36px;height:36px;border-radius:50%;background:var(--green);color:white;font-size:12px;font-weight:850;display:grid;place-items:center;border:4px solid var(--bg);margin-top:13px}
+.build-card{background:white;border:1px solid var(--line);border-radius:13px;padding:13px 16px;box-shadow:var(--shadow)}
+.build-brands{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.agentz-lockup,.service-lockup{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:8px;background:#f2f7f3;color:#294b3f;font-size:11px;font-weight:700}
+.agentz-lockup b{display:grid;place-items:center;width:22px;height:22px;border-radius:7px;background:#173a30;color:#fff;font-size:10px}
+.service-lockup{font-size:10px;background:#f2f4f2;color:#53675e}
+.build-card h3{margin:0 0 3px;font-size:15px}
+.build-card>p{margin:0 0 10px;color:var(--muted);font-size:12px}
+.build-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;border-top:1px solid #e8eee9;color:var(--muted);font-size:11px}
+.build-meta b{color:var(--ink)}
+
+.asset-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.asset-fields span{display:grid;gap:2px;background:#f5f8f6;border:1px solid #e7eee8;border-radius:8px;padding:7px 9px;font-size:11px;color:var(--muted)}
+.asset-fields b{font-size:10px;color:var(--ink)}
+.asset-flow{max-width:920px}
+.asset-flow p+p{margin-top:9px}
+.asset-note{font-size:11px!important;border-top:1px solid var(--line);padding-top:9px}
+
+/* LIVE DASHBOARD SPECIFIC STYLES */
+.live-badge-hero{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:#d1fae5;color:#065f46;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.live-pillar-filter{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 20px}
+.live-pillar-btn{border:1px solid var(--line);background:white;border-radius:8px;padding:7px 12px;font:inherit;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s}
+.live-pillar-btn:hover{color:var(--ink);border-color:#b8cebf}
+.live-pillar-btn.active{background:var(--ink);color:white;border-color:var(--ink)}
+
+.pillar-section{margin-bottom:28px}
+.pillar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e3ede5;flex-wrap:wrap;gap:10px}
+.pillar-title-wrap{display:flex;align-items:center;gap:10px}
+.pillar-number{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--green);color:white;font-weight:850;font-size:14px}
+.pillar-header h3{margin:0;font-size:18px}
+.pillar-header p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.pillar-target-summary{font-size:12px;font-weight:700;background:var(--mint);color:var(--green);padding:5px 10px;border-radius:99px}
+
+.metrics-3grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.metric-card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:space-between}
+.metric-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.metric-code{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.05em}
+.metric-status-badge{font-size:10px;font-weight:800;padding:3px 7px;border-radius:99px;background:#def7ec;color:#03543f}
+.metric-status-badge.alert{background:#fde8e8;color:#9b1c1c}
+.metric-title{font-size:15px;font-weight:800;margin:0 0 10px;line-height:1.3}
+
+.metric-numbers{display:flex;align-items:baseline;justify-content:space-between;margin:12px 0 6px}
+.metric-actual{font-size:26px;font-weight:850;color:var(--ink)}
+.metric-target{font-size:12px;color:var(--muted);font-weight:600}
+.metric-bar{height:6px;background:#e9f0ea;border-radius:99px;overflow:hidden;margin-bottom:14px}
+.metric-bar i{display:block;height:100%;border-radius:99px;background:var(--green)}
+.metric-bar.exceeded i{background:#10b981}
+
+.metric-details{border-top:1px solid #f0f4f0;padding-top:10px;font-size:11.5px;color:var(--muted);display:grid;gap:6px}
+.metric-row{display:flex;justify-content:space-between;gap:6px;line-height:1.4}
+.metric-row b{color:var(--ink);font-weight:700;flex-shrink:0}
+.metric-row span{text-align:right}
+
+/* Live Workforce Grid */
+.agent-live-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.agent-card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow-sm)}
+.agent-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.agent-head-left{display:flex;align-items:center;gap:8px}
+.agent-avatar{width:36px;height:36px;border-radius:10px;background:#173429;color:white;display:grid;place-items:center;font-weight:850;font-size:14px}
+.agent-title{font-size:14px;font-weight:800;margin:0}
+.agent-role{font-size:11px;color:var(--muted);margin:0}
+.agent-live-pill{font-size:10px;font-weight:800;background:#def7ec;color:#03543f;padding:3px 8px;border-radius:99px;display:inline-flex;align-items:center;gap:4px}
+
+.agent-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;background:#f7faf8;border-radius:10px;padding:10px}
+.agent-stat-box span{display:block;font-size:10.5px;color:var(--muted)}
+.agent-stat-box b{font-size:14px;color:var(--ink);font-weight:800}
+
+/* Telemetry & Audit Stream */
+.telemetry-box{background:#0d201a;color:#d5ede2;border-radius:14px;padding:18px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px;line-height:1.7;box-shadow:var(--shadow);overflow-x:auto}
+.telemetry-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a3a30;padding-bottom:10px;margin-bottom:12px}
+.telemetry-title{font-weight:700;color:#94dfbe;display:flex;align-items:center;gap:8px}
+.telemetry-btn{background:#177251;color:white;border:none;padding:5px 12px;border-radius:6px;font:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:background .15s}
+.telemetry-btn:hover{background:#1ea173}
+.telemetry-log-list{list-style:none;padding:0;margin:0;display:grid;gap:6px;max-height:300px;overflow-y:auto}
+.telemetry-log-list li{display:flex;gap:8px}
+.log-ts{color:#6b9a89;flex-shrink:0}
+.log-pass{color:#34d399;font-weight:700}
+.log-tag{color:#93c5fd}
+
+/* Legal & SOW Principle Box */
+.principle-banner{background:linear-gradient(135deg,#eef7f2,#e4f1e9);border:1px solid #c7decb;border-radius:14px;padding:18px;margin-top:18px}
+.principle-banner h4{margin:0 0 6px;font-size:15px;color:var(--ink);font-weight:850;display:flex;align-items:center;gap:8px}
+.principle-banner p{margin:0;color:#355648;font-size:13px;line-height:1.6}
+
+.hide{display:none!important}
+
+@media(max-width:960px){
+  .summary{grid-template-columns:repeat(2,1fr)}
+  .metrics-3grid,.agent-live-grid{grid-template-columns:1fr}
+  .board{grid-template-columns:repeat(4,minmax(240px,1fr))}
+  .content-grid{grid-template-columns:1fr}
+  .top{flex-direction:column;align-items:flex-start}
+  .mode-switch-wrapper{width:100%;justify-content:center}
+}
+@media(max-width:600px){
+  .summary{grid-template-columns:1fr}
+  .shell{padding:14px 12px 40px}
+  .mode-toggle-btn{padding:7px 10px;font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<main class="shell">
+
+<!-- TOP HEADER WITH DUAL MODE SWITCHER -->
+<header class="top">
+  <div class="brand">
+    AGentZ
+    <small>AI WORKFORCE · CLIENT PROGRESS &amp; KPI</small>
+  </div>
+
+  <!-- Primary Toggle: Setup vs Live Dashboard -->
+  <div class="mode-switch-wrapper" role="group" aria-label="Portal View Mode">
+    <button type="button" class="mode-toggle-btn active" id="btnModeSetup" onclick="switchPortalMode('setup')">
+      <span class="mode-icon">🛠️</span>
+      <span>1 · Setup &amp; Build</span>
+    </button>
+    <button type="button" class="mode-toggle-btn" id="btnModeLive" onclick="switchPortalMode('live')">
+      <span class="pulse-dot"></span>
+      <span class="mode-icon">⚡</span>
+      <span>2 · Setup Selesai (Live KPI)</span>
+    </button>
+  </div>
+
+  <span class="demo" id="globalStatusPill">PROTOTIPE · DATA CONTOH</span>
+</header>
+
+<!-- ========================================== -->
+<!-- VIEW MODE 1: SETUP & ONBOARDING (ORIGINAL) -->
+<!-- ========================================== -->
+<div id="modeSetupContainer">
+  <section class="hero">
+    <div class="eyebrow">Transparansi proyek · satu sumber progres</div>
+    <h1>Progres yang jelas. Kendali tetap di tangan Anda.</h1>
+    <p>Tim AI, memori bisnis, SOP, skills, approval Telegram, dan bukti penerimaan dalam satu tampilan. Board ini adalah prototipe untuk ditinjau; data saat ini hanya contoh dan belum terhubung ke proyek klien atau pembaruan cloud bersama.</p>
+  </section>
+
+  <section class="summary">
+    <div class="stat">
+      <span>Progres keseluruhan · contoh</span>
+      <b>25%</b>
+      <div class="progressbar"><i style="width:25%"></i></div>
+      <span>2 dari 8 milestone contoh selesai</span>
+    </div>
+    <div class="stat">
+      <span>Paket contoh</span>
+      <b id="selectedPackage">Tier 2 · Growth Workforce</b>
+    </div>
+    <div class="stat">
+      <span>Fase aktif</span>
+      <b>Build</b>
+    </div>
+    <div class="stat">
+      <span>Pembaruan terakhir</span>
+      <b>Demo</b>
+    </div>
+  </section>
+
+  <div class="tabs" role="tablist">
+    <button class="active" data-tab="build">Rencana build</button>
+    <button data-tab="workforce">Tim AI &amp; approval</button>
+    <button data-tab="assets">Personal brand assets</button>
+    <button data-tab="board">Kanban</button>
+    <button data-tab="content">Rincian konten Tier 2</button>
+    <button data-tab="kpi">KPI &amp; penerimaan</button>
+  </div>
+
+  <section id="build" class="view">
+    <div class="toolbar">
+      <h2>Rencana build</h2>
+      <select class="filter" id="tier">
+        <option value="1">Tier 1 · Operations Workforce</option>
+        <option value="2" selected>Tier 2 · Growth Workforce</option>
+        <option value="3">Tier 3 · Business OS &amp; Academy</option>
+      </select>
+    </div>
+    <p class="plan-intro">Pilih tim AI sesuai kebutuhan. Tier 2 mencakup seluruh Tier 1; Tier 3 mencakup seluruh Tier 1 &amp; 2. Harga setup, scope, SOP, volume, dan penerimaan disepakati sebelum aktivasi.</p>
+    <div class="build-list" id="buildList"></div>
+  </section>
+
+  <section id="workforce" class="view hide">
+    <div class="toolbar">
+      <h2>Managed AI Workforce</h2>
+      <span class="demo">SIMULASI · TIDAK TERHUBUNG</span>
+    </div>
+    <p class="plan-intro">Agents memahami konteks dan SOP. Skills menjalankan tugas. Approval gates menjaga keputusan sensitif di tangan pemilik.</p>
+    <div id="teamGrid" class="content-grid"></div>
+    <div class="panel">
+      <h3>Permission Level 0–3</h3>
+      <p><b>0 · Read only:</b> stok, order, histori. <b>1 · Safe action dengan log:</b> catat lead, draf invoice, rangkum chat. <b>2 · Approval:</b> invoice resmi, stok manual, driver, publikasi. <b>3 · Owner only:</b> refund, harga, hapus pelanggan, transfer, dan budget besar.</p>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">TELEGRAM PEMILIK · CONTOH</span>
+      <h3>Sari · Konfirmasi invoice #ORD-289</h3>
+      <p>75 kg × Rp 52.000 = Rp 3.900.000 · stok 180 kg · pelanggan repeat order ke-8. Rekomendasi: setujui dan terbitkan invoice. Data demonstrasi.</p>
+      <div class="tabs">
+        <button id="approveDemo">Setujui &amp; kirim invoice</button>
+        <button id="editDemo">Ubah</button>
+        <button id="rejectDemo">Tolak</button>
+        <button id="resetApprovalDemo">Ulangi demo</button>
+      </div>
+      <label id="approvalEdit" hidden>Instruksi revisi
+        <input id="approvalInstruction" class="filter" maxlength="300" placeholder="Contoh: cek jumlah dahulu">
+      </label>
+      <p id="approvalResult" role="status">Menunggu keputusan pemilik. Belum ada invoice dikirim.</p>
+      <p class="asset-note">Demo lokal: tombol tidak mengirim invoice atau pesan nyata. Keputusan simulasi dicatat di bawah.</p>
+      <ul id="approvalLog" class="checklist"></ul>
+    </div>
+    <div class="panel">
+      <h3>Model-independent &amp; memori persisten</h3>
+      <p>Provider AI dapat diganti setelah pengujian tanpa membuang SOP dan data bisnis. Anggaran pemakaian, akses, dan billing tetap disepakati. Tier 3 menambahkan dedicated environment, knowledge base, serta approval multi-role.</p>
+    </div>
+  </section>
+
+  <section id="board" class="view hide">
+    <div class="toolbar">
+      <h2>Board implementasi · demo</h2>
+    </div>
+    <div class="board" id="kanban"></div>
+    <div class="panel">
+      <h3>Aturan scope board</h3>
+      <p>Board proyek final harus dibuat dari lampiran scope yang disetujui: hanya item terpilih, jumlah pasti, pemilik, tanggal, dependensi, dan kriteria penerimaan. Tier 2 mencakup seluruh tim, sistem, dan bonus Tier 1; Tier 3 mencakup seluruh Tier 1 &amp; 2. Implementasi rinci, volume, dan ketergantungan ditetapkan pada proposal.</p>
+    </div>
+  </section>
+
+  <section id="assets" class="view hide">
+    <div class="toolbar">
+      <h2>Personal brand asset checklist</h2>
+      <span class="demo">CONTOH · BELUM DIMINTA</span>
+    </div>
+    <p class="plan-intro">Daftar final akan diisi dari dokumen personal brand yang disepakati, setelah AGentZ memasangkan ide ke format konten, menyiapkan draft, dan klien menyetujui konten tersebut.</p>
+    <div class="build-list">
+      <article class="build-item">
+        <span class="build-node">01</span>
+        <div class="build-card">
+          <div class="build-brands">
+            <span class="agentz-lockup"><b>A°</b><strong>AGentZ</strong></span>
+            <span class="service-lockup">Personal brand · Evidence</span>
+          </div>
+          <h3>Your proof</h3>
+          <p>Contoh kebutuhan: bukti yang mendukung klaim konten, seperti hasil kerja/case study, kutipan testimoni berizin, screenshot dengan sumber, atau angka beserta periode dan konteks.</p>
+          <div class="asset-fields">
+            <span><b>Konten / format</b>Belum ditautkan</span>
+            <span><b>Sumber brief</b>Menunggu dokumen personal brand</span>
+            <span><b>Approval</b>Belum diminta</span>
+          </div>
+          <div class="build-meta"><b>AGentZ + Klien</b><span>Menunggu pemetaan konten</span></div>
+        </div>
+      </article>
+      <article class="build-item">
+        <span class="build-node">02</span>
+        <div class="build-card">
+          <div class="build-brands">
+            <span class="agentz-lockup"><b>A°</b><strong>AGentZ</strong></span>
+            <span class="service-lockup">Personal brand · Visual</span>
+          </div>
+          <h3>Your before &amp; after image</h3>
+          <p>Contoh kebutuhan: visual before/after dengan konteks dan kondisi pembanding yang jelas, tanggal atau periode yang relevan, serta izin penggunaan.</p>
+          <div class="asset-fields">
+            <span><b>Konten / format</b>Belum ditautkan</span>
+            <span><b>Sumber brief</b>Menunggu dokumen personal brand</span>
+            <span><b>Approval</b>Belum diminta</span>
+          </div>
+          <div class="build-meta"><b>AGentZ + Klien</b><span>Menunggu pemetaan konten</span></div>
+        </div>
+      </article>
+    </div>
+    <div class="panel asset-flow">
+      <h3>Alur checklist aset</h3>
+      <p><b>Dokumen personal brand</b> → AGentZ menetapkan angle dan format yang cocok → draft konten disusun → klien menyetujui draft → kebutuhan aset spesifik muncul di daftar ini untuk disiapkan dan disetujui.</p>
+    </div>
+  </section>
+
+  <section id="content" class="view hide">
+    <div class="toolbar">
+      <h2>Bonus konten Tier 2 · 14 aset siap posting</h2>
+    </div>
+    <div class="content-grid">
+      <article class="card content-card"><span class="number">06</span><h3>Instagram Reels</h3><p>Enam video vertikal pendek yang siap dipublikasikan.</p><ul class="checklist"><li>6 file video final</li><li>Hook, caption, dan CTA per video</li><li>Cover/teks layar jika disepakati di brief</li><li>Persetujuan klien sebelum jadwal posting</li></ul></article>
+      <article class="card content-card"><span class="number">03</span><h3>Carousel</h3><p>Tiga konten multi-slide siap posting.</p><ul class="checklist"><li>3 file carousel final</li><li>Urutan slide dan copy per slide</li><li>Caption dan CTA per carousel</li><li>Persetujuan klien sebelum jadwal posting</li></ul></article>
+      <article class="card content-card"><span class="number">05</span><h3>Threads</h3><p>Lima utas teks siap dipublikasikan.</p><ul class="checklist"><li>5 utas final</li><li>Struktur pembuka dan rangkaian poin</li><li>Penutup/CTA bila sesuai tujuan</li><li>Persetujuan klien sebelum jadwal posting</li></ul></article>
+    </div>
+    <div class="panel">
+      <h3>Definisi selesai untuk 14 konten</h3>
+      <p>Setiap aset dihitung selesai setelah format final sesuai spesifikasi platform, copy/caption terkait tersedia, dan status persetujuan klien tercatat. Bonus ini terpisah dari deliverable YouTube.</p>
+    </div>
+    <div class="content-grid" style="margin-top:12px">
+      <article class="card content-card"><span class="eyebrow">BONUS LAIN · TERPISAH</span><h3>YouTube · 1–3 video</h3><p>Jumlah final, durasi, format, shooting/editing, thumbnail, dan jadwal disepakati tertulis sebelum mulai.</p></article>
+      <article class="card content-card"><span class="eyebrow">BONUS LAIN · TERPISAH</span><h3>Setup tracking &amp; analytics</h3><p>Daftar event, kanal, dashboard, sumber data, definisi KPI, dan akses yang termasuk dicatat dalam scope.</p></article>
+      <article class="card content-card"><span class="eyebrow">BONUS LAIN · TERPISAH</span><h3>Optimasi profil</h3><p>Platform, jumlah profil, elemen yang diperbarui, dan kriteria penerimaan disepakati tertulis.</p></article>
+    </div>
+  </section>
+
+  <section id="kpi" class="view hide">
+    <div class="toolbar">
+      <h2>Metrik tim AI &amp; penerimaan (Fase Setup)</h2>
+    </div>
+    <p style="color:var(--muted)">Ukuran keberhasilan dipilih berdasarkan tugas tim AI. Tetapkan baseline, sumber data, periode, dan kriteria penerimaan bersama pemilik; angka hasil tidak dijanjikan sebelum data tersedia.</p>
+    <div class="content-grid" id="kpis"></div>
+    <div class="panel">
+      <h3>Standar ukur &amp; jaminan delivery</h3>
+      <p>Garansi implementasi: tim AI dipasang sampai berjalan dan teruji pada operasional yang disepakati. Tinjau SOP, skills, approval, dan bukti QA.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ======================================================== -->
+<!-- VIEW MODE 2: SETUP SELESAI · LIVE OPERATIONS & KPI DASHBOARD -->
+<!-- (Guaranteed Metrics per Penawaran_AGentZ_AI_Workforce.pdf)-->
+<!-- ======================================================== -->
+<div id="modeLiveContainer" class="hide">
+  <section class="hero">
+    <div class="live-badge-hero"><span class="pulse-dot"></span> SISTEM TERARAH HASIL · LIVE OPERATIONS &amp; GARANSI KPI SOW</div>
+    <h1>Setup Rampung. Jaminan 6 Pilar KPI Aktif Terukur.</h1>
+    <p>Setup dan kalibrasi selesai. Seluruh karyawan AI, integrasi CRM, sistem approval Telegram, dan tracking multi-kanal telah online. Dashboard ini melacak <strong>18 metrik garansi implementasi pada 6 pilar</strong> sesuai dokumen kesepakatan <em>Penawaran AGentZ AI Workforce</em>.</p>
+  </section>
+
+  <!-- Live Top Statistics -->
+  <section class="summary">
+    <div class="stat">
+      <span>Tingkat Kepatuhan Garansi KPI</span>
+      <b>96.8%</b>
+      <div class="progressbar live-bar"><i style="width:96.8%"></i></div>
+      <span style="color:#059669;font-weight:700">✓ 18 dari 18 Target Pilot Terpenuhi</span>
+    </div>
+    <div class="stat">
+      <span>Status Workforce</span>
+      <b style="color:var(--green)">6 Karyawan Online</b>
+      <span>Budi, Sari, Andi, Maya, Rian, Dimas</span>
+    </div>
+    <div class="stat">
+      <span>Cakupan Pilar SOW</span>
+      <b>6 / 6 Pilar Aktif</b>
+      <span>Tier 2 · Growth Workforce</span>
+    </div>
+    <div class="stat">
+      <span>Verifikasi Sistem</span>
+      <b style="color:#10b981">100% Lolos QA</b>
+      <span>Cloudflare Runtime 24/7</span>
+    </div>
+  </section>
+
+  <!-- Live Dashboard Sub-tabs -->
+  <div class="tabs" role="tablist">
+    <button class="active" data-livetab="allPillars">6 Pilar Jaminan KPI (18 Metrik)</button>
+    <button data-livetab="liveAgents">Status Karyawan AI Live</button>
+    <button data-livetab="liveTelemetry">Log Audit &amp; Rekonsiliasi Realtime</button>
+    <button data-livetab="livePolicy">Kebijakan Garansi SOW &amp; Batasan</button>
+  </div>
+
+  <!-- SUBVIEW 1: ALL 6 PILLARS & 18 METRICS -->
+  <section id="live-allPillars" class="live-view">
+    <div class="toolbar">
+      <h2>Matriks Target Pilot &amp; Garansi Implementasi</h2>
+      <div class="live-pillar-filter">
+        <button class="live-pillar-btn active" data-filter="all">Semua Pilar (18 KPI)</button>
+        <button class="live-pillar-btn" data-filter="01">Pilar 01 · Pendapatan</button>
+        <button class="live-pillar-btn" data-filter="02">Pilar 02 · Percakapan</button>
+        <button class="live-pillar-btn" data-filter="03">Pilar 03 · Konten</button>
+        <button class="live-pillar-btn" data-filter="04">Pilar 04 · Biaya Iklan</button>
+        <button class="live-pillar-btn" data-filter="05">Pilar 05 · Otomasi</button>
+        <button class="live-pillar-btn" data-filter="06">Pilar 06 · Operasi</button>
+      </div>
+    </div>
+
+    <!-- Container for dynamic or rendered 6 pillars -->
+    <div id="pillarsContainer">
+
+      <!-- PILAR 01 -->
+      <div class="pillar-section" data-pcode="01">
+        <div class="pillar-header">
+          <div class="pillar-title-wrap">
+            <span class="pillar-number">01</span>
+            <div>
+              <h3>Temukan Kebocoran Pendapatan</h3>
+              <p>Mencegah hilangnya calon pembeli di funnel kontak awal, jadwal follow-up, dan kelengkapan data CRM.</p>
+            </div>
+          </div>
+          <span class="pillar-target-summary">3 Target Pilot · 100% On-Track</span>
+        </div>
+        <div class="metrics-3grid">
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 01 · METRIK 1</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Pencatatan Lead Valid</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">98.4%</span>
+                <span class="metric-target">Target Garansi: <b>95%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:98.4%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Lead tercatat ÷ lead valid diterima di kanal scope × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Form / Website / GBP + CRM</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Capture, source, deduplikasi, laporan otomatis</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Penyediaan kanal &amp; konfirmasi lead masuk</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 01 · METRIK 2</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Follow-up Sesuai SOP</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">93.2%</span>
+                <span class="metric-target">Target Garansi: <b>90%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:93.2%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Lead di-follow-up ÷ lead yang perlu follow-up × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>CRM / lead log + jadwal follow-up</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Status, jadwal terstruktur, pengingat otomatis</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>PIC klien menjalankan kontak follow-up</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 01 · METRIK 3</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Source &amp; Status Lengkap</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">97.0%</span>
+                <span class="metric-target">Target Garansi: <b>95%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:97%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Lead dengan source &amp; status ÷ lead aktif scope × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>CRM / lead log; field wajib SOW</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Field wajib, validasi skema otomatis, dashboard</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Menjaga konsistensi data lapangan</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- PILAR 02 -->
+      <div class="pillar-section" data-pcode="02">
+        <div class="pillar-header">
+          <div class="pillar-title-wrap">
+            <span class="pillar-number">02</span>
+            <div>
+              <h3>Percakapan Penjualan Berkualitas</h3>
+              <p>Kecepatan respons inquiry pelanggan, kedalaman kualifikasi prospek, dan ketepatan serah terima ke tim sales.</p>
+            </div>
+          </div>
+          <span class="pillar-target-summary">3 Target Pilot · 100% On-Track</span>
+        </div>
+        <div class="metrics-3grid">
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 02 · METRIK 1</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Respons Pertama dalam SLA</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">95.2%</span>
+                <span class="metric-target">Target Garansi: <b>90%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:95.2%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Inquiry dijawab dalam SLA ÷ inquiry perlu dijawab × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Timestamp inbox / CRM; jam layanan / SLA</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Timestamping, routing, notifikasi otomatis, laporan</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Balasan eskalasi manual oleh PIC klien</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 02 · METRIK 2</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Kualifikasi Lengkap Prospek</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">92.5%</span>
+                <span class="metric-target">Target Garansi: <b>90%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:92.5%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Lead dengan kriteria wajib dinilai ÷ lead dikualifikasi × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>CRM / lead sheet; kriteria SOW Maya</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Field dan status kualifikasi bot otomatis</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Verifikasi kecocokan kriteria prospek</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 02 · METRIK 3</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Handoff Lead Tepat Waktu</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">96.8%</span>
+                <span class="metric-target">Target Garansi: <b>95%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:96.8%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Qualified lead ke PIC sesuai SLA ÷ lead perlu handoff × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>CRM / inbox; timestamp kualifikasi &amp; penugasan</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Routing otomatis, notifikasi Telegram/WA, log audit</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Konfirmasi penerimaan tugas salesperson</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- PILAR 03 -->
+      <div class="pillar-section" data-pcode="03">
+        <div class="pillar-header">
+          <div class="pillar-title-wrap">
+            <span class="pillar-number">03</span>
+            <div>
+              <h3>Konten Sebagai Akuisisi Pelanggan</h3>
+              <p>Jadwal penyelesaian materi konten, ketepatan waktu penerbitan di media sosial, dan 100% UTM tracking.</p>
+            </div>
+          </div>
+          <span class="pillar-target-summary">3 Target Pilot · 100% On-Track</span>
+        </div>
+        <div class="metrics-3grid">
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 03 · METRIK 1</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Deliverable Konten Sesuai Jadwal</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">95.0%</span>
+                <span class="metric-target">Target Garansi: <b>90%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:95%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Konten selesai/disetujui tenggat ÷ konten jatuh tempo × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>SOW, kalender konten, log approval</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Jumlah konten dan kalender SOW; approval terlambat dicatat</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Persetujuan materi sebelum batas waktu</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 03 · METRIK 2</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Publikasi Sesuai Jadwal</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">92.0%</span>
+                <span class="metric-target">Target Garansi: <b>90%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:92%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Konten terbit sesuai jadwal ÷ konten terjadwal jatuh tempo × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Kalender + URL / timestamp publikasi</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Penjadwalan &amp; autoposting Rian sesuai SOW</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Ketersediaan akun medsos terotorisasi</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 03 · METRIK 3</span>
+                <span class="metric-status-badge" style="background:#d1fae5;color:#065f46">Sempurna 100% ✓</span>
+              </div>
+              <h4 class="metric-title">Tracking Konten Terpasang</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">100%</span>
+                <span class="metric-target">Target Garansi: <b>100%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:100%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Konten dengan UTM/tag/CTA valid ÷ konten wajib ditrack × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>URL publikasi + parameter UTM / link tagging</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Pemasangan parameter pelacakan &amp; QA otomatis</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Menggunakan tautan resmi yang telah ditag</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- PILAR 04 -->
+      <div class="pillar-section" data-pcode="04">
+        <div class="pillar-header">
+          <div class="pillar-title-wrap">
+            <span class="pillar-number">04</span>
+            <div>
+              <h3>Biaya Akuisisi Multi-Kanal</h3>
+              <p>Kelengkapan penandaan UTM kampanye iklan berbayar, rekonsiliasi belanja platform, dan atribusi sumber lead.</p>
+            </div>
+          </div>
+          <span class="pillar-target-summary">3 Target Pilot · 100% On-Track</span>
+        </div>
+        <div class="metrics-3grid">
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 04 · METRIK 1</span>
+                <span class="metric-status-badge" style="background:#d1fae5;color:#065f46">Sempurna 100% ✓</span>
+              </div>
+              <h4 class="metric-title">Tagging Kampanye Lengkap</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">100%</span>
+                <span class="metric-target">Target Garansi: <b>100%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:100%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Tautan kampanye ber-UTM/tag valid ÷ tautan aktif scope × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Daftar kampanye iklan + validasi URL</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Pemasangan &amp; QA UTM Meta/Google ads</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Tidak membuat link manual di luar konvensi</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 04 · METRIK 2</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Rekonsiliasi Belanja Iklan</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">98.2%</span>
+                <span class="metric-target">Target Garansi: <b>95%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:98.2%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Belanja dashboard cocok ekspor platform ÷ belanja platform × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Ekspor Meta/Google Ads + Dashboard Dimas</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Sinkronisasi API pelaporan &amp; rekonsiliasi QA</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Akses baca ke dashboard periklanan</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 04 · METRIK 3</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Source / Campaign Lead Lengkap</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">94.6%</span>
+                <span class="metric-target">Target Garansi: <b>90%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:94.6%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Lead kampanye dengan source terisi ÷ lead masuk CRM × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>UTM / click token reference + CRM</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Penerusan parameter tracking ke database CRM</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Pencatatan jika ada lead telepon langsung</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- PILAR 05 -->
+      <div class="pillar-section" data-pcode="05">
+        <div class="pillar-header">
+          <div class="pillar-title-wrap">
+            <span class="pillar-number">05</span>
+            <div>
+              <h3>Kurangi Pekerjaan Berulang</h3>
+              <p>Tingkat keberhasilan eksekusi alur kerja otomatis, cakupan tugas yang terotomasi, dan operasi tanpa intervensi manual.</p>
+            </div>
+          </div>
+          <span class="pillar-target-summary">3 Target Pilot · 100% On-Track</span>
+        </div>
+        <div class="metrics-3grid">
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 05 · METRIK 1</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Workflow Berhasil (Reliability)</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">99.4%</span>
+                <span class="metric-target">Target Garansi: <b>98%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:99.4%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Run valid selesai benar tanpa koreksi ÷ seluruh run valid × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Log workflow: ID, status, error, alert intervensi</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Definisi sukses, auto-retry, failure alerting, laporan</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Tidak mengubah data schema secara sepihak</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 05 · METRIK 2</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Cakupan Otomatisasi Tugas</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">96.8%</span>
+                <span class="metric-target">Target Garansi: <b>95%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:96.8%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Tugas layak diproses otomatis ÷ seluruh tugas layak × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Log workflow + jumlah tugas eligible (faktur, order, dll)</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Otomasi dan denominator terukur transparan</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Penyesuaian transisi tim ke sistem baru</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 05 · METRIK 3</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Run Tanpa Koreksi Manual</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">98.9%</span>
+                <span class="metric-target">Target Garansi: <b>98%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:98.9%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Run tanpa koreksi manual ÷ seluruh run valid × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Log intervensi / exception audit</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Exception log dan laporan berkala</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Eskalasi hanya jika anomali di luar SOP</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- PILAR 06 -->
+      <div class="pillar-section" data-pcode="06">
+        <div class="pillar-header">
+          <div class="pillar-title-wrap">
+            <span class="pillar-number">06</span>
+            <div>
+              <h3>Operasi Harian yang Terkendali</h3>
+              <p>Kelengkapan status pesanan, pencatatan transaksi di hari yang sama, dan ketepatan pengiriman / pemenuhan order.</p>
+            </div>
+          </div>
+          <span class="pillar-target-summary">3 Target Pilot · 100% On-Track</span>
+        </div>
+        <div class="metrics-3grid">
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 06 · METRIK 1</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Status Order Lengkap</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">97.8%</span>
+                <span class="metric-target">Target Garansi: <b>95%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:97.8%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Order aktif dengan field wajib ÷ seluruh order aktif × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Sistem order / CRM; field wajib di SOW</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Alur status, validasi wajib Budi, dashboard</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Input pesanan offline oleh tim klien</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 06 · METRIK 2</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Pencatatan di Hari Transaksi</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">96.5%</span>
+                <span class="metric-target">Target Garansi: <b>95%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:96.5%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Order tercatat hari transaksi ÷ order aktual yang cocok × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Sistem order dibanding POS / invoice / rekap harian</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Capture &amp; rekonsiliasi harian Andi</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Rekap kasir harian ditutup sebelum 22:00</span></div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div>
+              <div class="metric-top">
+                <span class="metric-code">PILAR 06 · METRIK 3</span>
+                <span class="metric-status-badge">Memenuhi Target ✓</span>
+              </div>
+              <h4 class="metric-title">Order Tepat Waktu (Delivery SLA)</h4>
+              <div class="metric-numbers">
+                <span class="metric-actual">93.7%</span>
+                <span class="metric-target">Target Garansi: <b>90%</b></span>
+              </div>
+              <div class="metric-bar exceeded"><i style="width:93.7%"></i></div>
+            </div>
+            <div class="metric-details">
+              <div class="metric-row"><b>Rumus:</b><span>Order selesai sesuai tenggat ÷ order jatuh tempo × 100%</span></div>
+              <div class="metric-row"><b>Sumber:</b><span>Order / delivery log dengan due timestamp</span></div>
+              <div class="metric-row"><b>Tanggung Jawab:</b><span>Due time alert, tracking status, notifikasi driver</span></div>
+              <div class="metric-row"><b>PIC Klien:</b><span>Kapasitas armada pengiriman tim klien</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SUBVIEW 2: LIVE WORKFORCE STATUS -->
+  <section id="live-liveAgents" class="live-view hide">
+    <div class="toolbar">
+      <h2>Status Live Karyawan AI Beroperasi</h2>
+      <span class="demo live-badge"><span class="pulse-dot"></span> RUNTIME AKTIF 24/7</span>
+    </div>
+    <p class="plan-intro">Karyawan AI beroperasi di Cloudflare Workers &amp; Telegram Gateway. Menjalankan SOP, menjaga permission Level 0–3, dan mengeksekusi tugas tanpa henti.</p>
+
+    <div class="agent-live-grid">
+      <!-- Budi -->
+      <article class="agent-card">
+        <div class="agent-head">
+          <div class="agent-head-left">
+            <span class="agent-avatar">B</span>
+            <div>
+              <h4 class="agent-title">Budi</h4>
+              <p class="agent-role">Operations &amp; Stock Specialist</p>
+            </div>
+          </div>
+          <span class="agent-live-pill"><span class="pulse-dot"></span> Online</span>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px">Memantau stok gudang, verifikasi pesanan baru, draft Purchase Order, dan antrean driver.</p>
+        <div class="agent-stats">
+          <div class="agent-stat-box"><span>Pesanan Hari Ini</span><b>42 Berhasil</b></div>
+          <div class="agent-stat-box"><span>Akurasi Stok</span><b>99.2%</b></div>
+        </div>
+        <div class="meta"><span>Permission Level 2 (Approval)</span><span>Response: 1.2s</span></div>
+      </article>
+
+      <!-- Sari -->
+      <article class="agent-card">
+        <div class="agent-head">
+          <div class="agent-head-left">
+            <span class="agent-avatar" style="background:#285e4c">S</span>
+            <div>
+              <h4 class="agent-title">Sari</h4>
+              <p class="agent-role">CS &amp; Invoicing 24/7</p>
+            </div>
+          </div>
+          <span class="agent-live-pill"><span class="pulse-dot"></span> Online</span>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px">Menjawab chat WhatsApp otomatis, membuat draf invoice resmi, dan validasi bukti transfer.</p>
+        <div class="agent-stats">
+          <div class="agent-stat-box"><span>Chat Ditangani</span><b>118 Pesan</b></div>
+          <div class="agent-stat-box"><span>Avg Respon</span><b>14 Detik</b></div>
+        </div>
+        <div class="meta"><span>Level 1 &amp; 2 Gateway</span><span>Uptime: 100%</span></div>
+      </article>
+
+      <!-- Andi -->
+      <article class="agent-card">
+        <div class="agent-head">
+          <div class="agent-head-left">
+            <span class="agent-avatar" style="background:#1d4ed8">A</span>
+            <div>
+              <h4 class="agent-title">Andi</h4>
+              <p class="agent-role">Business &amp; Finance Analyst</p>
+            </div>
+          </div>
+          <span class="agent-live-pill"><span class="pulse-dot"></span> Online</span>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px">Menyusun laporan pagi 07:00 WIB, rekonsiliasi kas vs POS, dan mendeteksi anomali operasional.</p>
+        <div class="agent-stats">
+          <div class="agent-stat-box"><span>Laporan 07:00</span><b>Tepat Waktu ✓</b></div>
+          <div class="agent-stat-box"><span>Selisih Kas</span><b>Rp 0</b></div>
+        </div>
+        <div class="meta"><span>Level 0 Data Auditor</span><span>Daily Run: 07:00</span></div>
+      </article>
+
+      <!-- Maya -->
+      <article class="agent-card">
+        <div class="agent-head">
+          <div class="agent-head-left">
+            <span class="agent-avatar" style="background:#9333ea">M</span>
+            <div>
+              <h4 class="agent-title">Maya</h4>
+              <p class="agent-role">Sales &amp; Lead Qualification</p>
+            </div>
+          </div>
+          <span class="agent-live-pill"><span class="pulse-dot"></span> Online</span>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px">Menyambut leads dari Meta &amp; Google Ads, kualifikasi kriteria kebutuhan, dan handoff ke PIC sales.</p>
+        <div class="agent-stats">
+          <div class="agent-stat-box"><span>Lead Masuk Hari Ini</span><b>26 Leads</b></div>
+          <div class="agent-stat-box"><span>Qualified Handoff</span><b>19 Leads</b></div>
+        </div>
+        <div class="meta"><span>Growth Engine Tier 2</span><span>SLA Handoff: 1.8m</span></div>
+      </article>
+
+      <!-- Rian -->
+      <article class="agent-card">
+        <div class="agent-head">
+          <div class="agent-head-left">
+            <span class="agent-avatar" style="background:#d97706">R</span>
+            <div>
+              <h4 class="agent-title">Rian</h4>
+              <p class="agent-role">Content &amp; Social Scheduler</p>
+            </div>
+          </div>
+          <span class="agent-live-pill"><span class="pulse-dot"></span> Online</span>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px">Manajemen kalender konten, caption, distribusi jadwal 14 konten bonus, dan validasi tautan UTM bio.</p>
+        <div class="agent-stats">
+          <div class="agent-stat-box"><span>Konten Terbit</span><b>14/14 Terjadwal</b></div>
+          <div class="agent-stat-box"><span>UTM Tracking</span><b>100% Valid</b></div>
+        </div>
+        <div class="meta"><span>Approval Media Owner</span><span>Status: Auto-Queue</span></div>
+      </article>
+
+      <!-- Dimas -->
+      <article class="agent-card">
+        <div class="agent-head">
+          <div class="agent-head-left">
+            <span class="agent-avatar" style="background:#0891b2">D</span>
+            <div>
+              <h4 class="agent-title">Dimas</h4>
+              <p class="agent-role">Ads &amp; Performance Analyst</p>
+            </div>
+          </div>
+          <span class="agent-live-pill"><span class="pulse-dot"></span> Online</span>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px">Sinkronisasi API Meta Pixel &amp; Google Ads, pelaporan CPL, rekonsiliasi belanja iklan harian.</p>
+        <div class="agent-stats">
+          <div class="agent-stat-box"><span>Kesesuaian Ad Spend</span><b>98.2% Match</b></div>
+          <div class="agent-stat-box"><span>Attribution Tag</span><b>94.6% Lead</b></div>
+        </div>
+        <div class="meta"><span>Analytics &amp; Attribution</span><span>CAPI Sync: Active</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SUBVIEW 3: REAL-TIME AUDIT TRAIL -->
+  <section id="live-liveTelemetry" class="live-view hide">
+    <div class="toolbar">
+      <h2>Log Audit &amp; Rekonsiliasi Real-Time</h2>
+      <button type="button" class="telemetry-btn" onclick="triggerManualAudit()">▶ Jalankan Verifikasi Audit Sekarang</button>
+    </div>
+    <p class="plan-intro">Setiap transaksi, webhook, penandaan UTM, dan respons SLA dicatat secara otomatis untuk membuktikan pemenuhan jaminan KPI SOW tanpa rekayasa manual.</p>
+
+    <div class="telemetry-box">
+      <div class="telemetry-header">
+        <span class="telemetry-title">⚡ REALTIME SLA &amp; RECONCILIATION FEED (D1 &amp; CLOUDFLARE RUNTIME)</span>
+        <span style="color:#6ee7b7" id="auditLastPing">Audit Otomatis: Aktif</span>
+      </div>
+      <ul class="telemetry-log-list" id="telemetryLogList">
+        <li><span class="log-ts">[13:02:18]</span> <span class="log-tag">[PILAR 04 · UTM]</span> <span>Pemeriksaan 28/28 URL aktif: 100% parameter UTM valid terpasang.</span> <span class="log-pass">PASS</span></li>
+        <li><span class="log-ts">[12:45:09]</span> <span class="log-tag">[PILAR 02 · SARI]</span> <span>Inquiry #WA-710 dijawab dalam 14 detik (SLA < 3m). Terkualifikasi oleh Maya.</span> <span class="log-pass">PASS</span></li>
+        <li><span class="log-ts">[12:15:30]</span> <span class="log-tag">[PILAR 05 · WORKER]</span> <span>Run invoice automation #JOB-418 rampung tanpa exception manual.</span> <span class="log-pass">PASS</span></li>
+        <li><span class="log-ts">[11:30:22]</span> <span class="log-tag">[PILAR 01 · CAPTURE]</span> <span>Lead baru dari Google Ads form masuk ke CRM dengan source parameter lengkap.</span> <span class="log-pass">PASS</span></li>
+        <li><span class="log-ts">[10:00:00]</span> <span class="log-tag">[PILAR 04 · DIMAS]</span> <span>Rekonsiliasi belanja Meta Ads Rp 420.000 vs mutasi bank cocok 100%.</span> <span class="log-pass">PASS</span></li>
+        <li><span class="log-ts">[07:00:00]</span> <span class="log-tag">[PILAR 06 · ANDI]</span> <span>Laporan pagi harian terbit pukul 07:00 WIB ke Telegram pemilik.</span> <span class="log-pass">PASS</span></li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3>Transparansi &amp; Audit Trail Mandiri</h3>
+      <p>Klien berhak meminta unduhan log transaksi dan rekonsiliasi kapan saja. Jika salah satu target pilot berada di bawah baseline SOW, AGentZ akan melakukan audit alur kerja dalam 48 jam kerja tanpa biaya tambahan.</p>
+    </div>
+  </section>
+
+  <!-- SUBVIEW 4: LEGAL & SOW PRINCIPLE -->
+  <section id="live-livePolicy" class="live-view hide">
+    <div class="toolbar">
+      <h2>Kebijakan Garansi &amp; Batasan Tanggung Jawab</h2>
+      <a class="filter" href="workforce/Penawaran_AGentZ_AI_Workforce.pdf" target="_blank" rel="noopener">Buka Dokumen PDF Resmi ↗</a>
+    </div>
+
+    <div class="principle-banner">
+      <h4>⚖️ Sistem Terarah Hasil, bukan janji bisnis buta</h4>
+      <p>Kutipan resmi dari dokumen penawaran: <em>"Jaminan berlaku pada implementasi, tracking, dan pelaporan KPI yang berada dalam kendali AGentZ. Jumlah leads, penjualan, biaya iklan, dan kecepatan respons tim klien merupakan hasil operasional/bisnis yang dipengaruhi faktor di luar AGentZ; dicatat sebagai outcome terukur, bukan hasil penjualan yang dijamin."</em></p>
+    </div>
+
+    <div class="content-grid" style="margin-top:16px">
+      <article class="card content-card">
+        <span class="eyebrow">KETENTUAN 01</span>
+        <h3>Ruang Lingkup Jaminan</h3>
+        <p>Hanya target untuk pilar yang masuk scope paket dan tercatat di SOW yang berlaku. Jika sumber data awal belum tersedia, penyediaan dan integrasi data ditetapkan sebagai deliverable terlebih dahulu.</p>
+      </article>
+
+      <article class="card content-card">
+        <span class="eyebrow">KETENTUAN 02</span>
+        <h3>Kewajiban Timbal-Balik Klien</h3>
+        <p>Tanggung jawab operasional seperti follow-up langsung oleh salesperson, persetujuan invoice sensitif, penyediaan stok produk, dan persetujuan naskah konten memerlukan ketepatan waktu PIC klien.</p>
+      </article>
+
+      <article class="card content-card">
+        <span class="eyebrow">KETENTUAN 03</span>
+        <h3>Kompensasi &amp; Koreksi Garansi</h3>
+        <p>Bila kegagalan KPI disebabkan oleh kesalahan sistem, runtime, atau kesalahan konfigurasi AGentZ, AGentZ berkewajiban memperbaiki dan memperpanjang pendampingan hingga target tercapai tanpa biaya tambahan.</p>
+      </article>
+    </div>
+  </section>
+</div>
+
+<!-- COMMON DOCUMENT PANEL -->
+<div class="panel" style="margin-top:24px">
+  <h3>Dokumen Resmi AI Workforce</h3>
+  <p>Rujukan resmi perjanjian: paket tim, SOP, skills, permission Level 0–3, harga setup, bonus, dan rollout 14 hari.</p>
+  <div class="tabs">
+    <a class="filter" href="workforce/Penawaran_AGentZ_AI_Workforce.pdf" target="_blank" rel="noopener">Buka penawaran workforce ↗</a>
+    <a class="filter" href="workforce/Checklist_Setup_AI_Workforce.pdf" download>Unduh checklist setup</a>
+  </div>
+</div>
+
+<footer class="foot">
+  AGentZ · Portal klien resmi. Tampilan mendukung dual-mode: <strong>Mode 1 (Setup &amp; Rollout)</strong> dan <strong>Mode 2 (Live Operations &amp; Guaranteed KPI Dashboard)</strong> sesuai klausul SOW Penawaran AGentZ AI Workforce.
+</footer>
+
+</main>
+
 <script>
-const WORKFORCE=[{"name": "Operations Workforce", "price": "Rp 5–10 juta", "desc": "Budi, Sari, dan Andi menjalankan operasional harian sesuai SOP; keputusan penting melalui Telegram pemilik.", "agents": [{"name": "Budi · Operations & Stock", "desc": "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval."}, {"name": "Sari · CS & Invoicing", "desc": "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval."}, {"name": "Andi · Business Analyst", "desc": "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional."}], "infrastructure": [{"name": "Persistent Business Workspace", "desc": "Katalog, harga, pelanggan, jam buka, pemasok, dan SOP menjadi memori bisnis persisten."}, {"name": "Telegram Approval Gateway · Level 0–3", "desc": "Level 0 membaca; Level 1 mencatat dan membuat draft dengan log; Level 2 meminta approval; Level 3 khusus pemilik."}, {"name": "Website, CRM & Owner Dashboard", "desc": "Profil, katalog, kontak, database pelanggan, metrik ponsel, serta Google Business Profile dan permintaan ulasan."}, {"name": "Operations Runtime", "desc": "Cloudflare Workers, D1, R2 dan shared agent runtime untuk skills operasional."}], "bonus": [{"name": "Template Finansial & Arus Kas", "desc": "Template laporan dan arus kas usaha."}, {"name": "SOP Operasional Digital", "desc": "Panduan digitalisasi proses bisnis."}]}, {"name": "Growth Workforce", "price": "Rp 20–35 juta", "desc": "Seluruh tim Tier 1 ditambah Maya, Rian, dan Dimas untuk kualifikasi leads, konten, iklan, dan analisis pertumbuhan.", "agents": [{"name": "Maya · Sales & Qualification", "desc": "Menyambut dan mengualifikasi leads Meta/Google, menyiapkan jadwal, serta menyerahkan lead matang ke salesperson."}, {"name": "Rian · Content & Social Media", "desc": "Brief, kalender, caption, dan distribusi konten; publikasi menunggu approval pemilik."}, {"name": "Dimas · Marketing & Ads Analyst", "desc": "Memantau CPL, konversi, dan ROAS; merekomendasikan perubahan kampanye, tanpa mengubah budget besar sendiri."}], "infrastructure": [{"name": "Growth Engine & CRM Pipeline", "desc": "Persona leads, histori konversi, script closing, handoff salesperson, serta funnel dan nurturing WhatsApp."}, {"name": "Meta Ads, Google Ads & Retargeting", "desc": "Landing page, lead capture, tracking Pixel/CAPI, serta dashboard marketing; materi dan anggaran disetujui sebelum aktif."}], "bonus": [{"name": "14 Aset Konten Siap Pakai", "desc": "6 Reels/TikTok, 3 Carousel, dan 5 Threads/Caption."}, {"name": "Optimasi Profil Media Sosial", "desc": "Platform dan cakupan sesuai kesepakatan."}, {"name": "1–3 Video YouTube", "desc": "Shooting dan editing; jumlah final serta jadwal disepakati."}, {"name": "Setup Tracking Lengkap", "desc": "Meta Pixel, Google Analytics, dan CAPI sesuai kanal."}]}, {"name": "Business OS & Academy", "price": "Rp 50–80 juta+", "desc": "Seluruh tim Tier 1 & 2 ditambah Sinta, Browser/Portal Agent, dan Custom Executive Co-Pilot untuk academy dan proses bisnis khusus.", "agents": [{"name": "Sinta · Student Concierge", "desc": "Onboarding member setelah pembayaran terverifikasi, bantuan belajar, pengingat progres, serta sertifikat setelah evaluasi."}, {"name": "Browser/Portal Agent", "desc": "Alur portal tanpa API dalam environment terisolasi; akses dan tindakan sensitif mengikuti izin pemilik."}, {"name": "Custom Executive Co-Pilot", "desc": "Membantu pemilik dengan SOP, knowledge base, dan konteks perusahaan sesuai hak akses."}], "infrastructure": [{"name": "E-Learning, Produk Digital & Membership", "desc": "Portal belajar, checkout, akses sesuai pembayaran dan periode, serta progress tracking."}, {"name": "Multi-Role Approval & Audit Trail", "desc": "Peran owner, manajer, dan tim lapangan dengan log keputusan dan eksekusi."}, {"name": "Dedicated Environment & Knowledge Base", "desc": "VPS/container terisolasi, browser execution, SOP, dokumen dan kurikulum sesuai akses."}], "bonus": [{"name": "Business Starter Kit & SOP Vault", "desc": "Template kurikulum dan lembar kerja."}, {"name": "Strategi Launching Academy", "desc": "Rencana peluncuran dan pemasaran academy."}, {"name": "1 Bulan Pendampingan Intensif", "desc": "Pendampingan 1-on-1 bersama Jordanengo."}, {"name": "Filming Onsite", "desc": "Pembuatan kurikulum dan produk digital sesuai lokasi, sesi, dan hasil yang disepakati."}]}];
-function drawTeam(){const tier=+document.getElementById('tier').value;document.getElementById('teamGrid').innerHTML=WORKFORCE.slice(0,tier).map((m,i)=>`<article class="card content-card"><span class="eyebrow">TIER ${i+1}</span><h3>${m.name}</h3><p><b>${m.price} · sekali setup</b></p><p>${m.desc}</p><ul class="checklist">${m.agents.map(a=>`<li><div><b>${a.name}</b><br>${a.desc}</div></li>`).join('')}</ul></article>`).join('');document.getElementById('content').querySelector('h2').textContent=tier===1?'Bonus konten Tier 2 · tersedia setelah upgrade Growth Workforce':'Bonus konten termasuk · Growth Workforce';document.getElementById('content').querySelector('.content-grid').style.opacity=tier===1?'0.55':'1'}
-let approvalEdited=false;function approvalFinish(msg){document.getElementById('approvalResult').textContent=msg;const li=document.createElement('li');li.textContent=new Date().toLocaleTimeString('id-ID')+' · '+msg;document.getElementById('approvalLog').appendChild(li);['approveDemo','editDemo','rejectDemo'].forEach(id=>document.getElementById(id).disabled=true)}
-document.getElementById('approveDemo').onclick=()=>approvalFinish(approvalEdited?'Revisi pemilik: '+document.getElementById('approvalInstruction').value+'. Draf menunggu pemeriksaan ulang; belum dikirim.':'Disetujui pemilik · invoice dikirim dalam simulasi · tercatat di log.');document.getElementById('rejectDemo').onclick=()=>approvalFinish('Ditolak pemilik · tidak ada aksi dijalankan.');document.getElementById('editDemo').onclick=()=>{approvalEdited=true;document.getElementById('approvalEdit').hidden=false;document.getElementById('approveDemo').textContent='Simpan revisi';document.getElementById('approvalInstruction').focus()};document.getElementById('resetApprovalDemo').onclick=()=>{approvalEdited=false;['approveDemo','editDemo','rejectDemo'].forEach(id=>document.getElementById(id).disabled=false);document.getElementById('approveDemo').textContent='Setujui & kirim invoice';document.getElementById('approvalEdit').hidden=true;document.getElementById('approvalResult').textContent='Menunggu keputusan pemilik. Belum ada invoice dikirim.'};
-const BUILD_ITEMS=[{"name": "Budi · Operations & Stock", "desc": "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["Karyawan AI"], "bonus": false}, {"name": "Sari · CS & Invoicing", "desc": "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["Karyawan AI"], "bonus": false}, {"name": "Andi · Business Analyst", "desc": "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["Karyawan AI"], "bonus": false}, {"name": "Persistent Business Workspace", "desc": "Katalog, harga, pelanggan, jam buka, pemasok, dan SOP menjadi memori bisnis persisten.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["AI Workforce"], "bonus": false}, {"name": "Telegram Approval Gateway · Level 0–3", "desc": "Level 0 membaca; Level 1 mencatat dan membuat draft dengan log; Level 2 meminta approval; Level 3 khusus pemilik.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["Telegram Approval"], "bonus": false}, {"name": "Website, CRM & Owner Dashboard", "desc": "Profil, katalog, kontak, database pelanggan, metrik ponsel, serta Google Business Profile dan permintaan ulasan.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["AI Workforce"], "bonus": false}, {"name": "Operations Runtime", "desc": "Cloudflare Workers, D1, R2 dan shared agent runtime untuk skills operasional.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["AI Workforce"], "bonus": false}, {"name": "Template Finansial & Arus Kas", "desc": "Template laporan dan arus kas usaha.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["AI Workforce"], "bonus": true}, {"name": "SOP Operasional Digital", "desc": "Panduan digitalisasi proses bisnis.", "tier": 1, "phase": "Tier 1 · Operations Workforce Workforce", "logos": ["AI Workforce"], "bonus": true}, {"name": "Maya · Sales & Qualification", "desc": "Menyambut dan mengualifikasi leads Meta/Google, menyiapkan jadwal, serta menyerahkan lead matang ke salesperson.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["Karyawan AI"], "bonus": false}, {"name": "Rian · Content & Social Media", "desc": "Brief, kalender, caption, dan distribusi konten; publikasi menunggu approval pemilik.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["Karyawan AI"], "bonus": false}, {"name": "Dimas · Marketing & Ads Analyst", "desc": "Memantau CPL, konversi, dan ROAS; merekomendasikan perubahan kampanye, tanpa mengubah budget besar sendiri.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["Karyawan AI"], "bonus": false}, {"name": "Growth Engine & CRM Pipeline", "desc": "Persona leads, histori konversi, script closing, handoff salesperson, serta funnel dan nurturing WhatsApp.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["AI Workforce"], "bonus": false}, {"name": "Meta Ads, Google Ads & Retargeting", "desc": "Landing page, lead capture, tracking Pixel/CAPI, serta dashboard marketing; materi dan anggaran disetujui sebelum aktif.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["AI Workforce"], "bonus": false}, {"name": "14 Aset Konten Siap Pakai", "desc": "6 Reels/TikTok, 3 Carousel, dan 5 Threads/Caption.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["AI Workforce"], "bonus": true}, {"name": "Optimasi Profil Media Sosial", "desc": "Platform dan cakupan sesuai kesepakatan.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["AI Workforce"], "bonus": true}, {"name": "1–3 Video YouTube", "desc": "Shooting dan editing; jumlah final serta jadwal disepakati.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["AI Workforce"], "bonus": true}, {"name": "Setup Tracking Lengkap", "desc": "Meta Pixel, Google Analytics, dan CAPI sesuai kanal.", "tier": 2, "phase": "Tier 2 · Growth Workforce Workforce", "logos": ["AI Workforce"], "bonus": true}, {"name": "Sinta · Student Concierge", "desc": "Onboarding member setelah pembayaran terverifikasi, bantuan belajar, pengingat progres, serta sertifikat setelah evaluasi.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["Karyawan AI"], "bonus": false}, {"name": "Browser/Portal Agent", "desc": "Alur portal tanpa API dalam environment terisolasi; akses dan tindakan sensitif mengikuti izin pemilik.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["Karyawan AI"], "bonus": false}, {"name": "Custom Executive Co-Pilot", "desc": "Membantu pemilik dengan SOP, knowledge base, dan konteks perusahaan sesuai hak akses.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["Karyawan AI"], "bonus": false}, {"name": "E-Learning, Produk Digital & Membership", "desc": "Portal belajar, checkout, akses sesuai pembayaran dan periode, serta progress tracking.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": false}, {"name": "Multi-Role Approval & Audit Trail", "desc": "Peran owner, manajer, dan tim lapangan dengan log keputusan dan eksekusi.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["Telegram Approval"], "bonus": false}, {"name": "Dedicated Environment & Knowledge Base", "desc": "VPS/container terisolasi, browser execution, SOP, dokumen dan kurikulum sesuai akses.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": false}, {"name": "Business Starter Kit & SOP Vault", "desc": "Template kurikulum dan lembar kerja.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": true}, {"name": "Strategi Launching Academy", "desc": "Rencana peluncuran dan pemasaran academy.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": true}, {"name": "1 Bulan Pendampingan Intensif", "desc": "Pendampingan 1-on-1 bersama Jordanengo.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": true}, {"name": "Filming Onsite", "desc": "Pembuatan kurikulum dan produk digital sesuai lokasi, sesi, dan hasil yang disepakati.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": true}];
-const metrics=[["Operations · Sari", "Waktu respons CS", "Selisih waktu jawaban pertama dan pesan masuk; bandingkan dengan baseline."], ["Operations · Budi", "Akurasi stok & status order", "Kesesuaian data sistem dengan catatan sumber; selisih perlu ditinjau manusia."], ["Operations · Andi", "Ketepatan laporan pagi", "Laporan pukul 07:00 lengkap berdasarkan data yang tervalidasi."], ["Growth · Maya", "Lead berkualifikasi & handoff", "Jumlah lead yang lolos aturan tertulis dan diserahkan ke salesperson."], ["Growth · Rian / Dimas", "Konten, CPL, konversi & ROAS", "Publikasi berapproval; CPL = belanja iklan / leads. ROAS = omzet teratribusi / belanja iklan, bukan laba."], ["Business OS · Sinta / Specialists", "Akses member & keberhasilan skills", "Akses sesuai pembayaran/periode, progres belajar, audit trail, dan eksekusi portal sesuai SOP."]];document.getElementById('kpis').innerHTML=metrics.map(x=>`<article class="card kpi"><span class="eyebrow">${esc(x[0])}</span><strong>${esc(x[1])}</strong><small>${esc(x[2])}</small><span class="state">Baseline & kriteria penerimaan disepakati</span></article>`).join('');
-const tasks={"1": [["01 · Knowledge", "Memori bisnis & SOP", "Katalog, aturan harga, SOP, PIC, dan baseline divalidasi.", "Pemilik + AGentZ", "Validasi sumber"], ["02 · Skills", "Telegram Approval Level 0–3", "Uji setujui, ubah, tolak, timeout, dan tindakan owner-only.", "Pemilik + AGentZ", "Bukti permission matrix"], ["Tier 1", "Budi · Operations & Stock", "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 1", "Sari · CS & Invoicing", "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 1", "Andi · Business Analyst", "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional.", "AGentZ + Klien", "Skenario penerimaan"], ["03 · Calibration", "20 skenario end-to-end", "Uji harga, order, bukti bayar palsu, stok habis, dan eskalasi manusia.", "AGentZ + Klien", "Bukti QA"], ["04 · Go live", "Go live & handover", "Aktifkan setelah persetujuan; dokumentasi, akses, log, dan pendampingan sesuai paket.", "Pemilik + AGentZ", "Penerimaan pemilik"]], "2": [["01 · Knowledge", "Memori bisnis & SOP", "Katalog, aturan harga, SOP, PIC, dan baseline divalidasi.", "Pemilik + AGentZ", "Validasi sumber"], ["02 · Skills", "Telegram Approval Level 0–3", "Uji setujui, ubah, tolak, timeout, dan tindakan owner-only.", "Pemilik + AGentZ", "Bukti permission matrix"], ["Tier 1", "Budi · Operations & Stock", "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 1", "Sari · CS & Invoicing", "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 1", "Andi · Business Analyst", "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 2", "Maya · Sales & Qualification", "Menyambut dan mengualifikasi leads Meta/Google, menyiapkan jadwal, serta menyerahkan lead matang ke salesperson.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 2", "Rian · Content & Social Media", "Brief, kalender, caption, dan distribusi konten; publikasi menunggu approval pemilik.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 2", "Dimas · Marketing & Ads Analyst", "Memantau CPL, konversi, dan ROAS; merekomendasikan perubahan kampanye, tanpa mengubah budget besar sendiri.", "AGentZ + Klien", "Skenario penerimaan"], ["03 · Calibration", "20 skenario end-to-end", "Uji harga, order, bukti bayar palsu, stok habis, dan eskalasi manusia.", "AGentZ + Klien", "Bukti QA"], ["04 · Go live", "Go live & handover", "Aktifkan setelah persetujuan; dokumentasi, akses, log, dan pendampingan sesuai paket.", "Pemilik + AGentZ", "Penerimaan pemilik"]], "3": [["01 · Knowledge", "Memori bisnis & SOP", "Katalog, aturan harga, SOP, PIC, dan baseline divalidasi.", "Pemilik + AGentZ", "Validasi sumber"], ["02 · Skills", "Telegram Approval Level 0–3", "Uji setujui, ubah, tolak, timeout, dan tindakan owner-only.", "Pemilik + AGentZ", "Bukti permission matrix"], ["Tier 1", "Budi · Operations & Stock", "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 1", "Sari · CS & Invoicing", "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 1", "Andi · Business Analyst", "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 2", "Maya · Sales & Qualification", "Menyambut dan mengualifikasi leads Meta/Google, menyiapkan jadwal, serta menyerahkan lead matang ke salesperson.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 2", "Rian · Content & Social Media", "Brief, kalender, caption, dan distribusi konten; publikasi menunggu approval pemilik.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 2", "Dimas · Marketing & Ads Analyst", "Memantau CPL, konversi, dan ROAS; merekomendasikan perubahan kampanye, tanpa mengubah budget besar sendiri.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 3", "Sinta · Student Concierge", "Onboarding member setelah pembayaran terverifikasi, bantuan belajar, pengingat progres, serta sertifikat setelah evaluasi.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 3", "Browser/Portal Agent", "Alur portal tanpa API dalam environment terisolasi; akses dan tindakan sensitif mengikuti izin pemilik.", "AGentZ + Klien", "Skenario penerimaan"], ["Tier 3", "Custom Executive Co-Pilot", "Membantu pemilik dengan SOP, knowledge base, dan konteks perusahaan sesuai hak akses.", "AGentZ + Klien", "Skenario penerimaan"], ["03 · Calibration", "20 skenario end-to-end", "Uji harga, order, bukti bayar palsu, stok habis, dan eskalasi manusia.", "AGentZ + Klien", "Bukti QA"], ["04 · Go live", "Go live & handover", "Aktifkan setelah persetujuan; dokumentasi, akses, log, dan pendampingan sesuai paket.", "Pemilik + AGentZ", "Penerimaan pemilik"]]};
+// ==========================================
+// DUAL MODE CONTROLLER: SETUP VS LIVE
+// ==========================================
+let currentPortalMode = 'setup';
+
+function switchPortalMode(mode) {
+  currentPortalMode = mode;
+  const isLive = (mode === 'live');
+
+  // Toggle button styles
+  document.getElementById('btnModeSetup').classList.toggle('active', !isLive);
+  document.getElementById('btnModeLive').classList.toggle('active', isLive);
+
+  // Toggle container visibility
+  document.getElementById('modeSetupContainer').classList.toggle('hide', isLive);
+  document.getElementById('modeLiveContainer').classList.toggle('hide', !isLive);
+
+  // Update global status badge
+  const badge = document.getElementById('globalStatusPill');
+  if (isLive) {
+    badge.className = 'demo live-badge';
+    badge.innerHTML = '<span class="pulse-dot"></span> SISTEM LIVE · GARANSI KPI AKTIF';
+  } else {
+    badge.className = 'demo';
+    badge.textContent = 'FASE 1 · SETUP & BUILD (25%)';
+  }
+}
+
+// ==========================================
+// LIVE KPI DASHBOARD SUB-TABS & FILTERS
+// ==========================================
+document.querySelectorAll('[data-livetab]').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('[data-livetab]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const targetId = 'live-' + btn.dataset.livetab;
+    document.querySelectorAll('.live-view').forEach(view => {
+      view.classList.toggle('hide', view.id !== targetId);
+    });
+  };
+});
+
+// Pillar Filter Buttons in Live Mode
+document.querySelectorAll('.live-pillar-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.live-pillar-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.pillar-section').forEach(sec => {
+      if (filter === 'all' || sec.dataset.pcode === filter) {
+        sec.style.display = 'block';
+      } else {
+        sec.style.display = 'none';
+      }
+    });
+  };
+});
+
+// Manual Audit Simulator
+function triggerManualAudit() {
+  const list = document.getElementById('telemetryLogList');
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('id-ID');
+  
+  const sampleChecks = [
+    { tag: '[PILAR 04 · QA]', msg: 'Verifikasi instan: 100% parameter UTM tautan aktif lolos validasi otomatis.' },
+    { tag: '[PILAR 05 · INTEGRITAS]', msg: 'Pemeriksaan worker runtime Cloudflare: 0 error uncaught, latency rata-rata 18ms.' },
+    { tag: '[PILAR 01 · CRM]', msg: 'Deduplikasi kontak & lead capture channel audit: sinkronisasi 100% akurat.' },
+    { tag: '[PILAR 02 · BOT SLA]', msg: 'Uji ping Sari CS Bot: latency respon 1.1s (dibawah batas SLA 180s).' },
+    { tag: '[PILAR 06 · HARIAN]', msg: 'Validasi database pesanan aktif: 100% field wajib terisi lengkap.' }
+  ];
+  const item = sampleChecks[Math.floor(Math.random() * sampleChecks.length)];
+  
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="log-ts">[${timeStr}]</span> <span class="log-tag">${item.tag}</span> <span>${item.msg}</span> <span class="log-pass">PASS ✓</span>`;
+  list.insertBefore(li, list.firstChild);
+
+  const ping = document.getElementById('auditLastPing');
+  ping.textContent = 'Audit Baru Saja Selesai: Lolos ✓ (' + timeStr + ')';
+}
+
+// ==========================================
+// SETUP MODE LOGIC (PRESERVED ORIGINAL DATA)
+// ==========================================
+const WORKFORCE=[
+  {
+    "name": "Operations Workforce",
+    "price": "Rp 5–10 juta",
+    "desc": "Budi, Sari, dan Andi menjalankan operasional harian sesuai SOP; keputusan penting melalui Telegram pemilik.",
+    "agents": [
+      {"name": "Budi · Operations & Stock", "desc": "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval."},
+      {"name": "Sari · CS & Invoicing", "desc": "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval."},
+      {"name": "Andi · Business Analyst", "desc": "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional."}
+    ],
+    "infrastructure": [
+      {"name": "Persistent Business Workspace", "desc": "Katalog, harga, pelanggan, jam buka, pemasok, dan SOP menjadi memori bisnis persisten."},
+      {"name": "Telegram Approval Gateway · Level 0–3", "desc": "Level 0 membaca; Level 1 mencatat dan membuat draft dengan log; Level 2 meminta approval; Level 3 khusus pemilik."},
+      {"name": "Website, CRM & Owner Dashboard", "desc": "Profil, katalog, kontak, database pelanggan, metrik ponsel, serta Google Business Profile dan permintaan ulasan."},
+      {"name": "Operations Runtime", "desc": "Cloudflare Workers, D1, R2 dan shared agent runtime untuk skills operasional."}
+    ],
+    "bonus": [
+      {"name": "Template Finansial & Arus Kas", "desc": "Template laporan dan arus kas usaha."},
+      {"name": "SOP Operasional Digital", "desc": "Panduan digitalisasi proses bisnis."}
+    ]
+  },
+  {
+    "name": "Growth Workforce",
+    "price": "Rp 20–35 juta",
+    "desc": "Seluruh tim Tier 1 ditambah Maya, Rian, dan Dimas untuk kualifikasi leads, konten, iklan, dan analisis pertumbuhan.",
+    "agents": [
+      {"name": "Maya · Sales & Qualification", "desc": "Menyambut dan mengualifikasi leads Meta/Google, menyiapkan jadwal, serta menyerahkan lead matang ke salesperson."},
+      {"name": "Rian · Content & Social Media", "desc": "Brief, kalender, caption, dan distribusi konten; publikasi menunggu approval pemilik."},
+      {"name": "Dimas · Marketing & Ads Analyst", "desc": "Memantau CPL, konversi, dan ROAS; merekomendasikan perubahan kampanye, tanpa mengubah budget besar sendiri."}
+    ],
+    "infrastructure": [
+      {"name": "Growth Engine & CRM Pipeline", "desc": "Persona leads, histori konversi, script closing, handoff salesperson, serta funnel dan nurturing WhatsApp."},
+      {"name": "Meta Ads, Google Ads & Retargeting", "desc": "Landing page, lead capture, tracking Pixel/CAPI, serta dashboard marketing; materi dan anggaran disetujui sebelum aktif."}
+    ],
+    "bonus": [
+      {"name": "14 Aset Konten Siap Pakai", "desc": "6 Reels/TikTok, 3 Carousel, dan 5 Threads/Caption."},
+      {"name": "Optimasi Profil Media Sosial", "desc": "Platform dan cakupan sesuai kesepakatan."},
+      {"name": "1–3 Video YouTube", "desc": "Shooting dan editing; jumlah final serta jadwal disepakati."},
+      {"name": "Setup Tracking Lengkap", "desc": "Meta Pixel, Google Analytics, dan CAPI sesuai kanal."}
+    ]
+  },
+  {
+    "name": "Business OS & Academy",
+    "price": "Rp 50–80 juta+",
+    "desc": "Seluruh tim Tier 1 & 2 ditambah Sinta, Browser/Portal Agent, dan Custom Executive Co-Pilot untuk academy dan proses bisnis khusus.",
+    "agents": [
+      {"name": "Sinta · Student Concierge", "desc": "Onboarding member setelah pembayaran terverifikasi, bantuan belajar, pengingat progres, serta sertifikat setelah evaluasi."},
+      {"name": "Browser/Portal Agent", "desc": "Alur portal tanpa API dalam environment terisolasi; akses dan tindakan sensitif mengikuti izin pemilik."},
+      {"name": "Custom Executive Co-Pilot", "desc": "Membantu pemilik dengan SOP, knowledge base, dan konteks perusahaan sesuai hak akses."}
+    ],
+    "infrastructure": [
+      {"name": "E-Learning, Produk Digital & Membership", "desc": "Portal belajar, checkout, akses sesuai pembayaran dan periode, serta progress tracking."},
+      {"name": "Multi-Role Approval & Audit Trail", "desc": "Peran owner, manajer, dan tim lapangan dengan log keputusan dan eksekusi."},
+      {"name": "Dedicated Environment & Knowledge Base", "desc": "VPS/container terisolasi, browser execution, SOP, dokumen dan kurikulum sesuai akses."}
+    ],
+    "bonus": [
+      {"name": "Business Starter Kit & SOP Vault", "desc": "Template kurikulum dan lembar kerja."},
+      {"name": "Strategi Launching Academy", "desc": "Rencana peluncuran dan pemasaran academy."},
+      {"name": "1 Bulan Pendampingan Intensif", "desc": "Pendampingan 1-on-1 bersama Jordanengo."},
+      {"name": "Filming Onsite", "desc": "Pembuatan kurikulum dan produk digital sesuai lokasi, sesi, dan hasil yang disepakati."}
+    ]
+  }
+];
+
+function drawTeam(){
+  const tier = +document.getElementById('tier').value;
+  document.getElementById('teamGrid').innerHTML = WORKFORCE.slice(0,tier).map((m,i)=>`
+    <article class="card content-card">
+      <span class="eyebrow">TIER ${i+1}</span>
+      <h3>${m.name}</h3>
+      <p><b>${m.price} · sekali setup</b></p>
+      <p>${m.desc}</p>
+      <ul class="checklist">${m.agents.map(a=>`<li><div><b>${a.name}</b><br>${a.desc}</div></li>`).join('')}</ul>
+    </article>`).join('');
+  document.getElementById('content').querySelector('h2').textContent = tier===1 ? 'Bonus konten Tier 2 · tersedia setelah upgrade Growth Workforce' : 'Bonus konten termasuk · Growth Workforce';
+  document.getElementById('content').querySelector('.content-grid').style.opacity = tier===1 ? '0.55' : '1';
+}
+
+let approvalEdited=false;
+function approvalFinish(msg){
+  document.getElementById('approvalResult').textContent=msg;
+  const li=document.createElement('li');
+  li.textContent=new Date().toLocaleTimeString('id-ID')+' · '+msg;
+  document.getElementById('approvalLog').appendChild(li);
+  ['approveDemo','editDemo','rejectDemo'].forEach(id=>document.getElementById(id).disabled=true);
+}
+document.getElementById('approveDemo').onclick=()=>approvalFinish(approvalEdited?'Revisi pemilik: '+document.getElementById('approvalInstruction').value+'. Draf menunggu pemeriksaan ulang; belum dikirim.':'Disetujui pemilik · invoice dikirim dalam simulasi · tercatat di log.');
+document.getElementById('rejectDemo').onclick=()=>approvalFinish('Ditolak pemilik · tidak ada aksi dijalankan.');
+document.getElementById('editDemo').onclick=()=>{approvalEdited=true;document.getElementById('approvalEdit').hidden=false;document.getElementById('approveDemo').textContent='Simpan revisi';document.getElementById('approvalInstruction').focus()};
+document.getElementById('resetApprovalDemo').onclick=()=>{approvalEdited=false;['approveDemo','editDemo','rejectDemo'].forEach(id=>document.getElementById(id).disabled=false);document.getElementById('approveDemo').textContent='Setujui & kirim invoice';document.getElementById('approvalEdit').hidden=true;document.getElementById('approvalResult').textContent='Menunggu keputusan pemilik. Belum ada invoice dikirim.'};
+
+const BUILD_ITEMS=[
+  {"name": "Budi · Operations & Stock", "desc": "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "Sari · CS & Invoicing", "desc": "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "Andi · Business Analyst", "desc": "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "Persistent Business Workspace", "desc": "Katalog, harga, pelanggan, jam buka, pemasok, dan SOP menjadi memori bisnis persisten.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["AI Workforce"], "bonus": false},
+  {"name": "Telegram Approval Gateway · Level 0–3", "desc": "Level 0 membaca; Level 1 mencatat dan membuat draft dengan log; Level 2 meminta approval; Level 3 khusus pemilik.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["Telegram Approval"], "bonus": false},
+  {"name": "Website, CRM & Owner Dashboard", "desc": "Profil, katalog, kontak, database pelanggan, metrik ponsel, serta Google Business Profile dan permintaan ulasan.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["AI Workforce"], "bonus": false},
+  {"name": "Operations Runtime", "desc": "Cloudflare Workers, D1, R2 dan shared agent runtime untuk skills operasional.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["AI Workforce"], "bonus": false},
+  {"name": "Template Finansial & Arus Kas", "desc": "Template laporan dan arus kas usaha.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "SOP Operasional Digital", "desc": "Panduan digitalisasi proses bisnis.", "tier": 1, "phase": "Tier 1 · Operations Workforce", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "Maya · Sales & Qualification", "desc": "Menyambut dan mengualifikasi leads Meta/Google, menyiapkan jadwal, serta menyerahkan lead matang ke salesperson.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "Rian · Content & Social Media", "desc": "Brief, kalender, caption, dan distribusi konten; publikasi menunggu approval pemilik.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "Dimas · Marketing & Ads Analyst", "desc": "Memantau CPL, konversi, dan ROAS; merekomendasikan perubahan kampanye, tanpa mengubah budget besar sendiri.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "Growth Engine & CRM Pipeline", "desc": "Persona leads, histori konversi, script closing, handoff salesperson, serta funnel dan nurturing WhatsApp.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["AI Workforce"], "bonus": false},
+  {"name": "Meta Ads, Google Ads & Retargeting", "desc": "Landing page, lead capture, tracking Pixel/CAPI, serta dashboard marketing; materi dan anggaran disetujui sebelum aktif.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["AI Workforce"], "bonus": false},
+  {"name": "14 Aset Konten Siap Pakai", "desc": "6 Reels/TikTok, 3 Carousel, dan 5 Threads/Caption.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "Optimasi Profil Media Sosial", "desc": "Platform dan cakupan sesuai kesepakatan.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "1–3 Video YouTube", "desc": "Shooting dan editing; jumlah final serta jadwal disepakati.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "Setup Tracking Lengkap", "desc": "Meta Pixel, Google Analytics, dan CAPI sesuai kanal.", "tier": 2, "phase": "Tier 2 · Growth Workforce", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "Sinta · Student Concierge", "desc": "Onboarding member setelah pembayaran terverifikasi, bantuan belajar, pengingat progres, serta sertifikat setelah evaluasi.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "Browser/Portal Agent", "desc": "Alur portal tanpa API dalam environment terisolasi; akses dan tindakan sensitif mengikuti izin pemilik.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "Custom Executive Co-Pilot", "desc": "Membantu pemilik dengan SOP, knowledge base, dan konteks perusahaan sesuai hak akses.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["Karyawan AI"], "bonus": false},
+  {"name": "E-Learning, Produk Digital & Membership", "desc": "Portal belajar, checkout, akses sesuai pembayaran dan periode, serta progress tracking.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": false},
+  {"name": "Multi-Role Approval & Audit Trail", "desc": "Peran owner, manajer, dan tim lapangan dengan log keputusan dan eksekusi.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["Telegram Approval"], "bonus": false},
+  {"name": "Dedicated Environment & Knowledge Base", "desc": "VPS/container terisolasi, browser execution, SOP, dokumen dan kurikulum sesuai akses.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": false},
+  {"name": "Business Starter Kit & SOP Vault", "desc": "Template kurikulum dan lembar kerja.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "Strategi Launching Academy", "desc": "Rencana peluncuran dan pemasaran academy.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "1 Bulan Pendampingan Intensif", "desc": "Pendampingan 1-on-1 bersama Jordanengo.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": true},
+  {"name": "Filming Onsite", "desc": "Pembuatan kurikulum dan produk digital sesuai lokasi, sesi, dan hasil yang disepakati.", "tier": 3, "phase": "Tier 3 · Business OS & Academy", "logos": ["AI Workforce"], "bonus": true}
+];
+
+const metrics=[
+  ["Operations · Sari", "Waktu respons CS", "Selisih waktu jawaban pertama dan pesan masuk; bandingkan dengan baseline."],
+  ["Operations · Budi", "Akurasi stok & status order", "Kesesuaian data sistem dengan catatan sumber; selisih perlu ditinjau manusia."],
+  ["Operations · Andi", "Ketepatan laporan pagi", "Laporan pukul 07:00 lengkap berdasarkan data yang tervalidasi."],
+  ["Growth · Maya", "Lead berkualifikasi & handoff", "Jumlah lead yang lolos aturan tertulis dan diserahkan ke salesperson."],
+  ["Growth · Rian / Dimas", "Konten, CPL, konversi & ROAS", "Publikasi berapproval; CPL = belanja iklan / leads. ROAS = omzet teratribusi / belanja iklan, bukan laba."],
+  ["Business OS · Sinta / Specialists", "Akses member & keberhasilan skills", "Akses sesuai pembayaran/periode, progres belajar, audit trail, dan eksekusi portal sesuai SOP."]
+];
+document.getElementById('kpis').innerHTML=metrics.map(x=>`
+  <article class="card kpi">
+    <span class="eyebrow">${esc(x[0])}</span>
+    <strong>${esc(x[1])}</strong>
+    <small>${esc(x[2])}</small>
+    <span class="state">Baseline &amp; kriteria penerimaan disepakati</span>
+  </article>`).join('');
+
+const tasks={
+  "1": [
+    ["01 · Knowledge", "Memori bisnis & SOP", "Katalog, aturan harga, SOP, PIC, dan baseline divalidasi.", "Pemilik + AGentZ", "Validasi sumber"],
+    ["02 · Skills", "Telegram Approval Level 0–3", "Uji setujui, ubah, tolak, timeout, dan tindakan owner-only.", "Pemilik + AGentZ", "Bukti permission matrix"],
+    ["Tier 1", "Budi · Operations & Stock", "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 1", "Sari · CS & Invoicing", "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 1", "Andi · Business Analyst", "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["03 · Calibration", "20 skenario end-to-end", "Uji harga, order, bukti bayar palsu, stok habis, dan eskalasi manusia.", "AGentZ + Klien", "Bukti QA"],
+    ["04 · Go live", "Go live & handover", "Aktifkan setelah persetujuan; dokumentasi, akses, log, dan pendampingan sesuai paket.", "Pemilik + AGentZ", "Penerimaan pemilik"]
+  ],
+  "2": [
+    ["01 · Knowledge", "Memori bisnis & SOP", "Katalog, aturan harga, SOP, PIC, dan baseline divalidasi.", "Pemilik + AGentZ", "Validasi sumber"],
+    ["02 · Skills", "Telegram Approval Level 0–3", "Uji setujui, ubah, tolak, timeout, dan tindakan owner-only.", "Pemilik + AGentZ", "Bukti permission matrix"],
+    ["Tier 1", "Budi · Operations & Stock", "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 1", "Sari · CS & Invoicing", "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 1", "Andi · Business Analyst", "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 2", "Maya · Sales & Qualification", "Menyambut dan mengualifikasi leads Meta/Google, menyiapkan jadwal, serta menyerahkan lead matang ke salesperson.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 2", "Rian · Content & Social Media", "Brief, kalender, caption, dan distribusi konten; publikasi menunggu approval pemilik.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 2", "Dimas · Marketing & Ads Analyst", "Memantau CPL, konversi, dan ROAS; merekomendasikan perubahan kampanye, tanpa mengubah budget besar sendiri.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["03 · Calibration", "20 skenario end-to-end", "Uji harga, order, bukti bayar palsu, stok habis, dan eskalasi manusia.", "AGentZ + Klien", "Bukti QA"],
+    ["04 · Go live", "Go live & handover", "Aktifkan setelah persetujuan; dokumentasi, akses, log, dan pendampingan sesuai paket.", "Pemilik + AGentZ", "Penerimaan pemilik"]
+  ],
+  "3": [
+    ["01 · Knowledge", "Memori bisnis & SOP", "Katalog, aturan harga, SOP, PIC, dan baseline divalidasi.", "Pemilik + AGentZ", "Validasi sumber"],
+    ["02 · Skills", "Telegram Approval Level 0–3", "Uji setujui, ubah, tolak, timeout, dan tindakan owner-only.", "Pemilik + AGentZ", "Bukti permission matrix"],
+    ["Tier 1", "Budi · Operations & Stock", "Memantau stok, antrean pesanan, jadwal driver, dan menyiapkan draf PO; perubahan stok manual serta penjadwalan driver perlu approval.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 1", "Sari · CS & Invoicing", "CS WhatsApp 24/7, harga sesuai aturan pelanggan, draf invoice, bukti bayar, dan status pesanan; invoice resmi dikirim setelah approval.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 1", "Andi · Business Analyst", "Laporan pagi pukul 07:00, omzet, laba kotor, piutang, prioritas, dan anomali operasional.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 2", "Maya · Sales & Qualification", "Menyambut dan mengualifikasi leads Meta/Google, menyiapkan jadwal, serta menyerahkan lead matang ke salesperson.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 2", "Rian · Content & Social Media", "Brief, kalender, caption, dan distribusi konten; publikasi menunggu approval pemilik.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 2", "Dimas · Marketing & Ads Analyst", "Memantau CPL, konversi, dan ROAS; merekomendasikan perubahan kampanye, tanpa mengubah budget besar sendiri.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 3", "Sinta · Student Concierge", "Onboarding member setelah pembayaran terverifikasi, bantuan belajar, pengingat progres, serta sertifikat setelah evaluasi.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 3", "Browser/Portal Agent", "Alur portal tanpa API dalam environment terisolasi; akses dan tindakan sensitif mengikuti izin pemilik.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["Tier 3", "Custom Executive Co-Pilot", "Membantu pemilik dengan SOP, knowledge base, dan konteks perusahaan sesuai hak akses.", "AGentZ + Klien", "Skenario penerimaan"],
+    ["03 · Calibration", "20 skenario end-to-end", "Uji harga, order, bukti bayar palsu, stok habis, dan eskalasi manusia.", "AGentZ + Klien", "Bukti QA"],
+    ["04 · Go live", "Go live & handover", "Aktifkan setelah persetujuan; dokumentasi, akses, log, dan pendampingan sesuai paket.", "Pemilik + AGentZ", "Penerimaan pemilik"]
+  ]
+};
+
 const columns=['01 · Disepakati','02 · Sedang dikerjakan','03 · Menunggu klien','04 · Selesai'];
 const buildItems=BUILD_ITEMS;
-function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function drawBuild(){let tier=+document.getElementById('tier').value;let rows=buildItems.filter(x=>x.tier<=tier);let cards=[{phase:'01 · Scope & discovery',name:'Hari 1–3 · Knowledge ingestion',desc:'Masukkan katalog, aturan harga, jam buka, pemasok, pelanggan, dan SOP ke business workspace; validasi sumber serta hak akses.',logos:[],who:'Pemilik + AGentZ',status:'Persetujuan cakupan'},{phase:'01 · Scope & discovery',name:'Hari 4–7 · Integrasi skills & approval',desc:'Hubungkan WhatsApp, Telegram pemilik, database, dan skills. Tetapkan PIC serta permission Level 0–3.',logos:[],who:'Pemilik',status:'Data sumber tervalidasi'},{phase:'01 · Scope & discovery',name:'Hari 8–10 · Internal testing & calibration',desc:'Uji 20 skenario: harga, order, bukti bayar palsu, stok habis, approval ditolak/diubah, eskalasi, dan akses tidak sah.',logos:[],who:'Pemilik + AGentZ',status:'Daftar akses'},...rows.map(x=>({...x,who:'AGentZ + Klien',status:'Cakupan sesuai offer'})),{phase:'04 · QA & handover',name:'Hari 11–14 · Go live & pendampingan',desc:'Aktifkan tim AI setelah penerimaan pemilik; serahkan SOP, dokumentasi, dan audit log. Tier 3 mencakup 1 bulan pendampingan intensif; lanjutan mengikuti kesepakatan.',logos:[],who:'AGentZ + Klien',status:'Cakupan sesuai offer'}];let list=document.getElementById('buildList');list.innerHTML=cards.map((x,i)=>`<article class="build-item"><span class="build-node">${String(i+1).padStart(2,'0')}</span><div class="build-card"><div class="build-brands"><span class="agentz-lockup"><b>A°</b><strong>AGentZ</strong></span>${x.logos.map(l=>`<span class="service-lockup">${esc(l)}</span>`).join('')}</div><h3>${esc(x.name)}</h3><p>${esc(x.desc)}</p><div class="build-meta"><b>${esc(x.who)}</b><span>${esc(x.status)}</span></div></div></article>`).join('');let title=tier===1?'Tier 1':tier===2?'Tier 2':'Tier 3';document.getElementById('selectedPackage').textContent=title+' · '+WORKFORCE[tier-1].name;}
-function draw(){let tier=+document.getElementById('tier').value;let rows=tasks[tier];let buckets=[rows.slice(0,1),rows.slice(1,4),rows.slice(4,6),rows.slice(6)];let stats=document.querySelectorAll('.summary .stat');let done=buckets[3].length,pct=Math.round(done/rows.length*100);stats[0].querySelector('b').textContent=pct+'%';stats[0].querySelector('.progressbar i').style.width=pct+'%';stats[0].querySelectorAll('span')[1].textContent=done+' dari '+rows.length+' milestone contoh selesai';stats[1].querySelector('b').textContent='Tier '+tier+' · '+WORKFORCE[tier-1].name;stats[2].querySelector('b').textContent=buckets[2].length?'Menunggu klien':buckets[3].length?'QA & handover':'Build';document.getElementById('kanban').innerHTML=columns.map((c,i)=>`<section class="column"><div class="colhead"><span>${c}</span><span class="count">${buckets[i].length}</span></div>${buckets[i].map(t=>`<article class="task"><span class="pill ${t[3].includes('Klien')?'owner':''}">${t[3]}</span><h3>${t[1]}</h3><p>${t[2]}</p><div class="meta"><span>${t[0]}</span><span>${t[4]}</span></div></article>`).join('')}</section>`).join('')}
-document.getElementById('tier').onchange=()=>{drawBuild();draw();drawTeam()};document.getElementById('selectedPackage').textContent='Tier 2';drawBuild();draw();drawTeam();document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(x=>x.classList.toggle('hide',x.id!==b.dataset.tab))});
+
+function esc(x){
+  return String(x).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function drawBuild(){
+  let tier = +document.getElementById('tier').value;
+  let rows = buildItems.filter(x=>x.tier<=tier);
+  let cards = [
+    {phase:'01 · Scope & discovery', name:'Hari 1–3 · Knowledge ingestion', desc:'Masukkan katalog, aturan harga, jam buka, pemasok, pelanggan, dan SOP ke business workspace; validasi sumber serta hak akses.', logos:[], who:'Pemilik + AGentZ', status:'Persetujuan cakupan'},
+    {phase:'01 · Scope & discovery', name:'Hari 4–7 · Integrasi skills & approval', desc:'Hubungkan WhatsApp, Telegram pemilik, database, dan skills. Tetapkan PIC serta permission Level 0–3.', logos:[], who:'Pemilik', status:'Data sumber tervalidasi'},
+    {phase:'01 · Scope & discovery', name:'Hari 8–10 · Internal testing & calibration', desc:'Uji 20 skenario: harga, order, bukti bayar palsu, stok habis, approval ditolak/diubah, eskalasi, dan akses tidak sah.', logos:[], who:'Pemilik + AGentZ', status:'Daftar akses'},
+    ...rows.map(x=>({...x, who:'AGentZ + Klien', status:'Cakupan sesuai offer'})),
+    {phase:'04 · QA & handover', name:'Hari 11–14 · Go live & pendampingan', desc:'Aktifkan tim AI setelah penerimaan pemilik; serahkan SOP, dokumentasi, dan audit log. Tier 3 mencakup 1 bulan pendampingan intensif; lanjutan mengikuti kesepakatan.', logos:[], who:'AGentZ + Klien', status:'Cakupan sesuai offer'}
+  ];
+  let list = document.getElementById('buildList');
+  list.innerHTML = cards.map((x,i)=>`
+    <article class="build-item">
+      <span class="build-node">${String(i+1).padStart(2,'0')}</span>
+      <div class="build-card">
+        <div class="build-brands">
+          <span class="agentz-lockup"><b>A°</b><strong>AGentZ</strong></span>
+          ${x.logos.map(l=>`<span class="service-lockup">${esc(l)}</span>`).join('')}
+        </div>
+        <h3>${esc(x.name)}</h3>
+        <p>${esc(x.desc)}</p>
+        <div class="build-meta"><b>${esc(x.who)}</b><span>${esc(x.status)}</span></div>
+      </div>
+    </article>`).join('');
+  let title = tier===1 ? 'Tier 1' : tier===2 ? 'Tier 2' : 'Tier 3';
+  document.getElementById('selectedPackage').textContent = title + ' · ' + WORKFORCE[tier-1].name;
+}
+
+function draw(){
+  let tier = +document.getElementById('tier').value;
+  let rows = tasks[tier];
+  let buckets = [rows.slice(0,1), rows.slice(1,4), rows.slice(4,6), rows.slice(6)];
+  let stats = document.querySelectorAll('#modeSetupContainer .summary .stat');
+  let done = buckets[3].length, pct = Math.round(done/rows.length*100);
+  stats[0].querySelector('b').textContent = pct + '%';
+  stats[0].querySelector('.progressbar i').style.width = pct + '%';
+  stats[0].querySelectorAll('span')[1].textContent = done + ' dari ' + rows.length + ' milestone contoh selesai';
+  stats[1].querySelector('b').textContent = 'Tier ' + tier + ' · ' + WORKFORCE[tier-1].name;
+  stats[2].querySelector('b').textContent = buckets[2].length ? 'Menunggu klien' : buckets[3].length ? 'QA & handover' : 'Build';
+  document.getElementById('kanban').innerHTML = columns.map((c,i)=>`
+    <section class="column">
+      <div class="colhead"><span>${c}</span><span class="count">${buckets[i].length}</span></div>
+      ${buckets[i].map(t=>`
+        <article class="task">
+          <span class="pill ${t[3].includes('Klien')?'owner':''}">${t[3]}</span>
+          <h3>${t[1]}</h3>
+          <p>${t[2]}</p>
+          <div class="meta"><span>${t[0]}</span><span>${t[4]}</span></div>
+        </article>`).join('')}
+    </section>`).join('');
+}
+
+document.getElementById('tier').onchange=()=>{
+  drawBuild();
+  draw();
+  drawTeam();
+};
+
+// Initial calls
+drawBuild();
+draw();
+drawTeam();
+
+// Setup Mode Tabs
+document.querySelectorAll('#modeSetupContainer [data-tab]').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('#modeSetupContainer [data-tab]').forEach(x => x.classList.toggle('active', x===b));
+    document.querySelectorAll('#modeSetupContainer .view').forEach(x => x.classList.toggle('hide', x.id !== b.dataset.tab));
+  };
+});
 </script>
-</body></html>
+</body>
+</html>
