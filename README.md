@@ -3,7 +3,8 @@
 Interactive client delivery & progress portal for AGentZ workforce rollouts.
 
 ## 🚀 Live Deployments
-- **Live URL**: [https://clientportal-omega-six.vercel.app](https://clientportal-omega-six.vercel.app)
+- **Cloudflare Pages (Primary / Live)**: [https://clientportal-2jc.pages.dev](https://clientportal-2jc.pages.dev)
+- **Vercel**: [https://clientportal-omega-six.vercel.app](https://clientportal-omega-six.vercel.app)
 - **GitHub Pages**: [https://automatenier.github.io/clientportal/](https://automatenier.github.io/clientportal/)
 - **GitHub Repository**: [https://github.com/automatenier/clientportal](https://github.com/automatenier/clientportal)
 
