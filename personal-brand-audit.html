@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Brand Audit · AGentZ</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎙️</text></svg>">
+<style>
+:root {
+  --bg: #f8faf8;
+  --ink: #14342b;
+  --muted: #527363;
+  --line: #d8e5dc;
+  --green: #173a30;
+  --shadow: 0 4px 20px rgba(20,52,43,0.08);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  padding: 20px clamp(12px, 3vw, 36px) 60px;
+}
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.top-nav a {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.top-nav a:hover { text-decoration: underline; }
+
+/* ==========================================
+   PERSONAL BRAND AUDIT (BRANDKIT) STYLES
+   ========================================== */
+.brandkit-shell{max-width:1440px;margin:auto}
+.brandkit-heading{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:14px}
+.brandkit-heading h1{font-size:clamp(22px,3vw,32px);letter-spacing:-1.2px;margin:3px 0}
+.brandkit-heading p{margin:0;color:var(--muted);font-size:13px}
+.brandkit-actions{display:flex;gap:8px;flex:none}
+.bk-btn{border:1px solid var(--line);border-radius:9px;background:white;color:var(--green);padding:9px 13px;font-weight:800;font-size:12px;cursor:pointer;transition:all .15s;font-family:inherit;}
+.bk-btn:hover{background:#f4f8f5;border-color:#b8d5bf}
+.bk-btn.primary{background:var(--green);color:white}
+.bk-btn.primary:hover{background:#114838}
+.brandkit-notice{padding:10px 14px;background:#eff4eb;border:1px solid #d9e6d6;border-radius:10px;color:#315e4c;font-size:12px;margin-bottom:14px;line-height:1.55}
+.brandkit-profile-bar{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin-bottom:14px;flex-wrap:wrap;box-shadow:0 2px 8px #183e3608}
+.brandkit-layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:14px;align-items:start}
+.brandkit-catalog{position:sticky;top:10px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px;box-shadow:0 7px 22px #193c3208}
+.bk-catalog-label{font-size:10px;letter-spacing:1px;font-weight:900;color:var(--muted);padding:5px 8px 8px}
+.bk-doc{width:100%;display:flex;gap:10px;text-align:left;align-items:flex-start;padding:10px 8px;border:0;border-radius:9px;background:transparent;color:var(--ink);font-weight:800;font-size:11px;cursor:pointer;transition:all .15s;font-family:inherit;}
+.bk-doc:hover{background:#f4f7f4}
+.bk-doc b{background:#edf2eb;border-radius:7px;padding:5px 6px;color:var(--green)}
+.bk-doc small{display:block;font-weight:500;color:var(--muted);font-size:10px;line-height:1.3;margin-top:3px}
+.bk-doc.active{background:#eef4ed}
+.bk-doc.active b{background:var(--green);color:#fff}
+.bk-progress{border-top:1px solid var(--line);padding:10px 8px 3px;margin-top:5px;font-size:10px;color:var(--muted)}
+.bk-progress b{color:var(--green)}
+.brandkit-main{min-width:0}
+.bk-panel{background:white;border:1px solid var(--line);border-radius:13px;padding:18px;box-shadow:0 7px 22px #193c3208}
+.bk-panel-head{border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:13px}
+.bk-panel-head .paper-label{font-size:10px;letter-spacing:1px;font-weight:900;color:var(--green)}
+.bk-panel-head h2{font-size:22px;letter-spacing:-.5px;margin:3px 0}
+.bk-panel-head p{margin:0;color:var(--muted);font-size:12px}
+.bk-step{display:inline-block;color:#53675c;background:#f2f5f0;border-radius:99px;padding:3px 8px;font-size:10px;font-weight:800;margin-top:7px}
+.bk-section{margin:16px 0}
+.bk-section h3{font-size:14px;margin:0 0 3px}
+.bk-section>p{color:var(--muted);font-size:11px;margin:0 0 9px}
+.bk-q{border:1px solid #e5e9e2;background:#fcfcfa;border-radius:9px;padding:10px 11px;margin:8px 0}
+.bk-q label{display:block;font-size:12px;font-weight:750;line-height:1.45;margin:0 0 7px}
+.bk-q label em{font-style:normal;font-weight:500;color:var(--muted);font-size:10px;display:block;margin-top:2px}
+.bk-q textarea,.bk-q input{width:100%;border:1px solid #dce2d8;border-radius:7px;padding:8px 9px;background:white;color:var(--ink);font:12px/1.45 inherit;resize:vertical;min-height:62px;box-sizing:border-box}
+.bk-q input{min-height:36px}
+.bk-q textarea:focus,.bk-q input:focus{outline:2px solid #b6d0bd;border-color:#78a386}
+.bk-q .bk-helper{font-size:10px;color:#77857b;margin-top:5px}
+.bk-callout{background:#fff8ed;border-left:3px solid #d7753e;padding:9px 11px;color:#6b513b;font-size:11px;border-radius:5px;margin:10px 0}
+.bk-checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.bk-check{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--ink);padding:7px;border:1px solid #e5e9e2;border-radius:7px}
+.bk-check input{accent-color:var(--green);margin-top:3px}
+.bk-footer{border-top:1px solid var(--line);padding-top:11px;margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.bk-footer small{color:var(--muted);font-size:10px}
+.bk-footer button{border:1px solid var(--line);background:white;border-radius:8px;padding:8px 12px;color:var(--green);font-size:11px;font-weight:850;cursor:pointer;font-family:inherit;}
+.bk-footer button.next{background:var(--green);color:white}
+.bk-video{background:#f3f6f1;border:1px solid #dfe7dc;border-radius:10px;padding:12px;margin:12px 0}
+.bk-video h3{margin:0 0 5px;font-size:13px}
+.bk-video p,.bk-video li{font-size:11px;color:#4d5e54}
+.bk-video ol{padding-left:19px;margin:6px 0}
+.bk-video li{margin:4px 0}
+.bk-video .bk-q{background:white}
+@media(max-width:800px){
+  .brandkit-layout{grid-template-columns:1fr}
+  .brandkit-catalog{position:static;display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .bk-catalog-label,.bk-progress{grid-column:1/-1}
+  .brandkit-heading{align-items:flex-start;flex-direction:column}
+  .bk-doc{min-height:58px}
+}
+@media(max-width:520px){
+  .brandkit-catalog{grid-template-columns:1fr}
+  .bk-checks{grid-template-columns:1fr}
+  .bk-panel{padding:12px}
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top-nav">
+    <a href="alternate.html?mode=setup">← Kembali ke Portal Klien (alternate.html)</a>
+    <span style="font-size:12px;font-weight:700;color:var(--muted);">AGentZ · Personal Brand Diagnostic</span>
+  </div>
+
+  <div class="toolbar" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:14px;">
+    <div>
+      <div style="font-size:11px;font-weight:800;color:var(--green);letter-spacing:1px;text-transform:uppercase;">KUESIONER DIAGNOSTIK BRAND PERSONAL</div>
+      <h1 style="margin:4px 0 6px;font-size:clamp(22px,2.8vw,32px);letter-spacing:-0.8px;">Personal Brand Audit Klien</h1>
+      <small style="color:var(--muted);font-weight:600;font-size:13px;">6 Dokumen diagnostik: isi jawaban, kumpulkan bukti lapangan, atau gunakan mode wawancara 16:9</small>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <button type="button" class="bk-btn" id="toggleBrandInterviewMode" style="background:#1b4332;color:#fff;border-color:#2d6a4f;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+        <span id="bkModeIcon">🎙️</span> <span id="bkModeText">Mode Presentasi Wawancara 16:9</span>
+      </button>
+      <button type="button" class="bk-btn" id="bkExport">Unduh jawaban (.txt)</button>
+      <button type="button" class="bk-btn primary" id="bkPrint">Cetak / Simpan PDF</button>
+    </div>
+  </div>
+
+  <div class="brandkit-shell">
+    <div class="brandkit-notice"><b>Kapan:</b> sebelum perencanaan konten; gunakan untuk memetakan brand personal klien secara autentik. Klien dapat mengisi tertulis atau menjawab lewat video/sesi wawancara. Jawab dengan contoh nyata, angka, tanggal, dan konteks; tandai rahasia atau tanpa izin publikasi.</div>
+    <div class="brandkit-profile-bar">
+      <div style="font-size:11px;font-weight:900;color:var(--green);letter-spacing:1.2px;text-transform:uppercase;">IDENTITAS BRAND &amp; PROFIL:</div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <label for="brandProfileNameInput" style="font-size:11px;color:var(--muted);font-weight:700;">Nama Brand / Sosok:</label>
+        <input id="brandProfileNameInput" type="text" placeholder="cth: Pak Siswoko / Studio Berkah" style="padding:6px 10px;border:1px solid var(--line);border-radius:7px;font-size:12px;color:var(--ink);min-width:180px;background:#fdfdfc;">
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <label for="brandProfileHandleInput" style="font-size:11px;color:var(--muted);font-weight:700;">Handle Sosmed:</label>
+        <input id="brandProfileHandleInput" type="text" placeholder="@brand.ops" style="padding:6px 10px;border:1px solid var(--line);border-radius:7px;font-size:12px;color:var(--ink);min-width:140px;background:#fdfdfc;">
+      </div>
+      <span id="brandProfileSaveIndicator" style="font-size:11px;color:#2f855a;font-weight:700;margin-left:auto;">💾 Sinkron otomatis</span>
+    </div>
+
+    <!-- 16:9 PRESENTATION INTERVIEW MODE -->
+    <div id="bkInterviewShell" class="presentation bk-interview-presentation" style="display:none;position:relative;width:min(100%,1500px);height:min(82vh,calc((100vw - 48px)*.5625));min-height:500px;margin:0 auto 20px;background:radial-gradient(ellipse at 50% 20%, #17362d 0%, #0d1e18 70%, #08130f 100%);border:1px solid rgba(255,255,255,0.12);border-radius:16px;overflow:hidden;box-shadow:0 18px 45px rgba(0,0,0,0.4);flex-direction:column;justify-content:space-between;box-sizing:border-box;">
+      
+      <!-- Slide Meta Bar -->
+      <div class="slide-meta" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(0,0,0,0.2);box-sizing:border-box;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:0.8px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block;animation:pulse 2s infinite;"></span> REC WAWANCARA
+          </span>
+          <select id="bkDocSelect" style="background:#1b392f;color:#e8f4f0;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;">
+            <option value="essential" selected>🌟 20 Pertanyaan Inti (Interview Cepat 20 Menit)</option>
+            <option value="all">Semua Dokumen (Lengkap 159 Pertanyaan)</option>
+            <option value="stance">01. Brand stance &amp; positioning</option>
+            <option value="avatar">02. Avatar &amp; ICP matrix</option>
+            <option value="assets">03. Context &amp; media library</option>
+            <option value="strategy">04. Strategy &amp; business goals</option>
+            <option value="villain">05. Villain &amp; misbelief</option>
+            <option value="ecosystem">06. Content ecosystem</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="font-size:12px;color:#a3c2b8;font-weight:700;">PERTANYAAN <b id="bkSlideIndex" style="color:#ffffff;">1 / 159</b></span>
+          <button class="full-btn" id="bkFullscreenBtn" type="button" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;">⛶ Fullscreen</button>
+        </div>
+      </div>
+
+      <!-- Center Presentation Canvas -->
+      <div class="slide-canvas" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 48px;text-align:center;box-sizing:border-box;max-width:1100px;margin:0 auto;width:100%;">
+        
+        <!-- Topic & Section Eyebrow -->
+        <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;">
+          <span id="bkSlideIcon" style="font-size:26px;display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);box-shadow:0 4px 12px rgba(0,0,0,0.2);">🎯</span>
+          <div style="text-align:left;">
+            <div id="bkSlideDocBadge" style="font-size:11px;font-weight:800;color:#52b788;letter-spacing:1px;text-transform:uppercase;">DOKUMEN 01 · BRAND STANCE</div>
+            <div id="bkSlideSection" style="font-size:13px;color:#cbd5e1;font-weight:600;">One-of-one brand &amp; positioning</div>
+          </div>
+        </div>
+
+        <!-- Main Question Title (16:9 Presentation Format) -->
+        <h2 id="bkSlideQuestion" style="font-size:clamp(22px, 2.8vw, 34px);line-height:1.35;color:#ffffff;font-weight:800;margin:0 0 16px;text-shadow:0 2px 10px rgba(0,0,0,0.5);max-width:960px;">
+          Apa keahlian teknis mendalam yang Anda kuasai yang jarang dipahami orang awam?
+        </h2>
+
+        <!-- Helper / Prompt Cue for the Client -->
+        <div id="bkSlideHelper" style="font-size:clamp(13px, 1.2vw, 16px);line-height:1.55;color:#94d2bd;background:rgba(20,53,44,0.6);border:1px solid rgba(148,210,189,0.25);border-radius:10px;padding:12px 20px;max-width:880px;margin-bottom:20px;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          Tuliskan wawasan yang datang dari jam terbang operasional nyata di lapangan, bukan sekadar teori.
+        </div>
+
+        <!-- Quick Live Note / Soundbite Box -->
+        <div style="width:100%;max-width:880px;text-align:left;">
+          <label for="bkSlideNote" style="font-size:11px;color:#a3c2b8;font-weight:700;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+            <span>📝 Catatan Intisari Jawaban Klien (Tersimpan otomatis):</span>
+            <span id="bkSlideSaveStatus" style="color:#52b788;font-size:10px;">💾 Tersimpan</span>
+          </label>
+          <textarea id="bkSlideNote" placeholder="Ketik kata kunci, kutipan cerita, atau poin penting klien saat wawancara berlangsung..." style="width:100%;height:58px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 12px;color:#fff;font-size:13px;resize:none;box-sizing:border-box;font-family:inherit;"></textarea>
+        </div>
+      </div>
+
+      <!-- Slide Controls Bar -->
+      <div class="slide-controls" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-top:1px solid rgba(255,255,255,0.08);background:rgba(0,0,0,0.2);box-sizing:border-box;">
+        <button type="button" id="bkSlidePrev" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;">← Pertanyaan Sebelumnya</button>
+        
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:11px;color:#749c8e;">Gunakan tombol panah ◀ ▶ pada keyboard</span>
+        </div>
+
+        <button type="button" id="bkSlideNext" style="background:#2d6a4f;color:#fff;border:1px solid #40916c;border-radius:8px;padding:8px 22px;font-size:13px;font-weight:700;cursor:pointer;">Pertanyaan Berikutnya →</button>
+      </div>
+    </div>
+
+    <!-- CATALOG FORM LAYOUT -->
+    <div class="brandkit-layout">
+      <nav class="brandkit-catalog" aria-label="Dokumen kuesioner">
+        <div class="bk-catalog-label">KATALOG · 6 DOKUMEN</div>
+        <button type="button" class="bk-doc active" data-bk="stance"><b>01</b><span>Brand stance &amp; visual identity<small>Identitas, suara, persepsi, buyer mirror</small></span></button>
+        <button type="button" class="bk-doc" data-bk="avatar"><b>02</b><span>Avatar &amp; ICP matrix<small>Segmen, situasi, friksi, kebutuhan</small></span></button>
+        <button type="button" class="bk-doc" data-bk="assets"><b>03</b><span>Business context &amp; media library<small>Foto, video, brand assets, izin penggunaan</small></span></button>
+        <button type="button" class="bk-doc" data-bk="strategy"><b>04</b><span>Business strategy &amp; goals<small>Keahlian, penawaran, target, arah</small></span></button>
+        <button type="button" class="bk-doc" data-bk="villain"><b>05</b><span>Villain &amp; misbelief mapping<small>Musuh bersama, keyakinan, sudut pandang</small></span></button>
+        <button type="button" class="bk-doc" data-bk="ecosystem"><b>06</b><span>Content &amp; conversion ecosystem<small>Mesin ide, konten, bukti, workflow</small></span></button>
+        <div class="bk-progress"><b id="bkAnswered">0</b> jawaban terisi <span id="bkProgress">· Dokumen 1 dari 6</span></div>
+      </nav>
+      <main class="brandkit-main" id="bkContent"></main>
+    </div>
+  </div>
+</div>
+
+<script>
+
+// ==========================================
+// PERSONAL BRAND AUDIT / BRANDKIT ENGINE
+// ==========================================
+const BRANDKIT_DOCS = {"stance": {"title": "The Brand Stance & Visual Identity", "sub": "Siapa Anda, keahlian nyata di lapangan, cara Anda berpikir, dan reputasi yang ingin dibangun.", "sections": [["A · One-of-one brand & positioning", "Temukan keunikan pengalaman operasional dan cara pandang yang sulit ditiru kompetitor.", [["Apa keahlian teknis mendalam yang Anda kuasai yang jarang dipahami orang awam?", "Tuliskan wawasan yang datang dari jam terbang operasional nyata di lapangan, bukan sekadar teori."], ["Pencapaian atau hasil operasional nyata apa yang telah Anda buktikan sendiri?", "Contoh: kapasitas produksi/potong harian, jumlah resto/klien yang rutin disuplai, rekor efisiensi susut, atau bertahan dari krisis pasar."], ["Apa yang sedang Anda bangun dan kembangkan saat ini?", "Contoh: modernisasi fasilitas/cold chain, sertifikasi mutu, memperluas jaringan suplai, dan membangun jalur edukasi/mentoring bagi pengusaha baru."], ["Bagaimana cara Anda berpikir dan mengambil keputusan dalam bisnis?", "Contoh: hitung margin per gram, jujur dan transparan pada timbangan/kualitas, disiplin operasional lapangan, anti-spekulasi. Ceritakan kejadian nyata."], ["Apa prinsip atau keyakinan inti Anda tentang bisnis yang Anda jalankan?", "Contoh: banyak orang gagal bukan karena kurang modal, tapi karena buta hitungan susut operasional dan lalai menjaga standar kebersihan/kualitas."], ["Siapa yang Anda bantu, hasil nyata apa yang mereka inginkan, dan melalui mekanisme apa?", "Rumuskan: “Saya membantu [siapa, misal: pebisnis kuliner / calon pengusaha lokal] mencapai [hasil, misal: pasokan stabil, higienis & margin aman] melalui [mekanisme, misal: SOP operasional terstandar & kalkulasi HPP presisi], karena saya percaya [keyakinan Anda].”"], ["Bagagian mana dari positioning ini yang menjadi kompas konten harian Anda?", "Pesan utama apa yang ingin selalu Anda ulang di setiap video atau postingan?"]]], ["B · Buyer mirror (Suara Pelanggan & Klien)", "Tanyakan langsung kepada 3–5 pelanggan setia atau pembeli yang pernah Anda bimbing. Catat kutipan persis mereka.", [["Konten atau penjelasan spesifik apa yang pertama kali membuat Anda memutuskan membeli atau belajar dari saya?"], ["Mengapa Anda memilih bertransaksi/bekerjasama dengan saya dibanding kompetitor atau pedagang lain?"], ["Karakter atau sifat saya apa yang paling Anda ingat dan membuat Anda percaya?"], ["Masalah atau kekhawatiran awal apa yang Anda bawa sebelum bekerja sama? Apa akar masalah sebenarnya yang baru Anda sadari setelahnya?"], ["Keraguan apa yang hampir membuat Anda ragu membeli? Bukti atau penjelasan apa yang akhirnya meyakinkan Anda?"], ["Perubahan atau hasil terukur apa yang paling Anda rasakan setelah menggunakan produk atau menerapkan arahan saya?"], ["Kalimat atau istilah apa yang Anda gunakan saat merekomendasikan saya ke rekan atau keluarga?"]]], ["C · Karakter, suara & gaya komunikasi", "Pilih 4–6 ciri yang akan terlihat konsisten. Tampilkan perilaku nyata di depan kamera.", [["Karakter mana yang paling alami: Praktisi Lapangan (turun tangan langsung), Pembongkar Mitos (edukasi jujur & blak-blakan), Ahli Margin & Angka (fokus efisiensi & HPP), atau Mentor Industri (membimbing pemula dari nol)? Pilih dan beri contoh perilakunya."], ["Satu karakter apa yang ingin Anda tonjolkan lebih berani di media sosial? Perilaku nyata apa yang akan terlihat di video?"], ["Dalam 3 detik pertama melihat video atau profil Anda, kesan apa yang wajib langsung tertanam di kepala penonton?"], ["Opini tegas apa di industri Anda yang membuat klien ideal merasa “ini orang yang tepat dan jujur”, meski mungkin ada kompetitor yang tersindir?"], ["Praktik curang atau hal buruk apa di industri yang Anda tolak keras dan tidak boleh diasosiasikan dengan brand Anda?"], ["Bagaimana gaya komunikasi alami Anda: lugas tanpa basa-basi, tenang mengayomi, teknis terperinci, atau santai merakyat? Kata/istilah apa yang sering Anda gunakan atau hindari?"], ["Tunjukkan contoh cara Anda menyampaikan satu masalah: versi obrolan santai di lapangan, versi edukasi teknis, dan versi pesan opini tegas."]]], ["D · Visual identity & lingkungan kerja", "Manfaatkan visual nyata dari lokasi usaha sehari-hari sebagai magnet perhatian.", [["Apa 3–5 titik lokasi di tempat usaha Anda yang menarik dan siap dijadikan latar syuting rutin? (Contoh: area penanganan/pemotongan, cold storage, ruang timbang, meja nota, atau saat berinteraksi dengan pembeli)."], ["Apa yang pakaian kerja, gestur tubuh, dan suasana tempat kerja Anda komunikasikan tentang keaslian dan profesionalisme Anda?"], ["Warna, sudut kamera (framing), dan pencahayaan seperti apa yang ingin dijaga konsisten agar video tampak bersih dan profesional?"], ["Elemen visual apa yang wajib disamarkan atau dihindari (misal: area kotor tanpa sanitasi, data rahasia pelanggan, atau visual yang terlalu grafis/melanggar aturan platform)?"], ["Akun atau kreator bisnis lapangan/kuliner siapa yang gaya visualnya Anda sukai? Apa elemen spesifik yang ingin diadaptasi tanpa meniru mentah-mentah?"], ["Setup rekaman paling sederhana apa yang bisa Anda lakukan mandiri setiap minggu tanpa membebani pekerjaan utama? (Kamera ponsel, mic clip-on, tripod sederhana)."]]]]}, "avatar": {"title": "The Avatar & ICP Matrix", "sub": "Siapa yang Anda layani, masalah nyata dalam operasional harian mereka, dan kapan mereka siap membeli produk fisik atau materi edukasi Anda.", "sections": [["A · Tiga segmen audiens utama (Pembeli Produk Fisik & Pembeli Edukasi)", "Petakan profil tiga kelompok pembeli: calon pengusaha, pemilik resto langganan, dan partner skala besar.", [["TIER 1 · Pemula & Calon Pengusaha (Pembeli Edukasi Tingkat Dasar)", "Siapa mereka? Modal awal, latar belakang, dan rutinitas harian mereka sebelum memulai usaha?"], ["TIER 1 · Kendala & Ketakutan Utama", "Apa ketakutan terbesar mereka? (Contoh: takut rugi susut bobot, ditipu calo bibit/pakan/hewan, tidak tahu cara dapat izin atau supplier murah)."], ["TIER 1 · Kebutuhan & Hasil yang Dicari", "Panduan apa yang paling mendesak mereka butuhkan? (Contoh: kalkulator HPP, checklist modal awal, panduan mencari supplier jujur)."], ["TIER 1 · Titik Pemicu Bertindak", "Momen apa yang membuat mereka memutuskan membeli panduan/kursus Anda sekarang dibanding mencoba-coba sendiri?"], ["TIER 2 · Pelaku Usaha Berjalan / Pemilik Resto Lokal (Pembeli Pasokan Rutin & Mentoring)", "Siapa mereka? Volume kebutuhan atau kapasitas usaha mereka saat ini (misal resto yang butuh 50–200 kg/hari, atau pemilik kios yang ingin naik kelas)?"], ["TIER 2 · Kendala & Friksi Operasional", "Masalah apa yang membuat mereka pusing setiap hari? (Contoh: kiriman daging sering terlambat, timbangan susut, mutu tidak konsisten, atau cashflow tersendat di piutang)."], ["TIER 2 · Kebutuhan & Hasil yang Dicari", "Bagaimana mereka ingin menstabilkan pasokan, menjaga margin dapur, atau memperbaiki SOP penanganan daging mereka?"], ["TIER 2 · Titik Pemicu Bertindak", "Kejadian kritis apa yang membuat mereka beralih ke Anda? (Contoh: kecewa berat dengan supplier lama atau rugi operasional berturut-turut)."], ["TIER 3 · Pengusaha Skala Besar & Investor (Konsultasi Setup Fasilitas & Kontrak Besar)", "Siapa mereka? Investor, pemilik jaringan kuliner multi-cabang, atau pengusaha yang ingin membangun fasilitas mandiri dari nol?"], ["TIER 3 · Kendala & Hambatan Skala Besar", "Apa risiko terbesar mereka? (Contoh: salah desain tata ruang higienis, mesin tidak efisien, gagal lolos sertifikasi Halal/NKV, atau kebocoran operasional)."], ["TIER 3 · Kebutuhan & Hasil yang Dicari", "Supervisi, rancangan blueprint fasilitas, audit alur kerja, atau kepastian rantai pasok jangka panjang apa yang mereka cari dari Anda?"], ["TIER 3 · Kriteria Memilih Konsultan/Partner", "Mengapa mereka percaya pada pengalaman lapangan Anda dibanding konsultan teori akademis?"]]], ["B · Masalah nyata di lapangan vs bahasa prospek", "Utamakan friksi operasional nyata dan kata-kata asli yang sering mereka ucapkan.", [["Kejadian spesifik apa yang berulang kali membuat prospek frustrasi dan merasa rugi dalam bisnis ini?"], ["Apa yang biasanya terjadi sebelum, saat, dan sesudah masalah itu muncul dalam operasional harian?"], ["Berapa kerugian materiil, waktu, dan mental yang harus ditanggung bila masalah itu dibiarkan berlarut-larut?"], ["Solusi instan atau nasihat salah apa yang sudah mereka coba namun gagal total?"], ["Rasa takut atau prasangka apa yang membuat mereka ragu mengeluarkan biaya untuk belajar atau berganti supplier?"], ["Pertanyaan, keluhan, atau keberatan apa yang paling sering Anda dengar saat berbicara langsung dengan calon pembeli? Tuliskan kalimat persis mereka."], ["Kata kunci atau kalimat apa yang sering diketik calon pelanggan di Google, TikTok, atau Instagram saat mencari solusi Anda?"]]], ["C · Jembatan Konten Viral → Pembeli yang Tepat (Dream Follower to Buyer Bridge)", "Gunakan topik menarik untuk jangkauan luas, lalu saring mereka yang benar-benar siap menjadi pembeli.", [["Topik edukasi umum apa yang bisa menarik ribuan penonton biasa namun tetap menunjukkan keahlian bisnis Anda? (Contoh: trik membedakan kualitas daging segar vs oplosan)."], ["Detail atau contoh nyata apa di dalam video yang langsung membuat calon pembeli/calon murid merasa “ini masalah saya sehari-hari”?"], ["Siapa yang BUKAN target produk atau program edukasi Anda? Batasan tegas apa yang harus Anda katakan secara jujur?"], ["Apa 3 pertanyaan penyaring untuk membedakan penonton yang sekadar kepo dari orang yang siap membeli produk atau ikut mentoring Anda?"]]]]}, "assets": {"title": "Business Context & Media Library", "sub": "Kumpulkan bukti visual nyata, dokumentasi fasilitas, dan footage operasional harian yang akan menjadi bahan baku konten.", "sections": [["A · Pengiriman galeri via Telegram atau Cloud", "Kirim foto & video harian langsung via Telegram @JordanEngo untuk ditarik otomatis oleh bot & Gemini CLI ke album Immich, atau tautan folder cloud bersama.", [["Kirim langsung ke Telegram @JordanEngo atau tautan folder cloud (Google Drive / Dropbox)", "Buka galeri HP, pilih 10-20 foto (wajah, timbangan, nota, cold storage) + video pendek 5-15s, kirim ke Telegram atau cantumkan tautan folder di sini."], ["Siapa penanggung jawab folder ini dan siapa yang bisa dihubungi untuk konfirmasi materi?"], ["Apakah folder ini sudah siap diakses tim produksi konten dan berapa lama masa pakainya?"], ["Adakah catatan mengenai ukuran file, format rekaman kamera/ponsel, atau kapasitas penyimpanan?"]]], ["B · Konteks operasional & fasilitas bisnis", "Berikan gambaran jelas agar tim memahami proses kerja dan standar mutu bisnis Anda.", [["Apa produk/layanan utama Anda? Bagaimana alur pesanan dari pemesanan, penyiapan barang, hingga pengiriman?"], ["Bagaimana proses perjalanan barang dari bahan baku masuk (supplier/peternak), penanganan di lokasi, sampai ke tangan pelanggan?"], ["Apa keunggulan fisik dan standar kerja yang membuat bisnis Anda berbeda dari pedagang umum lainnya?"], ["Siapa orang kunci di tempat usaha Anda? Siapa yang bersedia tampil di depan kamera untuk berbagi cerita atau demonstrasi?"], ["Alat, mesin, area kerja, atau proses kerja apa yang paling ikonik dan menarik secara visual untuk diperlihatkan ke audiens?"], ["Hal teknis penting apa yang sering salah dipahami orang jika hanya melihat foto/video tanpa penjelasan Anda?"]]], ["C · Inventaris foto fisik & dokumen", "Kumpulkan foto aset pendukung yang siap digunakan untuk profil, sampul video, dan materi promosi.", [["Logo usaha, papan nama toko/fasilitas, kemasan produk, dan foto profil/potret pemilik bisnis.", "Folder: 01_identitas_dan_profil"], ["Produk karkas/potongan, varian kemasan, hasil timbangan, perbandingan sebelum vs sesudah diproses.", "Folder: 02_produk_dan_kemasan"], ["Fasilitas tempat kerja, mesin pemotongan/pencucian, cold storage, ruang timbang, dan tim yang sedang bekerja.", "Folder: 03_fasilitas_dan_proses"], ["Sertifikat Halal, Nomor Kontrol Veteriner (NKV), hasil uji laboratorium, piagam izin dinas peternakan/kesehatan.", "Folder: 04_sertifikasi_dan_legalitas"], ["Dokumentasi pengiriman ke pelanggan resto/hotel, foto serah terima timbangan, testimoni nota/pesan WhatsApp (disamarkan bila privat).", "Folder: 05_klien_dan_bukti"]]], ["D · Inventaris video & footage mentah (B-Roll Goldmine)", "Unggah rekaman video asli dari kamera/ponsel tanpa kompresi untuk diolah menjadi klip konten.", [["Footage suasana operasional dini hari/pagi: kedatangan bahan baku, penimbangan awal, dan kesibukan tim."], ["Footage proses kerja inti: teknik pemotongan halal, mesin pencabutan bulu, pembersihan, pemisahan bagian karkas (parting), dan chilling room."], ["Footage uji kualitas & higienitas: pengecekan suhu daging dengan termometer tusuk, tes warna/kebersihan, dan sanitasi air."], ["Footage pengemasan, timbangan digital transparan, dan muat barang ke armada pengiriman berpendingin/box tertutup."], ["Rekaman obrolan santai atau sesi wawancara pemilik bisnis menjelaskan seluk-beluk hitungan dan trik lapangan."], ["Video mana yang paling mendesak dan menarik untuk diolah menjadi konten pertama? Mengapa?"]]], ["E · Izin penggunaan, privasi & kepatuhan platform", "Pastikan materi aman dipublikasikan dan mematuhi pedoman komunitas platform video.", [["Daftar aset mana saja yang bebas dipublikasikan ke media sosial tanpa batasan?"], ["Apakah seluruh karyawan atau mitra yang terekam wajah dan suaranya sudah memberikan persetujuan untuk tayang di medsos?"], ["Data apa yang WAJIB diburamkan (blur) atau disembunyikan: nama resto pelanggan (bila ada NDA), plat nomor kendaraan, nomor rekening, kontak pribadi di nota?"], ["Batasan visual untuk aturan platform (Community Guidelines): pastikan proses pemotongan darah tidak disorot terlalu vulgar/grafis agar video tidak di-takedown oleh TikTok/Instagram/YouTube."], ["Apakah pemilik bisnis ingin meninjau (review) draf video sebelum dijadwalkan tayang? Siapa penanggung jawab review dan berapa jam batas persetujuannya?"], ["Catatan khusus lain terkait izin lingkungan, perjanjian dagang, atau tanggal sensitif produk."]]]]}, "strategy": {"title": "Business Strategy & Goals Framework", "sub": "Peta keahlian lapangan, model monetisasi pengetahuan (buku, SOP, kursus, konsultasi), dan target pertumbuhan usaha.", "sections": [["A · Keahlian lapangan & zona genius", "Fokus pada kompetensi praktis yang benar-benar bisa Anda buktikan dan ajarkan ke orang lain.", [["Apa keahlian Anda di area Pengadaan & Rantai Pasok (Sourcing & Supply Chain)?", "Cara memilih supplier/peternak tepercaya, negosiasi harga kandang/DO, mendeteksi kesehatan bibit/hewan, dan menjaga stabilitas pasokan harian."], ["Apa keahlian Anda di area Operasional & Standar Higienis?", "Teknik pemotongan halal terstandar, manajemen rantai dingin (cold chain 0–4°C), sanitasi tempat, alur kerja efisien, dan cara meminimalkan susut bobot."], ["Apa keahlian Anda di area Pengelolaan Produk & Margin (Yield & Cutting)?", "Cara memilah karkas utuh menjadi potongan (dada, paha, sayap, jeroan, ceker), menentukan harga jual tiap bagian agar margin optimal dan tidak ada stok menumpuk."], ["Apa keahlian Anda di area Penjualan B2B & Distribusi Lokal?", "Cara menembus suplai resto/katering/hotel, menjaga ketepatan waktu pengiriman pagi, dan mengelola tempo pembayaran agar cashflow tetap sehat."], ["Apa keahlian Anda di area Legalitas & Sertifikasi Industri?", "Pengurusan sertifikasi Halal (JULEHA/BPJPH), Nomor Kontrol Veteriner (NKV), izin sanitasi dinas, dan pemenuhan standar keamanan pangan."], ["Bagaimana kombinasi pengalaman nyata ini membedakan Anda dari edukator teori yang tidak memiliki bisnis fisik sendiri?"], ["Dari seluruh keahlian tersebut, materi apa yang paling siap Anda jadikan panduan tertulis, template hitungan, atau video pembelajaran hari ini?"]]], ["B · Target bisnis, omzet & monetisasi pengetahuan", "Tetapkan target pertumbuhan fisik dan potensi pendapatan dari lini edukasi.", [["Berapa target omzet bulanan dari bisnis fisik dan berapa target pendapatan tambahan yang ingin dicapai dari penjualan ilmu/edukasi?"], ["Mengapa Anda memutuskan mulai berbagi ilmu di media sosial saat ini? Apa tujuan pribadi atau visi besar yang ingin dicapai?"], ["Berapa perkiraan jumlah calon pengusaha, pemilik kios pasar, atau pebisnis kuliner yang membutuhkan panduan Anda di Indonesia?"], ["Segmen calon pembeli mana yang paling siap Anda bimbing dengan kapasitas waktu dan tim Anda sekarang?"], ["Apa kendala atau tantangan terbesar dalam membagi waktu antara mengurus operasional harian dengan membuat konten dan mengajar?"]]], ["C · Tangga produk pengetahuan (Knowledge Product Ladder)", "Rancang tingkatan penawaran dari produk panduan terjangkau hingga pendampingan eksklusif.", [["Tingkat 1 (Low-Ticket / Produk Pembuka): Template Excel kalkulator HPP & susut karkas, checklist persiapan modal RPA, atau ebook SOP sanitasi. Apa ide terbaik Anda?"], ["Tingkat 2 (Mid-Ticket / Pelatihan Intensif): Video course online atau workshop 1 hari mengenai “Membangun Usaha Potong Ayam yang Bersih, Halal & Untung dari Nol”. Bagaimana garis besar materinya?"], ["Tingkat 3 (High-Ticket / Layanan Pendampingan): Private mentoring 1-on-1, pendampingan perizinan Halal/NKV, atau konsultasi desain tata ruang dan setup mesin fasilitas potong. Siapa targetnya?"], ["Batasan apa yang harus dijelaskan secara transparan kepada pembeli ilmu agar tidak ada salah paham atau ekspektasi yang keliru?"], ["Keberatan apa yang paling sering muncul dari calon pembeli edukasi (“apakah bisa diterapkan di kota saya?”, “apakah dijamin balik modal?”, “apakah ilmunya ribet?”) dan bukti nyata apa yang Anda miliki untuk menjawabnya?"]]], ["D · Bukti nyata & rekam jejak (Proof Stack)", "Siapkan bukti nyata yang tak terbantahkan untuk memvalidasi keahlian Anda.", [["Klaim hasil operasional apa yang ingin Anda sampaikan ke publik? Apa rahasia cara kerja di baliknya?"], ["Pengalaman atau proyek nyata mana yang menjadi bukti tak terbantahkan atas klaim tersebut?"], ["Bukti fisik apa yang siap Anda tunjukkan di video: buku catatan timbangan, mutasi rekening omzet, rekaman fasilitas, atau sertifikat resmi?"], ["Bagaimana Anda menjelaskan angka dan data tersebut secara jujur tanpa melebih-lebihkan atau menjanjikan hasil instan?"], ["Bukti mana yang paling membuat orang takjub: rekaman kerja dini hari, kerapian cold storage, kepuasan chef langganan, atau transparansi hitungan margin?"], ["Apakah setiap data transaksi atau nama klien pada bukti tersebut sudah aman dan mendapat izin untuk diperlihatkan?"]]]]}, "villain": {"title": "The Villain & Misbelief Mapping", "sub": "Petakan praktik buruk dan mitos di industri Anda; tegaskan prinsip baru yang Anda perjuangkan.", "sections": [["A · Worldview & opini tegas industri", "Bangun daya tarik dari keberanian menyuarakan kebenaran di industri Anda.", [["Kebiasaan atau nasihat umum apa yang lazim dilakukan di industri Anda, tetapi Anda tolak keras dan anggap keliru?"], ["Mengapa Anda berani melawan kebiasaan tersebut? Ceritakan pengalaman pahit atau kerugian nyata yang pernah Anda saksikan sendiri."], ["Apa pandangan Anda tentang fenomena “banting harga” di pasar? Kapan perang harga justru membunuh kualitas dan mematikan pedagang sendiri?"], ["Bagaimana pandangan Anda tentang penggunaan bahan pengawet/obat kimia atau trik merendam air es demi menambah bobot karkas?"], ["Janji manis atau mitos apa tentang “bisnis peternakan/daging pasti cepat kaya” yang sering menjerumuskan pemula?"], ["Bagaimana sikap tegas Anda membantu calon pengusaha yang ingin berbisnis secara jujur dan berkah?"], ["Topik kontroversial apa yang sengaja TIDAK akan Anda bahas di konten karena hanya memicu drama tanpa nilai edukasi?"]]], ["B · Musuh bersama industri (The Common Enemy)", "Bantu audiens mengenali jebakan dan pola lama yang merugikan mereka.", [["Apa “cara lama yang salah” yang saat ini masih diandalkan banyak orang di bisnis ini? (Contoh: asal tebak timbangan, pasrah ditipu broker nakal, simpan daging tanpa rantai dingin)."], ["Bagaimana cara lama tersebut perlahan-lahan menghancurkan bisnis dan reputasi mereka? Apa penyebab mendasarnya?"], ["Berapa kerugian tersembunyi yang hilang: daging membusuk, restoran langganan kabur, atau izin usaha dicabut dinas?"], ["Apa standar kerja baru atau solusi terukur yang Anda tawarkan untuk memutus lingkaran setan tersebut?"], ["Apa satu langkah awal paling mudah yang bisa dilakukan pemula hari ini untuk beralih ke standar yang benar?"], ["Bagaimana cara mengedukasi masyarakat tanpa menjelek-jelekkan pedagang tradisional atau memicu perselisihan di pasar?"]]], ["C · Pergeseran pola pikir (Misbelief Shift Grid)", "Bongkar kesalahpahaman umum dan berikan cara pandang baru yang logis.", [["Mitos 1: “Buka usaha potong hewan/karkas harus punya modal ratusan juta dan tempat megah sejak awal.” Bagaimana Anda mematahkan mitos ini berdasarkan pengalaman nyata?"], ["Mitos 2: “Restoran dan pembeli cuma cari harga yang paling murah, kualitas tidak dipedulikan.” Apa fakta sebenarnya dari pengalaman Anda melayani pelanggan loyal?"], ["Mitos 3: “Jualan daging itu mudah, tinggal potong dan jual pasti untung.” Apa realitas hitungan susut air, darah, dan biaya es yang harus mereka pahami?"], ["Mitos apa lagi yang sering diucapkan pemula saat berkonsultasi dengan Anda? Tuliskan kalimat asli mereka."], ["Bukti atau simulasi angka apa yang paling ampuh menyadarkan mereka dari mitos tersebut?"], ["Sikap atau kebiasaan baru apa yang ingin Anda lihat dari murid atau klien setelah mereka memahami kebenaran tersebut?"], ["Kondisi khusus apa di mana aturan ini memiliki pengecualian? Jelaskan batasannya agar tetap objektif."]]], ["D · Storytelling titik balik & ketegangan nyata (HSTSS)", "Gunakan formula cerita nyata untuk menyentuh emosi dan membangun kepercayaan mendalam.", [["HOOK: Pertemuan dua hal yang kontras untuk menghentikan jempol penonton (Contoh: “Saya rugi jutaan rupiah dalam semalam gara-gara perbedaan suhu 2 derajat celcius”)."], ["STAKES: Taruhan besar apa yang sedang dipertaruhkan saat kejadian itu? (Modal kerja hampir habis, risiko kehilangan kontrak terbesar, reputasi usaha)."], ["TURN: Realisasi atau momen klik apa yang membalikkan pemahaman Anda selama ini?"], ["SCENE: Ceritakan adegan fisik nyata yang sangat membekas di memori Anda. (Contoh: Berdiri kedinginan jam 03.30 subuh di depan timbangan saat 500 ekor ayam datang, dan melihat timbangan susut drastis karena salah armada pengiriman)."], ["SHATTER: Keyakinan lama apa yang seketika hancur dan digantikan oleh prinsip bisnis Anda hari ini?"], ["Lengkapi pola cerita: “Dulu saya percaya bahwa __. Lalu kejadian __ menimpa saya. Saya tersadar bahwa __. Sejak itu saya mengubah __. Hasilnya __. Dan sekarang saya memegang teguh prinsip bahwa __.”"], ["Apakah cerita ini aman untuk diceritakan ke publik tanpa menyinggung pihak tertentu yang terlibat di masa lalu?"]]]]}, "ecosystem": {"title": "The Content & Conversion Ecosystem", "sub": "Ubah dinamika harian di tempat usaha menjadi magnet konten, bangun kepercayaan, dan arahkan penonton ke pembelian karkas atau materi edukasi.", "sections": [["A · Mesin ide konten dari rutinitas harian", "Jadikan kejadian nyata di tempat kerja sebagai sumber ide yang tak pernah habis.", [["Pertanyaan atau keluhan apa yang paling sering diajukan pembeli saat memesan di tempat Anda?"], ["Kejadian tak terduga apa di operasional harian yang bisa dijadikan pelajaran berharga? (Contoh: kiriman terlambat, ayam mati di perjalanan, trik supplier yang ketahuan, komplain chef resto)."], ["Pilih satu sumber ide nyata: masalah kiriman subuh, perbedaan timbangan basah vs kering, perizinan dinas, trik memotong daging, atau pertanyaan karyawan baru. Ceritakan konteksnya."], ["Ubah kejadian tersebut menjadi rumus konten: Observasi Nyata di Lapangan + Fakta Tak Terduga + Bukti Fisik + Solusi/SOP yang Anda Terapkan."], ["Pilih sudut pandang (angle) penyampaian yang paling tepat: Edukasi Praktis, Bongkar Mitos, Dokumentasi Lapangan, Eksperimen/Uji Coba, atau Opini Berani. Mengapa angle itu dipilih?"], ["Bagaimana satu ide teknis (misal: susut bobot karkas) bisa diubah menjadi: versi tips cepat (Reel/TikTok), versi demonstrasi alat (video YouTube/panjang), dan versi cerita pengalaman pribadi?"]]], ["B · Saluran konversi penonton menjadi pembeli (TOF - MOF - BOF)", "Rancang alur perjalanan audiens dari sekadar menonton hingga membeli produk atau kursus.", [["Konten Pintu Masuk (TOF - Viral): Topik edukasi ringan atau fakta menarik apa yang memicu rasa penasaran masyarakat luas? (Contoh: “Cara membedakan daging segar vs tiren dalam 3 detik” atau “Berapa banyak daging yang hilang saat ayam dipotong?”)."], ["Konten Pembangun Kepercayaan (MOF - Authority): Demonstrasi teknis atau bukti standar kerja apa yang membuktikan profesionalisme Anda? (Contoh: tur ruang pendingin/cold chain, sertifikat Halal, simulasi hitungan HPP di papan tulis/Excel)."], ["Konten Ajakan Bertindak (BOF - Conversion): Ajakan spesifik apa yang ditawarkan ke penonton yang ingin memesan produk karkas atau ingin membeli materi mentoring/konsultasi Anda?"], ["Platform media sosial mana yang menjadi fokus utama penyebaran video pendek (TikTok, Instagram Reels, YouTube Shorts)?"], ["Format video panjang apa (YouTube atau rekaman sesi) yang akan menampung penjelasan mendalam untuk calon murid/klien serius?"], ["Apa produk pancingan gratis (Lead Magnet) yang bisa dibagikan untuk mengumpulkan kontak WA calon pengusaha? (Contoh: PDF Checklist Modal Usaha atau Tabel Standar Bobot Potong)."], ["Bagaimana alur komunikasi setelah calon pembeli klik tautan di bio profil Anda (Linktree -> WhatsApp Admin -> Katalog Produk / Pendaftaran Mentoring)?"]]], ["C · Satu topik rekaman mendalam dipecah menjadi 20 konten pendek", "Gunakan metode batch recording satu jam untuk stok konten sebulan penuh.", [["Topik besar apa yang bisa Anda bahas tuntas dalam 60 menit sesi wawancara santai? (Contoh: “Bongkar Seluruh Alur Usaha Potong Unggas dari Pemilihan Bibit hingga Tembus Suplai Restoran Bintang Empat”)."], ["Siapa yang bertindak sebagai penanya (pewawancara) untuk memancing jawaban spontan dan mendalam dari Anda?"], ["Daftar potongan klip apa saja yang bisa dihasilkan: tips perizinan, trik memilih supplier, cara hitung susut, kesalahan pemula, cara closing resto, manajemen bau/limbah, dll."], ["Pesan kunci dan ajakan bertindak (CTA) apa yang wajib ditegaskan di akhir sesi rekaman tersebut?"], ["Visual pendukung (B-roll) apa yang perlu disiapkan untuk disisipkan ke dalam potongan klip tersebut?"]]], ["D · Uji kelayakan & skor kualitas konten (Content Scorecard)", "Pastikan setiap ide konten memiliki nilai praktis dan tidak sekadar mengejar sensasi kosong.", [["DAYA TARIK (Attention): Apakah 3 detik pertama video langsung menampilkan hal yang menarik atau membongkar rasa penasaran? Beri skor 1–5."], ["RELEVANSI (Relevance): Apakah masalah yang dibahas benar-benar dirasakan oleh calon pelanggan atau calon murid Anda?"], ["KEUNIKAN (Uniqueness): Apakah video ini hanya bisa dibuat oleh praktisi yang benar-benar punya usaha fisik, bukan kreator teori belaka?"], ["BUKTI NYATA (Proof): Apakah ada visual benda fisik, timbangan, tempat kerja, atau data yang terlihat di kamera?"], ["OTORITAS (Authority): Apakah video ini memperkuat posisi Anda sebagai rujukan terpercaya di industri perunggasan/daging lokal?"], ["NILAI EDUKASI (Value): Apakah penonton mendapatkan wawasan baru yang bisa langsung mereka pahami atau terapkan?"], ["Tujuh cek sebelum unggah: Apakah ini dialami sendiri? Ada bukti fisiknya? Bahasa mudah dipahami? Menjaga etika & tidak vulgar? Menampilkan ciri khas Anda? Audiens target mengenali situasinya? Ajakan bertindak jelas?"]]], ["E · Jadwal kerja produksi & distribusi bagi pemilik bisnis", "Buat alur produksi yang dapat berjalan konsisten tanpa mengorbankan operasional harian.", [["Studi Kasus / Cerita Sukses Nyata: Ceritakan satu pengalaman membantu pelanggan resto atau membimbing pengusaha pemula hingga mereka berhasil dan puas."], ["Alur Kerja Sederhana: PENGUMPULAN IDE (dari catatan harian) -> REKAMAN (1–2 jam per minggu) -> EDITING (oleh tim/editor) -> TAYANG -> RESPON CHAT. Siapa yang memegang tiap peran?"], ["Peran apa yang Anda pegang: FOKUS BICARA & REKAM -> PERIKSA HASIL -> SETUJUI TAYANG. Tugas teknis apa yang didelegasikan ke tim?"], ["Kapan jadwal paling realistis untuk syuting tanpa mengganggu jam sibuk operasional usaha? (Contoh: Setiap Selasa pagi setelah pengiriman selesai)."], ["Saluran distribusi mana yang diprioritaskan pertama kali untuk membangun audiens lokal dan nasional?"], ["Ukuran keberhasilan bisnis apa yang dipantau setiap minggu: jumlah pesan WhatsApp masuk, order karkas baru, dan pendaftar program mentoring/konsultasi?"], ["Langkah eksperimen konten dalam 30 hari pertama: target posting 12–15 video pendek dan evaluasi respon calon pelanggan."]]]]}};
+const videoGuide = `<div class="bk-video"><h3>🎥 Cara merekam jawaban menjadi bahan konten</h3><p>Untuk setiap topik penting, buat satu klip jawaban 2–5 menit. Bicara ke kamera seolah menjawab klien ideal atau calon murid yang sedang berkonsultasi langsung di depan Anda; tidak perlu menghafal naskah kaku.</p><ol><li><b>Set up:</b> ponsel horizontal untuk wawancara/video panjang, vertikal untuk klip media sosial; posisi kamera setinggi mata, pencahayaan dari depan, suasana tenang, audio jernih. Rekam 10 detik untuk tes suara.</li><li><b>Mulai dengan label:</b> sebutkan nomor dokumen, pertanyaan yang dijawab, tanggal, dan apakah boleh dipublikasikan. Jangan sebut rahasia dagang atau nama pelanggan tanpa izin.</li><li><b>Jawab berurutan:</b> situasi nyata di lapangan → masalah yang terjadi → apa yang Anda pikirkan → tindakan teknis yang Anda ambil → hasil/bukti timbangan → pelajaran penting → siapa yang wajib tahu hal ini.</li><li><b>Berikan detail spesifik:</b> sebutkan angka, takaran, bobot gram, suhu celcius, waktu kejadian, istilah teknis lokal, dialog yang Anda ingat, atau kekeliruan yang pernah terjadi.</li><li><b>Tunjukkan bukti (B-roll):</b> bila memungkinkan, rekam alat kerja, produk, timbangan, nota, atau area fasilitas sebagai gambar pendukung terpisah.</li><li><b>Penutup:</b> sampaikan satu kesimpulan tegas, bantah satu mitos salah, dan beri ajakan bertindak yang wajar. Diam 2 detik sebelum mematikan rekaman.</li><li><b>Serahkan:</b> simpan dengan format nama file yang rapi; unggah ke folder cloud beserta catatan izin publikasi dan bagian penting yang wajib disorot.</li></ol><div class="bk-q"><label>Latihan video 60–90 detik · “Ceritakan satu pengalaman nyata di tempat usaha Anda saat menyadari bahwa sukses di bisnis ini bukan soal modal besar atau banting harga, melainkan soal disiplin menjaga standar kebersihan, hitungan susut, dan kejujuran.”</label><textarea data-key="video:practice"></textarea><div class="bk-helper">Pakai alur: fakta pembuka → kejadian nyata di lapangan → titik balik/kesadaran → tindakan perubahan → prinsip yang Anda pegang sekarang.</div></div></div>`;
+
+let curBrandkitDoc = 'stance';
+
+function openPersonalBrandAuditTab() {
+  const btn = document.querySelector('#modeSetupContainer [data-tab="brand-audit"]');
+  if (btn) {
+    btn.click();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function renderBrandkitContent() {
+  const content = document.getElementById('bkContent');
+  const nav = [...document.querySelectorAll('#brand-audit .bk-doc')];
+  if (!content) return;
+
+  const d = BRANDKIT_DOCS[curBrandkitDoc];
+  if (!d) return;
+  const idx = Object.keys(BRANDKIT_DOCS).indexOf(curBrandkitDoc);
+  nav.forEach(b => b.classList.toggle('active', b.dataset.bk === curBrandkitDoc));
+  
+  const progressEl = document.getElementById('bkProgress');
+  if (progressEl) progressEl.textContent = `· Dokumen ${idx + 1} dari ${Object.keys(BRANDKIT_DOCS).length}`;
+
+  content.innerHTML = `
+    <article class="bk-panel">
+      <header class="bk-panel-head">
+        <span class="paper-label">DOKUMEN 0${idx + 1} · DIAGNOSTIK BRAND</span>
+        <h2>${d.title}</h2>
+        <p>${d.sub}</p>
+        <span class="bk-step">Tahap ${idx + 1}/6 · Simpan jawaban otomatis di browser ini</span>
+      </header>
+      ${idx === 0 ? videoGuide : ''}
+      ${d.sections.map((s, si) => `
+        <section class="bk-section">
+          <h3>${s[0]}</h3>
+          <p>${s[1]}</p>
+          ${s[2].map((q, qi) => {
+            const txt = Array.isArray(q) ? q[0] : q;
+            const helper = Array.isArray(q) ? q[1] : '';
+            const id = `${curBrandkitDoc}:${si}:${qi}`;
+            return `
+              <div class="bk-q">
+                <label for="${id}">${txt}${helper ? `<em>${helper}</em>` : ''}</label>
+                <textarea id="${id}" data-key="${id}" placeholder="Tuliskan jawaban nyata bisnis Anda di sini..."></textarea>
+              </div>
+            `;
+          }).join('')}
+        </section>
+      `).join('')}
+      <section class="bk-section">
+        <h3>Persetujuan, sensitivitas &amp; tindak lanjut</h3>
+        <p>Periksa privasi dan kepemilikan bahan sebelum dipakai tim konten.</p>
+        <div class="bk-checks">
+          <label class="bk-check"><input type="checkbox" data-key="${curBrandkitDoc}:consent:public"> Bahan bertanda aman boleh dipakai publik</label>
+          <label class="bk-check"><input type="checkbox" data-key="${curBrandkitDoc}:consent:client"> Ada cerita/bukti klien dengan izin tertulis</label>
+          <label class="bk-check"><input type="checkbox" data-key="${curBrandkitDoc}:consent:review"> Klien ingin meninjau konten sebelum tayang</label>
+          <label class="bk-check"><input type="checkbox" data-key="${curBrandkitDoc}:consent:private"> Ada jawaban yang tetap privat</label>
+        </div>
+        <div class="bk-q">
+          <label>Catatan rahasia / perlu disamarkan / izin yang belum ada</label>
+          <textarea data-key="${curBrandkitDoc}:consent:notes"></textarea>
+        </div>
+      </section>
+      <div class="bk-footer">
+        <small>Jawaban tersimpan otomatis di browser perangkat ini.</small>
+        <div>
+          <button type="button" id="bkPrev">← Dokumen Sebelumnya</button>
+          <button class="next" type="button" id="bkNext">${idx === Object.keys(BRANDKIT_DOCS).length - 1 ? 'Selesai &amp; Tinjau Draft Konten →' : 'Dokumen berikutnya →'}</button>
+        </div>
+      </div>
+    </article>
+  `;
+
+  // Bind auto-save
+  content.querySelectorAll('[data-key]').forEach(el => {
+    const k = 'agentz-brandkit:' + el.dataset.key;
+    const val = localStorage.getItem(k);
+    if (el.type === 'checkbox') el.checked = (val === 'true');
+    else if (val !== null) el.value = val;
+
+    const saveHandler = () => {
+      localStorage.setItem(k, el.type === 'checkbox' ? el.checked : el.value);
+      updateBrandkitProgress();
+    };
+    el.addEventListener('input', saveHandler);
+    el.addEventListener('change', saveHandler);
+  });
+
+  // Button navigation
+  document.getElementById('bkPrev').onclick = () => navigateBrandkitDoc(-1);
+  document.getElementById('bkNext').onclick = () => {
+    if (idx === Object.keys(BRANDKIT_DOCS).length - 1) {
+      document.querySelector('#modeSetupContainer [data-tab="content"]')?.click();
+    } else {
+      navigateBrandkitDoc(1);
+    }
+  };
+
+  updateBrandkitProgress();
+}
+
+function navigateBrandkitDoc(delta) {
+  const keys = Object.keys(BRANDKIT_DOCS);
+  let i = keys.indexOf(curBrandkitDoc) + delta;
+  i = Math.max(0, Math.min(keys.length - 1, i));
+  curBrandkitDoc = keys[i];
+  renderBrandkitContent();
+  document.getElementById('brand-audit')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateBrandkitProgress() {
+  let n = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    let k = localStorage.key(i);
+    if (k && k.startsWith('agentz-brandkit:')) {
+      let v = localStorage.getItem(k);
+      if (v === 'true' || (v && v !== 'false' && v.trim())) n++;
+    }
+  }
+  const el = document.getElementById('bkAnswered');
+  if (el) el.textContent = n;
+}
+
+// Initialize Brandkit Navigation & Profile bindings
+(function initBrandkit() {
+  document.querySelectorAll('#brand-audit .bk-doc').forEach(b => {
+    b.onclick = () => {
+      curBrandkitDoc = b.dataset.bk;
+      renderBrandkitContent();
+    };
+  });
+
+  const printBtn = document.getElementById('bkPrint');
+  if (printBtn) printBtn.onclick = () => window.print();
+
+  const exportBtn = document.getElementById('bkExport');
+  if (exportBtn) {
+    exportBtn.onclick = () => {
+      const lines = ['KUESIONER BRAND PERSONAL KLIEN', 'Diisi ' + new Date().toLocaleString(), ''];
+      for (const [id, d] of Object.entries(BRANDKIT_DOCS)) {
+        lines.push('\n## ' + d.title);
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('agentz-brandkit:' + id + ':')) {
+            const v = localStorage.getItem(k);
+            if (v && v.trim()) {
+              lines.push('\n[' + k.replace('agentz-brandkit:', '') + ']\n' + v);
+            }
+          }
+        }
+      }
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }));
+      a.download = 'Kuesioner_Brand_Personal_Jawaban.txt';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    };
+  }
+
+  // Profile binding
+  const pName = document.getElementById('brandProfileNameInput');
+  const pHandle = document.getElementById('brandProfileHandleInput');
+  if (pName) {
+    pName.value = localStorage.getItem('agentz-brand-profile-name') || '';
+    pName.addEventListener('input', e => localStorage.setItem('agentz-brand-profile-name', e.target.value));
+  }
+  if (pHandle) {
+    pHandle.value = localStorage.getItem('agentz-brand-profile-handle') || '';
+    pHandle.addEventListener('input', e => localStorage.setItem('agentz-brand-profile-handle', e.target.value));
+  }
+
+  renderBrandkitContent();
+})();
+
+// Brandkit 16:9 Presentation & Interview Mode
+(function initInterviewPresentation() {
+  let allSlideQuestions = [];
+  let currentSlideIndex = 0;
+  let activeFilter = 'essential';
+  const ESSENTIAL_KEYS = ['stance:0:0', 'stance:0:1', 'stance:0:4', 'stance:0:5', 'stance:1:1', 'stance:1:3', 'avatar:0:1', 'avatar:1:0', 'villain:3:0', 'villain:3:1', 'villain:3:2', 'villain:3:5', 'villain:0:0', 'villain:1:0', 'villain:2:0', 'strategy:3:0', 'strategy:3:1', 'ecosystem:0:0', 'ecosystem:2:0', 'ecosystem:4:0'];
+
+  const docIcons = {
+    stance: '🎯',
+    avatar: '👥',
+    assets: '📸',
+    strategy: '💡',
+    villain: '⚔️',
+    ecosystem: '🚀'
+  };
+
+  function buildSlideQuestions() {
+    allSlideQuestions = [];
+    Object.keys(BRANDKIT_DOCS).forEach((docKey, docIdx) => {
+      const d = BRANDKIT_DOCS[docKey];
+      d.sections.forEach((sec, secIdx) => {
+        const secTitle = sec[0];
+        sec[2].forEach((q, qIdx) => {
+          const txt = Array.isArray(q) ? q[0] : q;
+          const helper = Array.isArray(q) ? q[1] : '';
+          const key = `${docKey}:${secIdx}:${qIdx}`;
+          allSlideQuestions.push({
+            docKey,
+            docTitle: d.title,
+            docNum: docIdx + 1,
+            secTitle,
+            txt,
+            helper,
+            key,
+            icon: docIcons[docKey] || '🎙️'
+          });
+        });
+      });
+    });
+  }
+
+  function getFilteredSlides() {
+    if (activeFilter === 'essential') {
+      const filtered = allSlideQuestions.filter(s => ESSENTIAL_KEYS.includes(s.key));
+      return filtered.length ? filtered : allSlideQuestions.slice(0, 20);
+    }
+    if (activeFilter === 'all') return allSlideQuestions;
+    return allSlideQuestions.filter(s => s.docKey === activeFilter);
+  }
+
+  function renderSlide() {
+    const list = getFilteredSlides();
+    if (!list.length) return;
+    if (currentSlideIndex >= list.length) currentSlideIndex = list.length - 1;
+    if (currentSlideIndex < 0) currentSlideIndex = 0;
+
+    const item = list[currentSlideIndex];
+    const idxEl = document.getElementById('bkSlideIndex');
+    const iconEl = document.getElementById('bkSlideIcon');
+    const badgeEl = document.getElementById('bkSlideDocBadge');
+    const secEl = document.getElementById('bkSlideSection');
+    const qEl = document.getElementById('bkSlideQuestion');
+    const helperEl = document.getElementById('bkSlideHelper');
+
+    if (idxEl) idxEl.textContent = `${currentSlideIndex + 1} / ${list.length}`;
+    if (iconEl) iconEl.textContent = item.icon;
+    if (badgeEl) badgeEl.textContent = `DOKUMEN 0${item.docNum} · ${item.docTitle.toUpperCase()}`;
+    if (secEl) secEl.textContent = item.secTitle;
+    if (qEl) qEl.textContent = item.txt;
+    
+    if (helperEl) {
+      if (item.helper) {
+        helperEl.textContent = item.helper;
+        helperEl.style.display = 'block';
+      } else {
+        helperEl.style.display = 'none';
+      }
+    }
+
+    // Note syncing
+    const noteArea = document.getElementById('bkSlideNote');
+    if (noteArea) {
+      const storageKey = 'agentz-brandkit:' + item.key;
+      noteArea.value = localStorage.getItem(storageKey) || '';
+    }
+
+    // Update buttons
+    const prevBtn = document.getElementById('bkSlidePrev');
+    const nextBtn = document.getElementById('bkSlideNext');
+    if (prevBtn) {
+      prevBtn.disabled = currentSlideIndex === 0;
+      prevBtn.style.opacity = currentSlideIndex === 0 ? '0.4' : '1';
+    }
+    if (nextBtn) {
+      const isLast = currentSlideIndex === list.length - 1;
+      nextBtn.textContent = isLast ? 'Selesai Sesi Wawancara ✓' : 'Pertanyaan Berikutnya →';
+    }
+  }
+
+  // Bind note input save
+  const noteArea = document.getElementById('bkSlideNote');
+  if (noteArea) {
+    noteArea.addEventListener('input', (e) => {
+      const list = getFilteredSlides();
+      const item = list[currentSlideIndex];
+      if (!item) return;
+      const storageKey = 'agentz-brandkit:' + item.key;
+      localStorage.setItem(storageKey, e.target.value);
+      
+      const formTextarea = document.getElementById(item.key);
+      if (formTextarea) formTextarea.value = e.target.value;
+      updateBrandkitProgress();
+
+      const status = document.getElementById('bkSlideSaveStatus');
+      if (status) {
+        status.textContent = '💾 Tersimpan';
+        status.style.opacity = '1';
+      }
+    });
+  }
+
+  // Toggle Mode
+  const toggleBtn = document.getElementById('toggleBrandInterviewMode');
+  const interviewShell = document.getElementById('bkInterviewShell');
+  const catalogLayout = document.querySelector('#brand-audit .brandkit-layout');
+  const noticeBox = document.querySelector('#brand-audit .brandkit-notice');
+  const profileBar = document.querySelector('#brand-audit .brandkit-profile-bar');
+
+  let isInterviewMode = false;
+
+  function toggleMode(on) {
+    isInterviewMode = typeof on === 'boolean' ? on : !isInterviewMode;
+    if (isInterviewMode) {
+      if (!allSlideQuestions.length) buildSlideQuestions();
+      if (interviewShell) interviewShell.style.display = 'flex';
+      if (catalogLayout) catalogLayout.style.display = 'none';
+      if (noticeBox) noticeBox.style.display = 'none';
+      if (profileBar) profileBar.style.display = 'none';
+      document.getElementById('bkModeIcon').textContent = '📄';
+      document.getElementById('bkModeText').textContent = 'Kembali ke Mode Form Dokumen';
+      if (toggleBtn) toggleBtn.style.background = '#264653';
+      renderSlide();
+    } else {
+      if (interviewShell) interviewShell.style.display = 'none';
+      if (catalogLayout) catalogLayout.style.display = 'grid';
+      if (noticeBox) noticeBox.style.display = 'block';
+      if (profileBar) profileBar.style.display = 'flex';
+      document.getElementById('bkModeIcon').textContent = '🎙️';
+      document.getElementById('bkModeText').textContent = 'Mode Presentasi Wawancara 16:9';
+      if (toggleBtn) toggleBtn.style.background = '#1b4332';
+    }
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => toggleMode());
+  }
+
+  // Navigation
+  document.getElementById('bkSlideNext')?.addEventListener('click', () => {
+    const list = getFilteredSlides();
+    if (currentSlideIndex < list.length - 1) {
+      currentSlideIndex++;
+      renderSlide();
+    } else {
+      alert('Selamat! Semua pertanyaan wawancara telah selesai.');
+    }
+  });
+
+  document.getElementById('bkSlidePrev')?.addEventListener('click', () => {
+    if (currentSlideIndex > 0) {
+      currentSlideIndex--;
+      renderSlide();
+    }
+  });
+
+  // Filter dropdown
+  document.getElementById('bkDocSelect')?.addEventListener('change', (e) => {
+    activeFilter = e.target.value;
+    currentSlideIndex = 0;
+    renderSlide();
+  });
+
+  // Fullscreen
+  document.getElementById('bkFullscreenBtn')?.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      interviewShell?.requestFullscreen().catch(err => alert(err.message));
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!isInterviewMode) return;
+    if (e.target && ['TEXTAREA', 'INPUT', 'SELECT'].includes(e.target.tagName)) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+      e.preventDefault();
+      document.getElementById('bkSlideNext')?.click();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      document.getElementById('bkSlidePrev')?.click();
+    }
+  });
+})();
+
+</script>
+</body>
+</html>
