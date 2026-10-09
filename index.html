@@ -2372,6 +2372,8 @@ VIEW MODE 2: SETUP & ONBOARDING
     <button data-tab="brand-audit">Personal brand audit</button>
     <button data-tab="assets">Personal brand assets</button>
     <button data-tab="content">Konten draf</button>
+    <button data-tab="profile">Profile</button>
+    <button data-tab="hasil-konten">Hasil konten</button>
   </div>
 
   <section id="build" class="view">
@@ -2865,6 +2867,16 @@ VIEW MODE 2: SETUP & ONBOARDING
 
     <!-- Draft Timeline List Container -->
     <div class="build-list" id="draftTimelineList"></div>
+  </section>
+
+  <!-- VIEW TAB 5: PROFILE STUDIO (MOCKUP INSTAGRAM & YOUTUBE) -->
+  <section id="profile" class="view hide">
+    <iframe src="profile.html" title="Mockup Instagram &amp; YouTube Profile Studio Klien" style="width:100%;height:1350px;border:0;border-radius:14px;box-shadow:var(--shadow);" loading="lazy"></iframe>
+  </section>
+
+  <!-- VIEW TAB 6: HASIL KONTEN (KATALOG REELS & SHORTS 9:16) -->
+  <section id="hasil-konten" class="view hide">
+    <iframe src="hasil-konten.html" title="Katalog Video Hasil Konten Reels &amp; Shorts" style="width:100%;height:1350px;border:0;border-radius:14px;box-shadow:var(--shadow);" loading="lazy"></iframe>
   </section>
 
 
@@ -5987,6 +5999,11 @@ drawTeam();
   const p = new URLSearchParams(window.location.search);
   const initialMode = p.get('mode') || 'audit';
   switchPortalMode(initialMode);
+  const initialTab = p.get('tab');
+  if (initialTab) {
+    const tabBtn = document.querySelector(`#modeSetupContainer [data-tab="${initialTab}"]`);
+    if (tabBtn) tabBtn.click();
+  }
 })();
 
 // Setup Mode Tabs

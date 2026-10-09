@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Profile Studio · Mockup Instagram &amp; YouTube</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f3f5f8; color: #1e2024; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; border: 1px solid #d5d9e0; border-radius: 8px; padding: 8px 13px; background: white; transition: all .15s ease; }
+    button:hover { background: #f8fafc; border-color: #bcc3cd; }
+    button.active { background: #0f172a; color: white; border-color: #0f172a; font-weight: 600; }
+    
+    /* Top Bar */
+    .bar { display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: white; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
+    .bar strong { margin-right: 8px; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .platform-tabs { display: flex; gap: 6px; align-items: center; }
+    .platform-tabs button.active[data-platform="instagram"] { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: transparent; }
+    .platform-tabs button.active[data-platform="youtube"] { background: #cc0000; border-color: #cc0000; }
+    .platform-tabs button.active[data-platform="tiktok"] { background: #000000; border-color: #000000; }
+    .bar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    #status { font-size: 12px; color: #64748b; font-weight: 500; }
+    
+    .note-bar { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 8px 18px; font-size: 12.5px; color: #475569; display: flex; justify-content: space-between; align-items: center; }
+    .note-bar b { color: #0f172a; }
+
+    /* Studio Layout */
+    .studio { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; padding: 20px; max-width: 1440px; margin: 0 auto; transition: all .2s ease; }
+    body.present .studio { grid-template-columns: minmax(0, 1fr); max-width: 920px; }
+    body.present .inspector { display: none; }
+    body.present .edit-hint, body.present .edit-overlay-btn { display: none !important; }
+
+    /* Preview Panel */
+    .preview { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 28px; min-width: 0; box-shadow: 0 4px 20px -2px rgba(0,0,0,0.05); }
+    .preview.mobile { max-width: 440px; margin: 0 auto; padding: 18px 14px; border-radius: 36px; border: 10px solid #1e293b; box-shadow: 0 16px 36px rgba(0,0,0,0.15); }
+    
+    /* Inspector */
+    .inspector { background: #0f172a; color: #f1f5f9; border-radius: 16px; padding: 20px; max-height: calc(100vh - 120px); overflow-y: auto; position: sticky; top: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2); }
+    .inspector h3 { margin: 0 0 12px; font-size: 15px; font-weight: 700; color: #f8fafc; border-bottom: 1px solid #334155; padding-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+    .inspector label { display: block; font-size: 12px; margin: 14px 0 5px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+    .inspector input:not([type=checkbox]):not([type=range]), .inspector textarea, .inspector select { width: 100%; background: #1e293b; color: #ffffff; border: 1px solid #334155; border-radius: 8px; padding: 9px 12px; font-size: 13px; }
+    .inspector input:focus, .inspector textarea:focus, .inspector select:focus { outline: none; border-color: #38bdf8; }
+    .inspector textarea { min-height: 80px; resize: vertical; line-height: 1.5; }
+    .inspector input[type=range] { width: 100%; accent-color: #38bdf8; }
+    .inspector .btn-group { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .inspector button { background: #334155; color: #ffffff; border: 1px solid #475569; font-weight: 600; border-radius: 8px; padding: 8px 14px; }
+    .inspector button:hover { background: #475569; }
+    .inspector button.primary-btn { background: #0284c7; border-color: #0284c7; color: white; }
+    .inspector button.primary-btn:hover { background: #0369a1; }
+    .inspector button.danger-btn { background: #991b1b; border-color: #991b1b; }
+    .inspector button.danger-btn:hover { background: #7f1d1d; }
+    .upload-box { border: 2px dashed #475569; border-radius: 10px; padding: 14px; text-align: center; margin-top: 10px; background: #1e293b; cursor: pointer; transition: all .15s ease; }
+    .upload-box:hover { border-color: #38bdf8; background: #243048; }
+
+    /* Editable Image Overlays */
+    .img-editable-wrap { position: relative; cursor: pointer; }
+    .edit-overlay-btn { position: absolute; inset: 0; background: rgba(0,0,0,0.55); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; opacity: 0; transition: opacity .2s ease; border-radius: inherit; pointer-events: none; backdrop-filter: blur(2px); }
+    .img-editable-wrap:hover .edit-overlay-btn { opacity: 1; }
+    .img-editable-wrap.selected { outline: 3px solid #0284c7; outline-offset: 3px; }
+
+    /* ========================================================
+       INSTAGRAM & TIKTOK STYLES
+       ======================================================== */
+    .identity { display: flex; gap: 36px; align-items: center; margin-bottom: 24px; }
+    .avatar-btn { border: 0; background: none; padding: 0; border-radius: 50%; }
+    .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid transparent; background: linear-gradient(white, white) padding-box, radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%) border-box; padding: 4px; box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .identity-body { flex: 1; min-width: 0; }
+    .name-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+    .handle { font-size: 20px; font-weight: 700; color: #0f172a; }
+    .verified-badge { color: #0284c7; font-size: 18px; }
+    .actions { display: flex; gap: 8px; }
+    .actions button { font-weight: 600; padding: 7px 18px; border-radius: 8px; font-size: 13.5px; }
+    .actions .follow { background: #0095f6; color: white; border: none; }
+    .actions .follow:hover { background: #1877f2; }
+    .stats { display: flex; gap: 28px; margin: 14px 0; font-size: 14.5px; }
+    .stats span b { font-weight: 800; color: #0f172a; }
+    .realname { font-weight: 750; font-size: 14.5px; color: #0f172a; margin-bottom: 2px; }
+    .category { color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .bio { white-space: pre-wrap; line-height: 1.55; color: #1e293b; font-size: 13.5px; margin: 6px 0; }
+    .link { color: #00376b; font-weight: 600; font-size: 13.5px; text-decoration: none; word-break: break-all; }
+    
+    .highlights { display: flex; gap: 22px; overflow-x: auto; padding: 10px 4px 20px; margin-bottom: 12px; }
+    .highlight { border: 0; background: transparent; padding: 0; min-width: 76px; text-align: center; }
+    .highlight-img-wrap { width: 74px; height: 74px; border-radius: 50%; border: 2px solid #e2e8f0; padding: 3px; margin: 0 auto; overflow: hidden; }
+    .highlight img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .highlight span { display: block; margin-top: 6px; font-size: 11.5px; font-weight: 600; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 76px; }
+    
+    .feedtabs { display: flex; justify-content: center; gap: 36px; border-top: 1px solid #e2e8f0; margin: 10px 0 20px; }
+    .feedtabs button { border: 0; background: transparent; border-top: 2px solid transparent; border-radius: 0; padding: 14px 8px; font-size: 12.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+    .feedtabs button.active { color: #0f172a; border-top-color: #0f172a; }
+    
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .tile { padding: 0; border: 0; border-radius: 6px; position: relative; overflow: hidden; aspect-ratio: 1; background: #e2e8f0; }
+    .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tile .tile-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); opacity: 0; transition: opacity .2s; display: flex; align-items: center; justify-content: center; gap: 16px; color: white; font-weight: 700; font-size: 13px; }
+    .tile:hover .tile-overlay { opacity: 1; }
+    .tile .badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: white; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .tile .caption-bar { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* TikTok variation */
+    .tt .avatar { border: 3px solid #e2e8f0; }
+    .tt .identity { flex-direction: column; text-align: center; gap: 14px; }
+    .tt .stats, .tt .actions { justify-content: center; }
+    .tt .tile { aspect-ratio: 9/16; }
+    .tt .actions .follow { background: #fe2c55; }
+
+    /* ========================================================
+       YOUTUBE CHANNEL STYLES
+       ======================================================== */
+    .yt-container { width: 100%; }
+    .yt-banner-wrap { width: 100%; height: 180px; border-radius: 14px; overflow: hidden; background: #1e293b; position: relative; margin-bottom: 22px; cursor: pointer; }
+    .yt-banner-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .yt-banner-wrap .edit-overlay-btn { border-radius: 14px; }
+    
+    .yt-identity { display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; }
+    .yt-avatar-wrap { width: 110px; height: 110px; border-radius: 50%; overflow: hidden; background: #e2e8f0; flex-shrink: 0; position: relative; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .yt-avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    
+    .yt-details { flex: 1; min-width: 0; }
+    .yt-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+    .yt-name { font-size: 24px; font-weight: 800; color: #0f0f0f; margin: 0; }
+    .yt-verified { color: #606060; font-size: 15px; }
+    .yt-meta-row { display: flex; gap: 8px; color: #606060; font-size: 13.5px; font-weight: 500; margin-bottom: 8px; flex-wrap: wrap; }
+    .yt-bio { color: #606060; font-size: 13.5px; line-height: 1.5; margin-bottom: 8px; max-width: 650px; }
+    .yt-link-row a { color: #065fd4; text-decoration: none; font-size: 13px; font-weight: 600; }
+    
+    .yt-actions { display: flex; gap: 10px; margin-top: 14px; align-items: center; }
+    .yt-sub-btn { background: #0f0f0f; color: #ffffff; border: 0; border-radius: 20px; padding: 9px 20px; font-weight: 700; font-size: 14px; transition: background .15s; }
+    .yt-sub-btn:hover { background: #272727; }
+    .yt-sub-btn.subscribed { background: #f2f2f2; color: #0f0f0f; border: 1px solid #dcdcdc; }
+    .yt-join-btn { background: #f2f2f2; color: #0f0f0f; border: 1px solid #dcdcdc; border-radius: 20px; padding: 9px 18px; font-weight: 700; font-size: 13.5px; }
+
+    .yt-nav { display: flex; gap: 24px; border-bottom: 1px solid #e5e5e5; margin: 18px 0 20px; overflow-x: auto; }
+    .yt-nav button { border: 0; background: transparent; border-bottom: 2px solid transparent; border-radius: 0; padding: 12px 6px; font-size: 14px; font-weight: 700; color: #606060; }
+    .yt-nav button.active { color: #0f0f0f; border-bottom-color: #0f0f0f; }
+
+    /* YouTube Videos Grid (16:9) */
+    .yt-video-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .yt-video-card { border: 0; background: transparent; padding: 0; text-align: left; cursor: pointer; display: flex; flex-direction: column; }
+    .yt-thumb-wrap { width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: #e2e8f0; position: relative; margin-bottom: 10px; }
+    .yt-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .yt-duration-badge { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.82); color: white; font-size: 11px; font-weight: 700; padding: 2px 5px; border-radius: 4px; }
+    .yt-card-info { display: flex; gap: 10px; }
+    .yt-card-title { font-size: 14px; font-weight: 700; color: #0f0f0f; line-height: 1.4; margin: 0 0 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .yt-card-meta { font-size: 12px; color: #606060; line-height: 1.4; }
+
+    /* YouTube Shorts Grid (9:16) */
+    .yt-shorts-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .yt-short-card { border: 0; background: transparent; padding: 0; text-align: left; cursor: pointer; }
+    .yt-short-thumb-wrap { width: 100%; aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; background: #e2e8f0; position: relative; margin-bottom: 8px; }
+    .yt-short-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .yt-shorts-badge { position: absolute; top: 8px; left: 8px; background: rgba(255,0,0,0.85); color: white; font-size: 10.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+    .yt-short-title { font-size: 13.5px; font-weight: 700; color: #0f0f0f; line-height: 1.35; margin: 0 0 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .yt-short-views { font-size: 12px; color: #606060; }
+
+    /* Google & Website Mockups */
+    .bizHead { position: relative; margin: -4px -4px 16px; height: 185px; border-radius: 14px; overflow: hidden; background: #dce8ec; }
+    .bizHead img { width: 100%; height: 100%; object-fit: cover; }
+    .bizHead .bizAvatar { position: absolute; bottom: 12px; left: 16px; width: 72px; height: 72px; background: white; border-radius: 12px; padding: 4px; object-fit: cover; box-shadow: 0 2px 8px #0003; }
+    .bizPanel { max-width: 660px; background: white; border: 1px solid #dadce0; border-radius: 16px; padding: 16px; }
+    .bizPanel h2 { font-size: 24px; margin: 8px 0; }
+    .bizMeta { color: #5f6368; font-size: 14px; line-height: 1.7; }
+    .bizActions { display: flex; gap: 10px; flex-wrap: wrap; border-bottom: 1px solid #eee; padding: 14px 0; }
+    .bizAction { color: #1967d2; border: 1px solid #dadce0; border-radius: 22px; padding: 8px 14px; background: white; }
+    .bizRow { padding: 12px 0; border-bottom: 1px solid #eee; }
+    .bizMap { min-height: 280px; border-radius: 14px; position: relative; overflow: hidden; background-color: #e8eadf; background-image: linear-gradient(32deg,transparent 46%,#fff 47%,#fff 51%,transparent 52%),linear-gradient(120deg,transparent 46%,#fff 47%,#fff 51%,transparent 52%),linear-gradient(10deg,transparent 46%,#c7dedb 47%,#c7dedb 51%,transparent 52%); background-size: 160px 120px,190px 150px,240px 170px; }
+    .mapLabel { position: absolute; left: 47%; top: 47%; background: #4285f4; color: #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); padding: 9px; box-shadow: 0 2px 5px #0004; }
+    
+    .sitePage { margin: -8px; border-radius: 14px; overflow: hidden; background: white; }
+    .siteNav { padding: 18px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+    .siteNav strong { font-size: 19px; }
+    .siteHero { padding: 60px 7%; background: linear-gradient(115deg,#f3eadc,#f9f5ec 58%,#d5e7d5); min-height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+    .siteHero h1 { font-family: Georgia,serif; font-size: clamp(32px,5vw,54px); max-width: 700px; margin: 10px 0; }
+    .siteHero p { max-width: 560px; color: #525b53; line-height: 1.7; }
+    .siteCTA { display: inline-block; padding: 12px 18px; border-radius: 8px; background: #216b48; color: #fff; text-decoration: none; font-weight: 650; margin-top: 10px; }
+    .siteSection { padding: 32px 6%; }
+    .siteProducts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+    .siteProduct { border: 1px solid #e6e2da; border-radius: 12px; overflow: hidden; background: white; }
+    .siteProduct img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+    .siteProduct b, .siteProduct span { display: block; padding: 8px 12px; }
+    .siteProduct span { font-size: 13px; color: #687168; }
+
+    @media (max-width: 1024px) {
+      .studio { grid-template-columns: 1fr; }
+      .inspector { position: static; max-height: none; }
+      .yt-video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .yt-shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .identity { flex-direction: column; text-align: center; }
+      .avatar { width: 100px; height: 100px; }
+      .stats { justify-content: center; }
+      .yt-identity { flex-direction: column; align-items: center; text-align: center; }
+      .yt-meta-row, .yt-actions { justify-content: center; }
+      .yt-video-grid { grid-template-columns: 1fr; }
+      .yt-shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="bar">
+    <strong>🎨 Profile Studio</strong>
+    <div class="platform-tabs" role="tablist">
+      <button data-platform="instagram" class="active">📸 Instagram</button>
+      <button data-platform="youtube">▶️ YouTube</button>
+      <button data-platform="tiktok">🎵 TikTok</button>
+      <button data-platform="google">📍 Google Business</button>
+      <button data-platform="website">🌐 Website</button>
+    </div>
+    <div class="bar-actions">
+      <button id="btnPresent" title="Sembunyikan panel inspector untuk presentasi ke klien">👁️ Mode Presentasi</button>
+      <button id="device" title="Alihkan pratinjau desktop atau smartphone">📱 Mobile Preview</button>
+      <button id="export" title="Unduh data profil dalam format JSON">💾 Export Draft</button>
+      <button id="import" title="Impor data profil dari file JSON">📂 Import Draft</button>
+      <input id="importFile" type="file" accept="application/json" hidden>
+      <span id="status" role="status">Ready</span>
+    </div>
+  </header>
+
+  <!-- Helpful Guide Bar -->
+  <div class="note-bar">
+    <span>💡 <b>Mockup Profil Klien</b> · Klik pada avatar, banner, atau thumbnail video untuk langsung mengganti foto dan teks di Properties Inspector.</span>
+    <span style="font-size:11.5px;color:#64748b;">Disimpan otomatis di browser ini</span>
+  </div>
+
+  <!-- Studio Workspace -->
+  <main class="studio">
+    <!-- Live Preview -->
+    <section id="preview" class="preview" aria-label="Pratinjau Profil"></section>
+
+    <!-- Properties Inspector -->
+    <aside class="inspector" aria-label="Properties Inspector">
+      <h3>
+        <span>🎛 Properties Inspector</span>
+        <small id="inspectorCategory" style="font-size:11px;color:#94a3b8;font-weight:400;"></small>
+      </h3>
+      <div id="fields"></div>
+    </aside>
+  </main>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const key = 'agentz-profile-studio-v1';
+
+    // High Quality Stock / Public CDN Images for Mockups
+    const sampleAvatars = [
+      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80'
+    ];
+    const avatar = sampleAvatars[0];
+
+    const urls = [
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80'
+    ];
+
+    const youtubeBanner = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80';
+
+    // Defaults for Instagram / TikTok
+    const defaults = () => ({
+      handle: 'elena.lenscraft',
+      name: 'Elena Rostova ✧',
+      category: 'Photographer / Art Director',
+      bio: 'Capturing sunlit moments, brutalist architecture & moody street narratives 🎞️\nBased in Milan & NYC 📍',
+      link: 'https://linktr.ee/elenalenscraft',
+      avatar,
+      postsCount: '142',
+      followers: '84.6K',
+      following: '412',
+      likes: '1.2M',
+      verified: true,
+      highlights: ['Portraits 📸', "Milan ’24 🏛️", 'Editorial 🎨', 'BTS 🎬', 'Presets 🎞️', 'Exhibitions 🖼️'].map((name, i) => ({
+        name,
+        image: urls[i % urls.length]
+      })),
+      posts: Array.from({ length: 9 }, (_, i) => ({
+        image: urls[i % urls.length],
+        caption: ['Architecture & light', 'Tokyo nights', 'Mediterranean moments', 'Paris in the rain', 'Editorial still life', 'Ocean textures', 'Sunset silhouette', 'Morning sunbeams', 'Backstage'][i],
+        views: ['4,812', '12.4K', '6,190', '18.9K', '3,410', '9.8K', '24.1K', '5,100', '15.3K'][i],
+        type: i % 3 === 1 ? 'reel' : 'post',
+        saved: false,
+        tagged: false,
+        x: 50,
+        y: 50,
+        zoom: 100
+      }))
+    });
+
+    // Defaults for YouTube Channel
+    const youtubeDefaults = () => ({
+      name: 'Elena Rostova Films',
+      handle: '@ElenaRostova',
+      category: 'Film & Video Production',
+      subscribers: '128K subscribers',
+      videosCount: '94 videos',
+      bio: 'Breakdown sinematografi, alur color grading 3D LUT & visual storytelling studio. Video panjang rilis setiap Minggu jam 19.00 WIB 🎥✨',
+      link: 'https://instagram.com/elena.lenscraft',
+      avatar: sampleAvatars[0],
+      banner: youtubeBanner,
+      verified: true,
+      subscribed: false,
+      videos: [
+        {
+          title: '5 Kesalahan Fatal Lighting Saat Shooting B-Roll Mobil Baru Showroom',
+          views: '48K views',
+          time: '2 minggu lalu',
+          duration: '14:25',
+          image: urls[0],
+          type: 'video',
+          x: 50, y: 50, zoom: 100
+        },
+        {
+          title: 'Rahasia Color Grading Cinematic 3D LUT di DaVinci & Remotion',
+          views: '112K views',
+          time: '1 bulan lalu',
+          duration: '09:42',
+          image: urls[1],
+          type: 'video',
+          x: 50, y: 50, zoom: 100
+        },
+        {
+          title: 'Setup Kamera & Audio Wawancara CEO Solo-Operator Tanpa Kru',
+          views: '31K views',
+          time: '2 bulan lalu',
+          duration: '18:10',
+          image: urls[2],
+          type: 'video',
+          x: 50, y: 50, zoom: 100
+        },
+        {
+          title: 'B-Roll Breakdown: Transisi Match Cut Tanpa Efek Berlebihan',
+          views: '65K views',
+          time: '3 bulan lalu',
+          duration: '11:08',
+          image: urls[3],
+          type: 'video',
+          x: 50, y: 50, zoom: 100
+        },
+        {
+          title: 'Trik Framing & Eye-Level Talking Head Klien Agar Percaya Diri',
+          views: '29K views',
+          time: '4 bulan lalu',
+          duration: '07:34',
+          image: urls[4],
+          type: 'video',
+          x: 50, y: 50, zoom: 100
+        },
+        {
+          title: 'Workflow Edit 14 Konten Vertikal Dalam 3 Jam dengan Preset Rapi',
+          views: '88K views',
+          time: '5 bulan lalu',
+          duration: '22:15',
+          image: urls[5],
+          type: 'video',
+          x: 50, y: 50, zoom: 100
+        }
+      ],
+      shorts: [
+        {
+          title: 'Trik Lighting 1 Lampu Hasil Mewah 🔥',
+          views: '145K views',
+          image: urls[6],
+          type: 'short',
+          x: 50, y: 50, zoom: 100
+        },
+        {
+          title: 'Jangan potong footage B-roll kayak gini! ❌',
+          views: '210K views',
+          image: urls[7],
+          type: 'short',
+          x: 50, y: 50, zoom: 100
+        },
+        {
+          title: 'Before After Grading Studio Warm LUT 🎨',
+          views: '98K views',
+          image: urls[8],
+          type: 'short',
+          x: 50, y: 50, zoom: 100
+        },
+        {
+          title: '3 Kalimat Hook Pembuka Reels Showroom Closing 🚀',
+          views: '320K views',
+          image: urls[0],
+          type: 'short',
+          x: 50, y: 50, zoom: 100
+        }
+      ]
+    });
+
+    const businessDefaults = () => ({
+      name: 'Rumah Sosis Pasar Darurat Menceng',
+      category: 'Grocery store',
+      rating: '4.6',
+      reviews: '10',
+      address: 'Jl. Albasia No.7 Blok A 12, RT.2/RW.7, Tegal Alur, Kalideres, Jakarta Barat 11820',
+      hours: 'Buka hari ini · 06.00–19.00',
+      phone: '0877-8098-3287',
+      website: '',
+      description: 'Toko bahan makanan dan aneka frozen food di Menceng.',
+      cover: urls[7],
+      logo: urls[4],
+      photo1: urls[8],
+      photo2: urls[5],
+      photo3: urls[2]
+    });
+
+    const websiteDefaults = () => ({
+      name: 'Rumah Sosis Pasar Darurat Menceng',
+      eyebrow: 'Pilihan frozen food di Menceng',
+      headline: 'Belanja frozen food jadi lebih mudah dan praktis.',
+      description: 'Temukan aneka sosis, nugget, dan makanan beku pilihan untuk stok praktis di rumah. Hubungi kami via WhatsApp untuk katalog lengkap.',
+      button: 'Tanya Produk via WhatsApp',
+      phone: '0877-8098-3287',
+      address: 'Jl. Albasia No.7 Blok A 12, Tegal Alur, Jakarta',
+      color: '#216b48',
+      heroImage: urls[0],
+      product1: 'Sosis Sapi & Ayam Pilihan',
+      product2: 'Nugget & Frozen Food Cepat Saji',
+      product3: 'Aneka Dimsum & Bakso Kuah'
+    });
+
+    // App State
+    let state = {
+      instagram: defaults(),
+      youtube: youtubeDefaults(),
+      tiktok: defaults(),
+      google: businessDefaults(),
+      website: websiteDefaults()
+    };
+    let platform = 'instagram';
+    let selected = { type: 'profile' };
+    let tab = 'posts';
+    let mobile = false;
+
+    // Load LocalStorage
+    try {
+      const saved = JSON.parse(localStorage.getItem(key));
+      if (saved) {
+        for (const name of Object.keys(state)) {
+          if (saved[name]) state[name] = saved[name];
+        }
+        if (!saved.youtube) state.youtube = youtubeDefaults();
+      }
+    } catch {}
+
+    const esc = x => String(x ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    function safeImage(v) { return /^(https?:\/\/|data:image\/(png|jpeg|webp|gif);base64,)/i.test(v) ? v : ''; }
+
+    function setStatus(msg) {
+      if ($('status')) $('status').textContent = msg;
+    }
+
+    function save() {
+      try {
+        localStorage.setItem(key, JSON.stringify(state));
+        setStatus('Tersimpan di browser');
+      } catch {
+        setStatus('Penyimpanan penuh · Ekspor draft Anda');
+      }
+    }
+
+    // Main Render Switcher
+    function render() {
+      if (platform === 'youtube') {
+        renderYouTube();
+      } else if (platform === 'google') {
+        renderGoogle();
+      } else if (platform === 'website') {
+        renderWebsite();
+      } else {
+        renderInstagramOrTikTok();
+      }
+    }
+
+    // ==========================================
+    // RENDER: YOUTUBE MOCKUP
+    // ==========================================
+    function renderYouTube() {
+      const p = state.youtube;
+      $('preview').className = 'preview yt' + (mobile ? ' mobile' : '');
+      const isShortsTab = tab === 'shorts';
+
+      $('preview').innerHTML = `
+        <div class="yt-container">
+          <!-- Banner -->
+          <div class="yt-banner-wrap img-editable-wrap ${selected.type === 'banner' ? 'selected' : ''}" data-select="banner" title="Klik untuk mengganti banner channel">
+            <img class="yt-banner-img" src="${esc(safeImage(p.banner))}" alt="YouTube Banner" style="object-position:center;transform:scale(${(p.bannerZoom || 100)/100})">
+            <div class="edit-overlay-btn">📷 Ganti Banner YouTube</div>
+          </div>
+
+          <!-- Channel Info -->
+          <div class="yt-identity">
+            <div class="yt-avatar-wrap img-editable-wrap ${selected.type === 'avatar' ? 'selected' : ''}" data-select="avatar" title="Klik untuk mengganti avatar channel">
+              <img class="yt-avatar-img" src="${esc(safeImage(p.avatar))}" alt="Channel Avatar">
+              <div class="edit-overlay-btn">📷 Ganti</div>
+            </div>
+            <div class="yt-details">
+              <div class="yt-title-row">
+                <h1 class="yt-name">${esc(p.name)}</h1>
+                ${p.verified ? '<span class="yt-verified" title="Terverifikasi">☑</span>' : ''}
+              </div>
+              <div class="yt-meta-row">
+                <span>${esc(p.handle)}</span>
+                <span>‧</span>
+                <span>${esc(p.subscribers)}</span>
+                <span>‧</span>
+                <span>${esc(p.videosCount)}</span>
+              </div>
+              <div class="yt-bio">${esc(p.bio)}</div>
+              <div class="yt-link-row">
+                <a href="${esc(p.link)}" target="_blank" rel="noopener">↗ ${esc(p.link)}</a>
+              </div>
+              <div class="yt-actions">
+                <button class="yt-sub-btn ${p.subscribed ? 'subscribed' : ''}" id="ytSubBtn">
+                  ${p.subscribed ? '✓ Subscribed' : 'Subscribe'}
+                </button>
+                <button class="yt-join-btn" id="ytJoinBtn">Join</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Channel Tabs -->
+          <nav class="yt-nav">
+            <button data-feed="videos" class="${tab === 'videos' || tab === 'home' || tab === 'posts' ? 'active' : ''}">Videos</button>
+            <button data-feed="shorts" class="${tab === 'shorts' ? 'active' : ''}">Shorts</button>
+            <button data-feed="playlists" class="${tab === 'playlists' ? 'active' : ''}">Playlists</button>
+            <button data-feed="community" class="${tab === 'community' ? 'active' : ''}">Community</button>
+          </nav>
+
+          <!-- Feed Content -->
+          ${isShortsTab ? `
+            <div class="yt-shorts-grid">
+              ${p.shorts.map((short, i) => `
+                <div class="yt-short-card img-editable-wrap ${selected.type === 'short' && selected.index === i ? 'selected' : ''}" data-short="${i}" title="Klik untuk mengedit thumbnail &amp; detail Shorts">
+                  <div class="yt-short-thumb-wrap">
+                    <img class="yt-short-thumb-img" src="${esc(safeImage(short.image))}" alt="${esc(short.title)}" style="object-position:${short.x}% ${short.y}%;transform:scale(${short.zoom/100})">
+                    <span class="yt-shorts-badge">⚡ Shorts</span>
+                    <div class="edit-overlay-btn">📷 Ganti Thumbnail</div>
+                  </div>
+                  <h4 class="yt-short-title">${esc(short.title)}</h4>
+                  <div class="yt-short-views">${esc(short.views)}</div>
+                </div>
+              `).join('')}
+            </div>
+          ` : `
+            <div class="yt-video-grid">
+              ${p.videos.map((vid, i) => `
+                <div class="yt-video-card img-editable-wrap ${selected.type === 'video' && selected.index === i ? 'selected' : ''}" data-video="${i}" title="Klik untuk mengedit thumbnail &amp; detail Video">
+                  <div class="yt-thumb-wrap">
+                    <img class="yt-thumb-img" src="${esc(safeImage(vid.image))}" alt="${esc(vid.title)}" style="object-position:${vid.x}% ${vid.y}%;transform:scale(${vid.zoom/100})">
+                    <span class="yt-duration-badge">${esc(vid.duration || '10:00')}</span>
+                    <div class="edit-overlay-btn">📷 Ganti Thumbnail</div>
+                  </div>
+                  <div class="yt-card-info">
+                    <div>
+                      <h4 class="yt-card-title">${esc(vid.title)}</h4>
+                      <div class="yt-card-meta">${esc(p.name)}</div>
+                      <div class="yt-card-meta">${esc(vid.views)} ‧ ${esc(vid.time || '1 minggu lalu')}</div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      `;
+
+      // Event handlers for YouTube
+      $('preview').querySelectorAll('[data-video]').forEach(b => {
+        b.onclick = () => {
+          selected = { type: 'video', index: +b.dataset.video };
+          render();
+          inspector();
+        };
+      });
+      $('preview').querySelectorAll('[data-short]').forEach(b => {
+        b.onclick = () => {
+          selected = { type: 'short', index: +b.dataset.short };
+          render();
+          inspector();
+        };
+      });
+      $('preview').querySelector('[data-select="banner"]').onclick = () => {
+        selected = { type: 'banner' };
+        render();
+        inspector();
+      };
+      $('preview').querySelector('[data-select="avatar"]').onclick = () => {
+        selected = { type: 'avatar' };
+        render();
+        inspector();
+      };
+      $('preview').querySelectorAll('.yt-nav button').forEach(b => {
+        b.onclick = () => {
+          tab = b.dataset.feed;
+          render();
+          inspector();
+        };
+      });
+      $('ytSubBtn').onclick = () => {
+        p.subscribed = !p.subscribed;
+        save();
+        render();
+      };
+      $('ytJoinBtn').onclick = () => {
+        setStatus('Fitur tombol Join preview');
+      };
+    }
+
+    // ==========================================
+    // RENDER: INSTAGRAM & TIKTOK MOCKUP
+    // ==========================================
+    function renderInstagramOrTikTok() {
+      const p = state[platform];
+      const tt = platform === 'tiktok';
+      $('preview').className = 'preview' + (tt ? ' tt' : '') + (mobile ? ' mobile' : '');
+
+      $('preview').innerHTML = `
+        <div class="identity">
+          <div class="avatar-btn img-editable-wrap ${selected.type === 'profile' ? 'selected' : ''}" data-select="profile" title="Klik untuk mengganti avatar">
+            <img class="avatar" src="${esc(safeImage(p.avatar))}" alt="Profile avatar">
+            <div class="edit-overlay-btn">📷 Ganti</div>
+          </div>
+          <div class="identity-body">
+            <div class="name-row">
+              <span class="handle">${tt ? '@' : ''}${esc(p.handle)}</span>
+              ${p.verified ? '<span class="verified-badge">🔵</span>' : ''}
+              <div class="actions">
+                <button class="follow" id="follow">Follow</button>
+                <button id="message">Message</button>
+              </div>
+            </div>
+            <div class="stats">
+              ${tt ? '' : `<span><b>${esc(p.postsCount)}</b> posts</span>`}
+              <span><b>${esc(p.followers)}</b> followers</span>
+              <span><b>${esc(p.following)}</b> following</span>
+              ${tt ? `<span><b>${esc(p.likes)}</b> likes</span>` : ''}
+            </div>
+            <div class="realname">${esc(p.name)}</div>
+            <div class="category">${esc(p.category)}</div>
+            <div class="bio">${esc(p.bio)}</div>
+            <a class="link" href="${esc(p.link)}" target="_blank" rel="noopener">↗ ${esc(p.link)}</a>
+          </div>
+        </div>
+
+        ${tt ? '' : `
+          <div class="highlights">
+            ${p.highlights.map((h, i) => `
+              <button class="highlight img-editable-wrap ${selected.type === 'highlight' && selected.index === i ? 'selected' : ''}" data-highlight="${i}" title="Klik untuk mengganti cover &amp; nama highlight">
+                <div class="highlight-img-wrap">
+                  <img src="${esc(safeImage(h.image))}" alt="${esc(h.name)}">
+                </div>
+                <span>${esc(h.name)}</span>
+              </button>
+            `).join('')}
+          </div>
+        `}
+
+        <div class="feedtabs">
+          ${(tt ? ['posts', 'saved'] : ['posts', 'reels', 'saved', 'tagged']).map(t => `
+            <button data-feed="${t}" class="${tab === t ? 'active' : ''}">
+              ${tt && t === 'posts' ? 'Videos' : t[0].toUpperCase() + t.slice(1)}
+            </button>
+          `).join('')}
+        </div>
+
+        <div class="grid">
+          ${p.posts.map((post, i) => ({ post, i }))
+            .filter(({ post }) => tab === 'posts' || (tab === 'reels' ? post.type === 'reel' : post[tab]))
+            .map(({ post, i }) => `
+              <button class="tile img-editable-wrap ${selected.type === 'post' && selected.index === i ? 'selected' : ''}" data-post="${i}" title="Klik untuk mengganti foto, caption &amp; zoom">
+                <img src="${esc(safeImage(post.image))}" alt="${esc(post.caption)}" style="object-position:${post.x}% ${post.y}%;transform:scale(${post.zoom/100})">
+                ${post.type === 'reel' ? '<span class="badge">▶ Reel</span>' : ''}
+                <span class="caption-bar">${esc(tt ? post.views : post.caption)}</span>
+                <div class="edit-overlay-btn">📷 Ganti Foto</div>
+              </button>
+            `).join('')}
+        </div>
+      `;
+
+      // Event Handlers for Instagram
+      $('preview').querySelectorAll('[data-post]').forEach(b => {
+        b.onclick = () => {
+          selected = { type: 'post', index: +b.dataset.post };
+          render();
+          inspector();
+        };
+      });
+      $('preview').querySelectorAll('[data-highlight]').forEach(b => {
+        b.onclick = () => {
+          selected = { type: 'highlight', index: +b.dataset.highlight };
+          render();
+          inspector();
+        };
+      });
+      $('preview').querySelector('[data-select="profile"]').onclick = () => {
+        selected = { type: 'profile' };
+        render();
+        inspector();
+      };
+      $('preview').querySelectorAll('[data-feed]').forEach(b => {
+        b.onclick = () => {
+          tab = b.dataset.feed;
+          render();
+        };
+      });
+      $('follow').onclick = e => {
+        e.target.textContent = e.target.textContent === 'Follow' ? 'Following' : 'Follow';
+      };
+      $('message').onclick = () => {
+        setStatus('Message button mockup · Tidak ada chat terkirim');
+      };
+    }
+
+    // ==========================================
+    // RENDER: GOOGLE BUSINESS
+    // ==========================================
+    function renderGoogle() {
+      const p = state.google;
+      $('preview').className = 'preview gmb' + (mobile ? ' mobile' : '');
+      $('preview').innerHTML = `
+        <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(200px,.9fr);gap:16px;align-items:start">
+          <section class="bizPanel">
+            <div class="bizHead img-editable-wrap" data-select="cover">
+              <img src="${esc(safeImage(p.cover))}" alt="Business cover">
+              <img class="bizAvatar" src="${esc(safeImage(p.logo))}" alt="Business logo">
+              <div class="edit-overlay-btn">📷 Ganti Foto Profil / Cover</div>
+            </div>
+            <h2>${esc(p.name)}</h2>
+            <div class="bizMeta">${esc(p.rating)} <span style="color:#f9ab00">★★★★★</span> (${esc(p.reviews)}) · ${esc(p.category)}</div>
+            <div class="bizActions">
+              <a class="bizAction" style="text-decoration:none" target="_blank" rel="noopener noreferrer" href="https://maps.google.com/?q=${encodeURIComponent(p.address)}">➤ Petunjuk Arah</a>
+              <button class="bizAction">♧ Simpan</button>
+              <button class="bizAction">⌖ Terdekat</button>
+              <button class="bizAction">↗ Bagikan</button>
+              ${p.website ? '<button class="bizAction">🌐 Website</button>' : ''}
+            </div>
+            <div class="bizRow">📍 &nbsp;${esc(p.address)}</div>
+            <div class="bizRow">◷ &nbsp;${esc(p.hours)}</div>
+            <div class="bizRow">☎ &nbsp;${esc(p.phone)}</div>
+            ${p.website ? `<div class="bizRow">🌐 &nbsp;${esc(p.website)}</div>` : '<div class="bizRow" style="color:#94a3b8">＋ Tambah website</div>'}
+            <div class="bizRow">${esc(p.description)}</div>
+            <h3>Foto &amp; Video</h3>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+              ${[p.photo1, p.photo2, p.photo3].map(x => `<img style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px" src="${esc(safeImage(x))}" alt="Business photo">`).join('')}
+            </div>
+            <h3>Ringkasan Ulasan</h3>
+            <div style="font-size:28px">${esc(p.rating)} <span style="color:#f9ab00">★★★★★</span></div>
+            <div class="bizMeta">Berdasarkan ${esc(p.reviews)} ulasan pelanggan</div>
+          </section>
+          <div class="bizMap">
+            <span class="mapLabel">●</span>
+            <span style="position:absolute;top:20%;left:20%;color:#54756c;font-weight:700">Tegal Alur</span>
+            <span style="position:absolute;top:70%;right:12%;color:#54756c;font-weight:700">Menceng Raya</span>
+            <span style="position:absolute;left:38%;top:58%;font-size:12px;color:#596c57;font-weight:600">Jl. Albasia</span>
+          </div>
+        </div>
+      `;
+      $('preview').querySelector('[data-select="cover"]').onclick = () => {
+        selected = { type: 'google' };
+        inspector();
+      };
+    }
+
+    // ==========================================
+    // RENDER: WEBSITE MOCKUP
+    // ==========================================
+    function renderWebsite() {
+      const p = state.website;
+      $('preview').className = 'preview website' + (mobile ? ' mobile' : '');
+      $('preview').innerHTML = `
+        <div class="sitePage">
+          <nav class="siteNav">
+            <strong>${esc(p.name)}</strong>
+            <span style="color:#64748b;font-weight:600;">Beranda · Produk · Lokasi · Kontak</span>
+          </nav>
+          <section class="siteHero" style="background-image:linear-gradient(90deg,#f8f4eaf2 0%,#f8f4eac9 55%,#f8f4ea30),url('${esc(safeImage(p.heroImage))}');background-size:cover;background-position:center">
+            <div style="color:${esc(p.color)};font-weight:700">${esc(p.eyebrow)}</div>
+            <h1>${esc(p.headline)}</h1>
+            <p>${esc(p.description)}</p>
+            <a class="siteCTA" style="background:${esc(p.color)}" href="https://wa.me/62${esc(p.phone.replace(/\D/g,'').replace(/^0/,''))}">${esc(p.button)}　→</a>
+          </section>
+          <section class="siteSection">
+            <h2>Pilihan untuk kebutuhan sehari-hari</h2>
+            <p style="color:#64748b;">Tanyakan stok dan ketersediaan produk langsung kepada tim toko kami.</p>
+            <div class="siteProducts">
+              ${[p.product1, p.product2, p.product3].map((n, i) => `
+                <article class="siteProduct">
+                  <img src="${esc(safeImage([urls[8], urls[5], urls[2]][i]))}" alt="${esc(n)}">
+                  <b>${esc(n)}</b>
+                  <span>Tanyakan ketersediaan hari ini</span>
+                </article>
+              `).join('')}
+            </div>
+          </section>
+          <section class="siteSection" style="background:#f8f6f0">
+            <h2>Kunjungi toko kami</h2>
+            <p>${esc(p.address)}</p>
+            <p>Telepon / WhatsApp: ${esc(p.phone)}</p>
+          </section>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // PROPERTIES INSPECTOR
+    // ==========================================
+    function inspector() {
+      const p = state[platform];
+      let o = p;
+      let title = 'Profil';
+
+      if (platform === 'youtube') {
+        if (selected.type === 'video') {
+          o = p.videos[selected.index];
+          title = `Video #${selected.index + 1}`;
+        } else if (selected.type === 'short') {
+          o = p.shorts[selected.index];
+          title = `Shorts #${selected.index + 1}`;
+        } else if (selected.type === 'banner') {
+          title = 'YouTube Banner';
+        } else if (selected.type === 'avatar') {
+          title = 'YouTube Avatar';
+        } else {
+          title = 'Channel YouTube';
+        }
+      } else if (platform === 'instagram' || platform === 'tiktok') {
+        if (selected.type === 'post') {
+          o = p.posts[selected.index];
+          title = `Post #${selected.index + 1}`;
+        } else if (selected.type === 'highlight') {
+          o = p.highlights[selected.index];
+          title = `Highlight #${selected.index + 1}`;
+        } else {
+          title = 'Profil Akun';
+        }
+      } else if (platform === 'google') {
+        title = 'Google Business';
+      } else if (platform === 'website') {
+        title = 'Website';
+      }
+
+      $('inspectorCategory').textContent = title;
+
+      // Fields determination
+      let fields = [];
+      if (platform === 'youtube') {
+        if (selected.type === 'video') {
+          fields = ['title', 'duration', 'views', 'time', 'image', 'zoom', 'x', 'y'];
+        } else if (selected.type === 'short') {
+          fields = ['title', 'views', 'image', 'zoom', 'x', 'y'];
+        } else if (selected.type === 'banner') {
+          fields = ['banner', 'bannerZoom'];
+        } else if (selected.type === 'avatar') {
+          fields = ['avatar'];
+        } else {
+          fields = ['name', 'handle', 'subscribers', 'videosCount', 'bio', 'link', 'avatar', 'banner'];
+        }
+      } else if (['instagram', 'tiktok'].includes(platform)) {
+        if (selected.type === 'post') {
+          fields = ['image', 'caption', 'views', 'type', 'zoom', 'x', 'y'];
+        } else if (selected.type === 'highlight') {
+          fields = ['name', 'image'];
+        } else {
+          fields = ['handle', 'name', 'category', 'bio', 'link', 'postsCount', 'followers', 'following', ...(platform === 'tiktok' ? ['likes'] : []), 'avatar'];
+        }
+      } else if (platform === 'google') {
+        fields = ['name', 'category', 'rating', 'reviews', 'address', 'hours', 'phone', 'website', 'description', 'cover', 'logo'];
+      } else if (platform === 'website') {
+        fields = ['name', 'eyebrow', 'headline', 'description', 'button', 'phone', 'address', 'heroImage', 'product1', 'product2', 'product3'];
+      }
+
+      const labels = {
+        name: 'Nama Tampilan',
+        handle: 'Username / Handle',
+        category: 'Kategori / Niche',
+        subscribers: 'Jumlah Subscribers',
+        videosCount: 'Jumlah Video',
+        bio: 'Bio Profil',
+        link: 'Tautan Eksternal',
+        avatar: 'Foto Avatar (URL / File)',
+        banner: 'Banner Channel (URL / File)',
+        bannerZoom: 'Zoom Banner (%)',
+        title: 'Judul Video',
+        duration: 'Durasi (Contoh: 14:25)',
+        views: 'Jumlah Views',
+        time: 'Waktu Upload',
+        caption: 'Caption / Deskripsi',
+        image: 'Foto / Thumbnail (URL / File)',
+        x: 'Posisi Horizontal (Pan X %)',
+        y: 'Posisi Vertikal (Pan Y %)',
+        zoom: 'Perbesaran (Zoom %)',
+        postsCount: 'Jumlah Post',
+        followers: 'Followers',
+        following: 'Following',
+        likes: 'Total Likes',
+        heroImage: 'Foto Utama Website'
+      };
+
+      let html = fields.map(f => {
+        const val = o[f] ?? '';
+        const lbl = labels[f] || f;
+        if (f === 'bio' || f === 'caption' || f === 'headline' || f === 'description') {
+          return `
+            <label for="field-${f}">${lbl}</label>
+            <textarea id="field-${f}" data-field="${f}">${esc(val)}</textarea>
+          `;
+        }
+        if (f === 'type') {
+          return `
+            <label for="field-type">${lbl}</label>
+            <select id="field-type" data-field="type">
+              <option value="post" ${val === 'post' ? 'selected' : ''}>Feed Post (Square)</option>
+              <option value="reel" ${val === 'reel' ? 'selected' : ''}>Reels Video (9:16)</option>
+            </select>
+          `;
+        }
+        if (['x', 'y', 'zoom', 'bannerZoom'].includes(f)) {
+          const isZoom = f.includes('zoom') || f.includes('Zoom');
+          return `
+            <label for="field-${f}">${lbl} (${val}${isZoom ? '%' : '%'})</label>
+            <input id="field-${f}" data-field="${f}" type="range" min="${isZoom ? 100 : 0}" max="${isZoom ? 250 : 100}" value="${val}">
+          `;
+        }
+        return `
+          <label for="field-${f}">${lbl}</label>
+          <input id="field-${f}" data-field="${f}" type="text" value="${esc(val)}" placeholder="Masukkan teks atau URL gambar">
+        `;
+      }).join('');
+
+      // Extra checkboxes
+      if (selected.type === 'profile' && ['instagram', 'tiktok'].includes(platform)) {
+        html += `<label style="display:flex;align-items:center;gap:8px;margin-top:14px;cursor:pointer"><input type="checkbox" data-field="verified" ${o.verified ? 'checked' : ''}> Centang Akun Terverifikasi (Blue Badge)</label>`;
+      }
+      if (platform === 'youtube' && (selected.type === 'profile' || selected.type === 'avatar')) {
+        html += `<label style="display:flex;align-items:center;gap:8px;margin-top:14px;cursor:pointer"><input type="checkbox" data-field="verified" ${p.verified ? 'checked' : ''}> Centang Channel Resmi (Official Badge)</label>`;
+      }
+
+      // Direct Image Upload Trigger
+      html += `
+        <div class="upload-box" id="uploadDropZone" onclick="$('directUploadInput').click()">
+          <span style="font-size:22px;display:block;margin-bottom:4px;">📷</span>
+          <b style="color:#38bdf8;font-size:13px;">Klik untuk Unggah Gambar dari Komputer</b>
+          <div style="font-size:11.5px;color:#94a3b8;margin-top:2px;">PNG, JPG, WebP hingga 4 MB</div>
+          <input type="file" id="directUploadInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+        </div>
+      `;
+
+      // Quick action buttons
+      html += '<div class="btn-group">';
+      if (platform === 'youtube') {
+        html += `<button type="button" class="primary-btn" id="btnAddYtVideo">+ Tambah Video</button>`;
+        html += `<button type="button" class="primary-btn" id="btnAddYtShort">+ Tambah Short</button>`;
+        if (selected.type === 'video' || selected.type === 'short') {
+          html += `<button type="button" class="danger-btn" id="btnRemoveItem">Hapus Item Ini</button>`;
+        }
+      } else if (['instagram', 'tiktok'].includes(platform)) {
+        html += `<button type="button" class="primary-btn" id="btnAddIgPost">+ Tambah Post</button>`;
+        if (platform === 'instagram') html += `<button type="button" class="primary-btn" id="btnAddIgHighlight">+ Tambah Highlight</button>`;
+        if (selected.type === 'post' || selected.type === 'highlight') {
+          html += `<button type="button" class="danger-btn" id="btnRemoveItem">Hapus Item Ini</button>`;
+        }
+      }
+      html += '</div>';
+
+      $('fields').innerHTML = html;
+
+      // Bind input events
+      document.querySelectorAll('#fields [data-field]').forEach(input => {
+        input.oninput = () => {
+          const field = input.dataset.field;
+          const targetObj = (platform === 'youtube' && (field === 'verified' || field === 'name' || field === 'handle')) ? p : o;
+          
+          if (input.type === 'checkbox') {
+            targetObj[field] = input.checked;
+          } else if (input.type === 'range') {
+            targetObj[field] = +input.value;
+          } else {
+            targetObj[field] = input.value;
+          }
+          save();
+          render();
+        };
+      });
+
+      // Bind File Upload
+      const directUpload = $('directUploadInput');
+      if (directUpload) {
+        directUpload.onchange = e => {
+          const file = e.target.files[0];
+          if (!file) return;
+          if (!/^image\/(png|jpeg|webp|gif)$/.test(file.type)) {
+            alert('Pilih file gambar berformat PNG, JPG, WebP atau GIF');
+            return;
+          }
+          if (file.size > 4000000) {
+            alert('Ukuran gambar melebihi 4 MB');
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result;
+            // Determine target image field
+            if (platform === 'youtube') {
+              if (selected.type === 'banner') p.banner = result;
+              else if (selected.type === 'avatar') p.avatar = result;
+              else if (selected.type === 'short' || selected.type === 'video') o.image = result;
+              else p.avatar = result;
+            } else if (['instagram', 'tiktok'].includes(platform)) {
+              if (selected.type === 'post') o.image = result;
+              else if (selected.type === 'highlight') o.image = result;
+              else p.avatar = result;
+            } else if (platform === 'google') {
+              p.cover = result;
+            } else if (platform === 'website') {
+              p.heroImage = result;
+            }
+            save();
+            render();
+            inspector();
+            setStatus('Foto berhasil diunggah!');
+          };
+          reader.readAsDataURL(file);
+        };
+      }
+
+      // Add/Remove buttons
+      if ($('btnAddYtVideo')) {
+        $('btnAddYtVideo').onclick = () => {
+          p.videos.unshift({
+            title: 'Judul Video YouTube Klien Baru',
+            views: '12K views',
+            time: 'Baru saja',
+            duration: '10:00',
+            image: urls[0],
+            type: 'video',
+            x: 50, y: 50, zoom: 100
+          });
+          selected = { type: 'video', index: 0 };
+          tab = 'videos';
+          save();
+          render();
+          inspector();
+        };
+      }
+      if ($('btnAddYtShort')) {
+        $('btnAddYtShort').onclick = () => {
+          p.shorts.unshift({
+            title: 'Judul Shorts Vertikal Baru 🔥',
+            views: '50K views',
+            image: urls[1],
+            type: 'short',
+            x: 50, y: 50, zoom: 100
+          });
+          selected = { type: 'short', index: 0 };
+          tab = 'shorts';
+          save();
+          render();
+          inspector();
+        };
+      }
+      if ($('btnAddIgPost')) {
+        $('btnAddIgPost').onclick = () => {
+          p.posts.unshift({
+            image: urls[0],
+            caption: 'Konten feed draf baru untuk klien',
+            views: '5,200',
+            type: 'post',
+            saved: false,
+            tagged: false,
+            x: 50, y: 50, zoom: 100
+          });
+          selected = { type: 'post', index: 0 };
+          tab = 'posts';
+          save();
+          render();
+          inspector();
+        };
+      }
+      if ($('btnAddIgHighlight')) {
+        $('btnAddIgHighlight').onclick = () => {
+          p.highlights.push({
+            name: 'Sorotan Baru',
+            image: avatar
+          });
+          selected = { type: 'highlight', index: p.highlights.length - 1 };
+          save();
+          render();
+          inspector();
+        };
+      }
+      if ($('btnRemoveItem')) {
+        $('btnRemoveItem').onclick = () => {
+          if (!confirm('Hapus item ini dari draft?')) return;
+          if (platform === 'youtube') {
+            if (selected.type === 'video') p.videos.splice(selected.index, 1);
+            if (selected.type === 'short') p.shorts.splice(selected.index, 1);
+            selected = { type: 'profile' };
+          } else {
+            if (selected.type === 'post') p.posts.splice(selected.index, 1);
+            if (selected.type === 'highlight') p.highlights.splice(selected.index, 1);
+            selected = { type: 'profile' };
+          }
+          save();
+          render();
+          inspector();
+        };
+      }
+    }
+
+    // ==========================================
+    // TOP BAR BUTTONS & PRESENTATION MODE
+    // ==========================================
+    document.querySelectorAll('[data-platform]').forEach(b => {
+      b.onclick = () => {
+        platform = b.dataset.platform;
+        selected = { type: 'profile' };
+        tab = (platform === 'youtube') ? 'videos' : 'posts';
+        document.querySelectorAll('[data-platform]').forEach(x => x.classList.toggle('active', x === b));
+        render();
+        inspector();
+      };
+    });
+
+    $('btnPresent').onclick = () => {
+      document.body.classList.toggle('present');
+      const isPresent = document.body.classList.contains('present');
+      $('btnPresent').textContent = isPresent ? '✏️ Mode Edit' : '👁️ Mode Presentasi';
+      $('btnPresent').classList.toggle('active', isPresent);
+    };
+
+    $('device').onclick = () => {
+      mobile = !mobile;
+      $('device').textContent = mobile ? '🖥️ Desktop Preview' : '📱 Mobile Preview';
+      $('device').classList.toggle('active', mobile);
+      render();
+    };
+
+    $('export').onclick = () => {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `mockup-profile-${platform}-${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setStatus('Draft diekspor ke file JSON');
+    };
+
+    $('import').onclick = () => $('importFile').click();
+    $('importFile').onchange = async e => {
+      try {
+        const file = e.target.files[0];
+        if (!file) return;
+        const data = JSON.parse(await file.text());
+        state = {
+          instagram: data.instagram || defaults(),
+          youtube: data.youtube || youtubeDefaults(),
+          tiktok: data.tiktok || defaults(),
+          google: data.google || businessDefaults(),
+          website: data.website || websiteDefaults()
+        };
+        selected = { type: 'profile' };
+        save();
+        render();
+        inspector();
+        setStatus('Draft berhasil diimpor!');
+      } catch {
+        alert('File draft tidak valid atau rusak');
+      }
+      e.target.value = '';
+    };
+
+    // Initial render
+    render();
+    inspector();
+  </script>
+</body>
+</html>
