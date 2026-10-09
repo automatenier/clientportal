@@ -317,6 +317,178 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
   color: var(--ink);
 }
 
+/* Emphasized Bold CTA for Finished Deliverables */
+.btn-lihat-hasil {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+  color: #ffffff !important;
+  font-weight: 850 !important;
+  font-size: 12px !important;
+  padding: 5px 12px !important;
+  border-radius: 8px !important;
+  border: 1px solid #34d399 !important;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.35) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  cursor: pointer !important;
+  transition: all .2s ease !important;
+  text-decoration: none !important;
+}
+.btn-lihat-hasil:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+  box-shadow: 0 4px 14px rgba(16,185,129,0.5) !important;
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+}
+.cta-lihat-demo {
+  color: #527363;
+  font-weight: 700;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.cta-lihat-demo:hover {
+  color: var(--green);
+  text-decoration: underline;
+}
+.btn-finish-toggle {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.btn-finish-toggle:hover {
+  background: #e2e8f0;
+}
+.btn-finish-toggle.finished {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+}
+.screenshot-wrap.is-finished {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 2px rgba(16,185,129,0.25) !important;
+}
+.caption-finished {
+  background: #059669 !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+/* Telegram Bot Simulator Styles for Karyawan AI Timeline */
+.telegram-sim-wrap {
+  background: #17212b;
+  border-radius: 14px;
+  border: 1px solid #242f3d;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+}
+.telegram-sim-header {
+  background: #242f3d;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #17212b;
+}
+.telegram-sim-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.telegram-sim-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2b5278;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+}
+.telegram-sim-name {
+  font-size: 13px;
+  font-weight: 750;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.telegram-sim-status {
+  font-size: 11px;
+  color: #4fa4f3;
+}
+.telegram-sim-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #0e1621;
+}
+.telegram-msg-bubble {
+  max-width: 88%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  position: relative;
+  word-break: break-word;
+}
+.telegram-msg-user {
+  align-self: flex-end;
+  background: #2b5278;
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+.telegram-msg-bot {
+  align-self: flex-start;
+  background: #182533;
+  color: #f5f5f5;
+  border-bottom-left-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.05);
+  white-space: pre-line;
+}
+.telegram-inline-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+.telegram-kb-btn {
+  background: #242f3d;
+  color: #64b5f6;
+  border: 1px solid #2f3e50;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.telegram-kb-btn:hover {
+  background: #2b5278;
+  color: #ffffff;
+}
+.telegram-feedback-bubble {
+  background: #1e3a2f;
+  color: #a7f3d0;
+  border: 1px solid #10b981;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  margin-top: 8px;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
 /* Showcase Catalog Grid View */
 .showcase-grid-view {
   display: grid;
@@ -2374,6 +2546,7 @@ VIEW MODE 2: SETUP & ONBOARDING
     <button data-tab="content">Konten draf</button>
     <button data-tab="profile">Profile</button>
     <button data-tab="hasil-konten">Hasil konten</button>
+    <button data-tab="ai-workforce">Karyawan AI</button>
   </div>
 
   <section id="build" class="view">
@@ -2877,6 +3050,374 @@ VIEW MODE 2: SETUP & ONBOARDING
   <!-- VIEW TAB 6: HASIL KONTEN (KATALOG REELS & SHORTS 9:16) -->
   <section id="hasil-konten" class="view hide">
     <iframe src="hasil-konten.html" title="Katalog Video Hasil Konten Reels &amp; Shorts" style="width:100%;height:1350px;border:0;border-radius:14px;box-shadow:var(--shadow);" loading="lazy"></iframe>
+  </section>
+
+  <!-- VIEW TAB 7: KARYAWAN AI (TIMELINE DEMO TELEGRAM /COMMAND 5 AGEN) -->
+  <section id="ai-workforce" class="view hide">
+    <div class="toolbar">
+      <div>
+        <h2>Karyawan AI · 5 Demo Otomasi Telegram Bot</h2>
+        <small style="color:var(--muted);font-weight:600;">Simulasi interaktif alur kerja 5 agen AI bisnis Anda via perintah Telegram. Uji coba tombol aksi di bawah untuk merasakan alur Level 0–3 Approval Gateway.</small>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <span class="pill owner" style="margin:0;font-size:11px;display:flex;align-items:center;gap:6px;">
+          <span class="pulse-dot" style="background:#10b981;"></span> 5 Agen Standby 24/7
+        </span>
+        <span class="stage-tasks-badge cleared" style="font-size:11px;">Telegram Gateway v2 Active</span>
+      </div>
+    </div>
+
+    <div style="background:#f8faf9;border:1px solid #dce8de;border-radius:12px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:24px;">🛡️</span>
+        <div>
+          <strong style="font-size:13px;color:var(--ink);display:block;">SOP &amp; Kontrol Penuh Pemilik (Level 0–3 Gateway)</strong>
+          <small style="color:var(--muted);font-size:11.5px;">Agen AI bekerja otomatis 24/7, namun keputusan finansial, pengiriman resmi, dan perubahan anggaran wajib persetujuan Anda melalui Telegram.</small>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;font-size:11px;">
+        <span style="background:#e2e8f0;padding:3px 8px;border-radius:6px;font-weight:700;color:#334155;">L0: Baca</span>
+        <span style="background:#e0f2fe;padding:3px 8px;border-radius:6px;font-weight:700;color:#0369a1;">L1: Draft</span>
+        <span style="background:#ecfdf5;padding:3px 8px;border-radius:6px;font-weight:700;color:#065f46;">L2: Approval Owner</span>
+        <span style="background:#fef3c7;padding:3px 8px;border-radius:6px;font-weight:700;color:#92400e;">L3: Override</span>
+      </div>
+    </div>
+
+    <!-- Timeline of 5 AI Employees -->
+    <div class="build-list" id="aiWorkforceTimelineList">
+      <!-- 01: SARI -->
+      <article class="build-item">
+        <span class="build-node" title="Karyawan AI 01">01</span>
+        <div class="build-card">
+          <div class="build-card-grid">
+            <div class="build-card-info">
+              <div class="stage-title-row" style="margin-bottom:8px;">
+                <h3 style="font-size:16px;font-weight:850;color:var(--ink);letter-spacing:-0.2px;margin:0;">Sari · CS WhatsApp 24/7 &amp; Invoicing Otomatis</h3>
+                <span class="stage-tasks-badge cleared">Level 2 Approval Gateway</span>
+              </div>
+              <p style="margin:0 0 10px;font-size:12.5px;line-height:1.55;color:var(--muted);">
+                Sari menyapa pelanggan di WhatsApp secara instan 24 jam, memeriksa ketersediaan produk, dan menyusun draf invoice resmi. Sebelum invoice dikirim ke pelanggan, Sari meminta persetujuan pemilik usaha di Telegram dengan 1 klik.
+              </p>
+              <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;">
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Perintah Telegram:</span>
+                  <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;font-weight:700;color:#1e293b;">/invoice [NOMOR_ORDER]</code>
+                </div>
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Trigger Otomatis:</span>
+                  <span>Pesanan baru terverifikasi dari chat WhatsApp pelanggan atau formulir web.</span>
+                </div>
+                <div style="display:flex;gap:12px;">
+                  <span style="color:var(--muted);min-width:110px;">Aksi Eksekusi:</span>
+                  <span>Kirim PDF invoice &amp; QRIS ke WhatsApp pelanggan, catat transaksi di Google Sheets &amp; database.</span>
+                </div>
+              </div>
+              <div class="build-meta" style="margin-top:10px;">
+                <b>Sari (CS &amp; Invoicing)</b>
+                <span style="color:#059669;font-weight:700;">Response Time: &lt; 3 detik</span>
+              </div>
+            </div>
+
+            <div class="build-card-side">
+              <div class="telegram-sim-wrap">
+                <div class="telegram-sim-header">
+                  <div class="telegram-sim-profile">
+                    <div class="telegram-sim-avatar" style="background:#059669;">S</div>
+                    <div>
+                      <div class="telegram-sim-name">Sari · Invoicing AI</div>
+                      <div class="telegram-sim-status">bot · Level 2 Approval</div>
+                    </div>
+                  </div>
+                  <span style="font-size:10.5px;background:#182533;color:#a7f3d0;padding:2px 8px;border-radius:10px;font-weight:700;">LIVE DEMO</span>
+                </div>
+                <div class="telegram-sim-body">
+                  <div class="telegram-msg-bubble telegram-msg-user">/invoice INV-2026-081</div>
+                  <div class="telegram-msg-bubble telegram-msg-bot">🧾 <b>DRAF INVOICE #INV-2026-081</b>
+Pelanggan: <b>PT Sentosa Abadi</b>
+Pesanan: Ayam Karkas Segar 1.2kg x 450 Ekor
+Total Tagihan: <b>Rp 16.200.000</b>
+Termin: 7 Hari · Jatuh Tempo: 16 Okt 2026
+
+<i>⚠️ Menunggu persetujuan Anda sebelum dikirim ke WA Klien:</i>
+<div class="telegram-inline-keyboard">
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'invoice-approve', '✅ <b>Invoice Disetujui!</b> Sari langsung mengirimkan link invoice resmi &amp; QRIS ke WhatsApp Direktur Operasional PT Sentosa Abadi.')">✅ Setujui &amp; Kirim ke WA Klien</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'invoice-edit', '✏️ Sari membuka mode edit termin pembayaran &amp; diskon khusus untuk PT Sentosa Abadi.')">✏️ Ubah Diskon / Tempo</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'open-deliverable', '📄 Membuka pratinjau template faktur invoice resmi AGentZ...')">📄 Lihat Format Invoice</button>
+</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02: MAYA -->
+      <article class="build-item">
+        <span class="build-node" title="Karyawan AI 02">02</span>
+        <div class="build-card">
+          <div class="build-card-grid">
+            <div class="build-card-info">
+              <div class="stage-title-row" style="margin-bottom:8px;">
+                <h3 style="font-size:16px;font-weight:850;color:var(--ink);letter-spacing:-0.2px;margin:0;">Maya · Sales &amp; Lead Qualification AI</h3>
+                <span class="stage-tasks-badge cleared">Level 1 Autonomous Scoring</span>
+              </div>
+              <p style="margin:0 0 10px;font-size:12.5px;line-height:1.55;color:var(--muted);">
+                Maya menyaring setiap leads yang masuk dari kampanye Meta Ads &amp; Google Ads. Menguji kesiapan modal, volume kebutuhan bisnis, dan lokasi prospek dalam 2 menit pertama, lalu menyerahkan hot leads ke tim sales Anda.
+              </p>
+              <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;">
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Perintah Telegram:</span>
+                  <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;font-weight:700;color:#1e293b;">/leads_hari_ini</code>
+                </div>
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Trigger Otomatis:</span>
+                  <span>Formulir masuk iklan Meta Ads/Google Ads atau chat awal landing page.</span>
+                </div>
+                <div style="display:flex;gap:12px;">
+                  <span style="color:var(--muted);min-width:110px;">Aksi Eksekusi:</span>
+                  <span>Notifikasi prioritas ke Telegram Salesperson, pencatatan otomatis di CRM Spreadsheet.</span>
+                </div>
+              </div>
+              <div class="build-meta" style="margin-top:10px;">
+                <b>Maya (Lead Funnel)</b>
+                <span style="color:#0284c7;font-weight:700;">Auto Qualification · 24/7</span>
+              </div>
+            </div>
+
+            <div class="build-card-side">
+              <div class="telegram-sim-wrap">
+                <div class="telegram-sim-header">
+                  <div class="telegram-sim-profile">
+                    <div class="telegram-sim-avatar" style="background:#0284c7;">M</div>
+                    <div>
+                      <div class="telegram-sim-name">Maya · Growth Sales AI</div>
+                      <div class="telegram-sim-status">bot · Lead Qualifier</div>
+                    </div>
+                  </div>
+                  <span style="font-size:10.5px;background:#182533;color:#7dd3fc;padding:2px 8px;border-radius:10px;font-weight:700;">LIVE DEMO</span>
+                </div>
+                <div class="telegram-sim-body">
+                  <div class="telegram-msg-bubble telegram-msg-user">/leads_hari_ini</div>
+                  <div class="telegram-msg-bubble telegram-msg-bot">🎯 <b>REKAP LEADS IKLAN HARI INI</b>
+Total Leads Masuk: <b>19 Prospek</b>
+Biaya Rata-rata per Lead: Rp 13.800
+🔥 Hot Leads (Skor 85+): <b>6 Prospek Siap Deal</b>
+
+⚡ <i>Rekomendasi Kontak Segera:</i>
+1. Bpk. Hendra (Resto Bintang 4 Surabaya) · Butuh 150kg/hari rutin
+2. Ibu Cindy (Katering Pernikahan) · Butuh kontrak mingguan
+
+<div class="telegram-inline-keyboard">
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'lead-handoff', '📲 <b>Lead Diserahkan!</b> Kontak &amp; profil Bpk. Hendra diteruskan langsung ke WhatsApp Salesperson #1 lengkap dengan catatan kebutuhan.')">📲 Sambungkan ke Salesperson WA</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'lead-crm', '📊 Membuka sinkronisasi spreadsheet CRM Leads: 19 kontak berhasil dicatat.')">📊 Buka Spreadsheet CRM Leads</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'lead-quote', '⚡ Maya mengirimkan draf proposal harga awal standar B2B ke email Bpk. Hendra.')">⚡ Kirim Penawaran Cepat</button>
+</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03: RIAN -->
+      <article class="build-item">
+        <span class="build-node" title="Karyawan AI 03">03</span>
+        <div class="build-card">
+          <div class="build-card-grid">
+            <div class="build-card-info">
+              <div class="stage-title-row" style="margin-bottom:8px;">
+                <h3 style="font-size:16px;font-weight:850;color:var(--ink);letter-spacing:-0.2px;margin:0;">Rian · Content &amp; Social Media Engine AI</h3>
+                <span class="stage-tasks-badge cleared">Level 2 Creator &amp; Approval</span>
+              </div>
+              <p style="margin:0 0 10px;font-size:12.5px;line-height:1.55;color:var(--muted);">
+                Rian menyusun brief konten, hook 3 detik yang menghentikan scroll, naskah 45 detik, caption dengan kata kunci pencarian, serta thumbnail cover. Konten baru dijadwalkan otomatis setelah disetujui owner di Telegram.
+              </p>
+              <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;">
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Perintah Telegram:</span>
+                  <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;font-weight:700;color:#1e293b;">/draf_konten reels_edukasi</code>
+                </div>
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Trigger Otomatis:</span>
+                  <span>Jadwal produksi mingguan atau adanya materi footage mentah baru di album Telegram.</span>
+                </div>
+                <div style="display:flex;gap:12px;">
+                  <span style="color:var(--muted);min-width:110px;">Aksi Eksekusi:</span>
+                  <span>Publikasi otomatis terjadwal ke Instagram Reels &amp; TikTok, pelaporan metriks engagement.</span>
+                </div>
+              </div>
+              <div class="build-meta" style="margin-top:10px;">
+                <b>Rian (Content Engine)</b>
+                <span style="color:#7c3aed;font-weight:700;">Multiplatform Scheduler</span>
+              </div>
+            </div>
+
+            <div class="build-card-side">
+              <div class="telegram-sim-wrap">
+                <div class="telegram-sim-header">
+                  <div class="telegram-sim-profile">
+                    <div class="telegram-sim-avatar" style="background:#7c3aed;">R</div>
+                    <div>
+                      <div class="telegram-sim-name">Rian · Content Engine AI</div>
+                      <div class="telegram-sim-status">bot · Reels &amp; Shorts</div>
+                    </div>
+                  </div>
+                  <span style="font-size:10.5px;background:#182533;color:#c4b5fd;padding:2px 8px;border-radius:10px;font-weight:700;">LIVE DEMO</span>
+                </div>
+                <div class="telegram-sim-body">
+                  <div class="telegram-msg-bubble telegram-msg-user">/draf_konten reels_edukasi</div>
+                  <div class="telegram-msg-bubble telegram-msg-bot">🎬 <b>DRAF KONTEN REELS #08 SIAP TAYANG</b>
+Topik: <i>"Kenapa 80% Usaha Kuliner Bocor di Timbangan Daging?"</i>
+Hook: Sorot timbangan digital 1.2kg vs susut 950g dalam 3 detik pertama.
+Audio: Suara asli pemotongan + Voiceover jernih
+Format: 9:16 Vertikal (Durasi 42s)
+
+<i>Status: Menunggu persetujuan jadwal tayang dari Anda:</i>
+<div class="telegram-inline-keyboard">
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'content-schedule', '🚀 <b>Konten Terjadwal!</b> Reels #08 akan otomatis tayang hari Selasa pukul 18:00 WIB di Instagram &amp; TikTok.')">🚀 Setujui &amp; Jadwalkan Tayang</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'content-revise', '✍️ Rian mencatat permintaan revisi hook: menyiapkan 2 alternatif judul yang lebih tajam.')">✍️ Minta Revisi Hook</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'view-catalog', '👁️ Mengalihkan ke tab Hasil Konten untuk memutar video vertikal 9:16...')">👁️ Buka Katalog Hasil Konten ↗</button>
+</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04: ANDI -->
+      <article class="build-item">
+        <span class="build-node" title="Karyawan AI 04">04</span>
+        <div class="build-card">
+          <div class="build-card-grid">
+            <div class="build-card-info">
+              <div class="stage-title-row" style="margin-bottom:8px;">
+                <h3 style="font-size:16px;font-weight:850;color:var(--ink);letter-spacing:-0.2px;margin:0;">Andi · Business Intelligence &amp; Analyst AI</h3>
+                <span class="stage-tasks-badge cleared">Level 0 Autonomous Briefing</span>
+              </div>
+              <p style="margin:0 0 10px;font-size:12.5px;line-height:1.55;color:var(--muted);">
+                Andi merekap performa finansial dan operasional usaha setiap pagi tepat pukul 07:00 WIB. Mengidentifikasi tren laba kotor, piutang yang jatuh tempo, serta memberikan peringatan dini bila ada anomali biaya logistik.
+              </p>
+              <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;">
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Perintah Telegram:</span>
+                  <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;font-weight:700;color:#1e293b;">/laporan_harian</code>
+                </div>
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Trigger Otomatis:</span>
+                  <span>Jadwal rutin harian pukul 07:00 pagi WIB atau permintaan langsung pemilik.</span>
+                </div>
+                <div style="display:flex;gap:12px;">
+                  <span style="color:var(--muted);min-width:110px;">Aksi Eksekusi:</span>
+                  <span>Kirim rekap PDF eksekutif, rekap Piutang Jatuh Tempo, dan peringatan margin kotor.</span>
+                </div>
+              </div>
+              <div class="build-meta" style="margin-top:10px;">
+                <b>Andi (Analyst AI)</b>
+                <span style="color:#d97706;font-weight:700;">Daily 07:00 WIB Digest</span>
+              </div>
+            </div>
+
+            <div class="build-card-side">
+              <div class="telegram-sim-wrap">
+                <div class="telegram-sim-header">
+                  <div class="telegram-sim-profile">
+                    <div class="telegram-sim-avatar" style="background:#d97706;">A</div>
+                    <div>
+                      <div class="telegram-sim-name">Andi · Analyst AI</div>
+                      <div class="telegram-sim-status">bot · Financial Digest</div>
+                    </div>
+                  </div>
+                  <span style="font-size:10.5px;background:#182533;color:#fde68a;padding:2px 8px;border-radius:10px;font-weight:700;">LIVE DEMO</span>
+                </div>
+                <div class="telegram-sim-body">
+                  <div class="telegram-msg-bubble telegram-msg-user">/laporan_harian</div>
+                  <div class="telegram-msg-bubble telegram-msg-bot">📊 <b>BRIEFING EKSEKUTIF BISNIS (07:00 WIB)</b>
+• Omzet Kemarin: <b>Rp 18.750.000</b> (+12% vs target harian)
+• Estimasi Laba Kotor: <b>Rp 6.180.000</b> (Margin: 33%)
+• Piutang Jatuh Tempo: <b>2 Pelanggan</b> (Rp 3.800.000)
+
+⚠️ <i>Deteksi Anomali Operasional:</i>
+Stok Paha Fillet sisa 40kg (Batas aman: 100kg). Rekomendasi restock supplier sebelum pukul 10:00.
+
+<div class="telegram-inline-keyboard">
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'report-dashboard', '📈 Membuka Dashboard Metrik KPI Bisnis lengkap...')">📈 Buka Dashboard KPI</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'report-remind', '🔔 <b>Pesan Pengingat Dikirim!</b> Andi menyiapkan template pengingat ramah via WA ke 2 pelanggan berpiutang.')">🔔 Kirim Pengingat Piutang</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'report-pdf', '📥 Menyiapkan tautan unduh file ringkasan laporan keuangan PDF...')">📥 Unduh Rekap PDF</button>
+</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 05: BUDI -->
+      <article class="build-item">
+        <span class="build-node" title="Karyawan AI 05">05</span>
+        <div class="build-card">
+          <div class="build-card-grid">
+            <div class="build-card-info">
+              <div class="stage-title-row" style="margin-bottom:8px;">
+                <h3 style="font-size:16px;font-weight:850;color:var(--ink);letter-spacing:-0.2px;margin:0;">Budi · Operations &amp; Fleet Logistics AI</h3>
+                <span class="stage-tasks-badge cleared">Level 1 Fleet &amp; Stock Sync</span>
+              </div>
+              <p style="margin:0 0 10px;font-size:12.5px;line-height:1.55;color:var(--muted);">
+                Budi memantau stok fisik di cold storage, mengoordinasikan jadwal keberangkatan driver pengantar barang, mencatat bukti serah terima timbangan digital, dan memantau suhu boks armada pengiriman.
+              </p>
+              <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;">
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Perintah Telegram:</span>
+                  <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;font-weight:700;color:#1e293b;">/status_kirim DRIVER-02</code>
+                </div>
+                <div style="display:flex;gap:12px;margin-bottom:6px;">
+                  <span style="color:var(--muted);min-width:110px;">Trigger Otomatis:</span>
+                  <span>Driver menekan tombol 'Selesai Kirim' pada form mobile atau perubahan status GPS rute.</span>
+                </div>
+                <div style="display:flex;gap:12px;">
+                  <span style="color:var(--muted);min-width:110px;">Aksi Eksekusi:</span>
+                  <span>Update otomatis status pesanan ke pelanggan WhatsApp, arsip foto tanda terima di cloud.</span>
+                </div>
+              </div>
+              <div class="build-meta" style="margin-top:10px;">
+                <b>Budi (Operations AI)</b>
+                <span style="color:#059669;font-weight:700;">Realtime Logistics Tracker</span>
+              </div>
+            </div>
+
+            <div class="build-card-side">
+              <div class="telegram-sim-wrap">
+                <div class="telegram-sim-header">
+                  <div class="telegram-sim-profile">
+                    <div class="telegram-sim-avatar" style="background:#2563eb;">B</div>
+                    <div>
+                      <div class="telegram-sim-name">Budi · Operations AI</div>
+                      <div class="telegram-sim-status">bot · Fleet &amp; Storage</div>
+                    </div>
+                  </div>
+                  <span style="font-size:10.5px;background:#182533;color:#93c5fd;padding:2px 8px;border-radius:10px;font-weight:700;">LIVE DEMO</span>
+                </div>
+                <div class="telegram-sim-body">
+                  <div class="telegram-msg-bubble telegram-msg-user">/status_kirim DRIVER-02</div>
+                  <div class="telegram-msg-bubble telegram-msg-bot">🚚 <b>STATUS PENGANTARAN (ARMADA 02)</b>
+Driver: <b>Pak Slamet</b> (GranMax Box B 9482 SXZ)
+Progres Rute: <b>7 dari 9 Lokasi Terkirim</b> (78%)
+Tujuan Berikutnya: Resto Bu Titin (Estimasi: 15:45 WIB)
+Suhu Boks Pendingin: <b>3.2°C</b> (Aman · Standar Higienis)
+
+<i>Stok Gudang Terkini: Karkas 380 ekor, Sayap 110kg.</i>
+<div class="telegram-inline-keyboard">
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'fleet-gps', '🗺️ <b>GPS Aktif:</b> Posisi armada Pak Slamet terpantau di Jl. Mayjen Sungkono (Lancar).')">🗺️ Pantau Posisi GPS Driver</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'fleet-call', '📞 Menyiapkan panggilan cepat WhatsApp ke Driver Pak Slamet.')">📞 Hubungi Driver</button>
+  <button type="button" class="telegram-kb-btn" onclick="handleTelegramDemoClick(this, 'stock-check', '📦 Budi menampilkan laporan stok cold storage realtime: Semua kapasitas aman.')">📦 Cek Sisa Stok Cold Storage</button>
+</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
   </section>
 
 
@@ -4301,22 +4842,28 @@ function switchSubDeliverable(stageKey, subIdx) {
   const shotWrap = document.getElementById('stageShotWrap_' + safeKey);
   const footerEl = document.getElementById('stageShotFooter_' + safeKey);
 
+  const stageIdx = TIMELINE_STAGES.findIndex(s => s.name === stageKey);
+  const stageNum = stageIdx !== -1 ? stageIdx + 1 : 1;
+  const isFinished = typeof isProductFinished === 'function' ? isProductFinished(stageNum) : false;
+
   const resolvedSubSrc = (sub.shot && (sub.shot.startsWith("assets/") || sub.shot.startsWith("data:") || sub.shot.startsWith("http"))) ? sub.shot : (DELIVERABLE_SCREENSHOTS[sub.shot] || "");
   if (shotImg && resolvedSubSrc) {
     shotImg.src = resolvedSubSrc;
     shotImg.alt = 'Pratinjau ' + sub.title;
   }
   if (captionEl) {
-    captionEl.textContent = sub.caption || 'CONTOH DELIVERABLE';
+    captionEl.textContent = isFinished ? 'HASIL SELESAI ✓' : (sub.caption || 'CONTOH DELIVERABLE');
+    captionEl.classList.toggle('caption-finished', isFinished);
   }
   if (shotWrap) {
     shotWrap.onclick = () => openDeliverableModal(stageKey, sub.shot, sub.title);
+    shotWrap.classList.toggle('is-finished', isFinished);
   }
   if (footerEl) {
     const isLive = sub.shot === 'Business Website';
     footerEl.innerHTML = `
       <span class="zoom-hint" onclick="openDeliverableModal('${esc(stageKey)}', '${esc(sub.shot)}', '${esc(sub.title)}')">🔍 Klik perbesar</span>
-      ${isLive ? `<a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" style="color:var(--green);font-weight:700;text-decoration:none;" onclick="event.stopPropagation();">Buka Live ↗</a>` : `<span style="color:#527363;font-weight:700;cursor:pointer;" onclick="openDeliverableModal('${esc(stageKey)}', '${esc(sub.shot)}', '${esc(sub.title)}')">Lihat Demo ↗</span>`}
+      ${isFinished ? (isLive ? `<a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" class="btn-lihat-hasil" onclick="event.stopPropagation();">⭐ <b>Lihat Hasil Live ↗</b></a>` : `<button type="button" class="btn-lihat-hasil" onclick="openDeliverableModal('${esc(stageKey)}', '${esc(sub.shot)}', '${esc(sub.title)}')">⭐ <b>Lihat Hasil ↗</b></button>`) : (isLive ? `<a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" style="color:var(--green);font-weight:700;text-decoration:none;" onclick="event.stopPropagation();">Buka Live ↗</a>` : `<span class="cta-lihat-demo" onclick="openDeliverableModal('${esc(stageKey)}', '${esc(sub.shot)}', '${esc(sub.title)}')">Lihat Demo ↗</span>`)}
     `;
   }
   const container = document.getElementById('stageSubPills_' + safeKey);
@@ -4334,8 +4881,12 @@ function openDeliverableModal(key, subShotKey = null, subTitle = null) {
   const shotSrc = (shotName && (shotName.startsWith('assets/') || shotName.startsWith('data:') || shotName.startsWith('http'))) ? shotName : (DELIVERABLE_SCREENSHOTS[shotName] || '');
   const isWeb = meta.isWebsite || shotName === 'Business Website';
   
+  const stageIdx = TIMELINE_STAGES.findIndex(s => s.name === key);
+  const stageNum = stageIdx !== -1 ? stageIdx + 1 : 1;
+  const isFinished = typeof isProductFinished === 'function' ? isProductFinished(stageNum) : false;
+  
   document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalEyebrow').textContent = (meta.tag || 'DELIVERABLE') + ' · CONTOH WUJUD NYATA SISTEM';
+  document.getElementById('modalEyebrow').textContent = (isFinished ? '⭐ HASIL FINAL TERVERIFIKASI · ' : '') + (meta.tag || 'DELIVERABLE') + ' · CONTOH WUJUD NYATA SISTEM';
   
   const body = document.getElementById('modalBody');
   body.innerHTML = `
@@ -4364,15 +4915,24 @@ function openDeliverableModal(key, subShotKey = null, subTitle = null) {
       <div class="deliverable-modal-box" style="display:flex;flex-direction:column;gap:12px;">
         <div>
           <span style="font-size:11px;color:var(--muted);font-weight:700;display:block;">STATUS IMPLEMENTASI</span>
-          <b style="color:var(--green);font-size:13px;">Tercakup dalam Offer Disepakati</b>
+          <b style="color:var(--green);font-size:13px;">${isFinished ? '✓ Produk Selesai Dikerjakan (Hasil Final)' : 'Tercakup dalam Offer Disepakati'}</b>
         </div>
+        ${isFinished ? `
+          <div style="background:#ecfdf5;border:1px solid #10b981;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:20px;">⭐</span>
+            <div>
+              <strong style="color:#065f46;font-size:12px;display:block;">Produk Digital Selesai (Hasil Final)</strong>
+              <span style="color:#047857;font-size:11px;">Deliverable ini telah selesai dikonfigurasi &amp; diverifikasi, siap digunakan langsung pada alur operasional.</span>
+            </div>
+          </div>
+        ` : ''}
         ${isWeb ? `
-          <a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--green);color:#fff;text-decoration:none;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:800;">
-            <span>🌐 Buka Prototype Website Live ↗</span>
+          <a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" class="${isFinished ? 'btn-lihat-hasil' : ''}" style="${isFinished ? 'width:100%;justify-content:center;padding:11px 16px;font-size:13px;text-decoration:none;' : 'display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--green);color:#fff;text-decoration:none;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:800;'}">
+            <span>${isFinished ? '⭐ Buka Hasil Website Live ↗' : '🌐 Buka Prototype Website Live ↗'}</span>
           </a>
         ` : `
-          <button type="button" onclick="document.getElementById('deliverableModal').close()" style="background:var(--ink);color:#fff;border:none;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;">
-            Tutup Pratinjau
+          <button type="button" class="${isFinished ? 'btn-lihat-hasil' : ''}" onclick="document.getElementById('deliverableModal').close()" style="${isFinished ? 'width:100%;justify-content:center;padding:11px 16px;font-size:13px;' : 'background:var(--ink);color:#fff;border:none;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;'}">
+            ${isFinished ? '⭐ Lihat Hasil Final (Terverifikasi) ✓' : 'Tutup Pratinjau'}
           </button>
         `}
         <small style="color:var(--muted);font-size:11px;line-height:1.5;">Data dan tampilan disesuaikan sepenuhnya dengan merek, menu/layanan, harga, dan alur operasional bisnis Anda saat onboarding.</small>
@@ -4458,6 +5018,77 @@ function updateOverallTaskSummary() {
   }
 }
 
+function getFinishedProducts() {
+  try {
+    const raw = localStorage.getItem('agentz_finished_products_v1');
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function isProductFinished(stageNum) {
+  const stageTasks = getAllStageTasks(stageNum);
+  const doneTasks = getSavedClientTasks();
+  const stageDone = stageTasks.filter(t => doneTasks.includes(t.id));
+  const isCleared = stageTasks.length > 0 && stageDone.length === stageTasks.length;
+  const finishedList = getFinishedProducts().map(String);
+  return isCleared || finishedList.includes(String(stageNum));
+}
+
+function toggleStageProductFinished(stageNum) {
+  let list = getFinishedProducts().map(String);
+  const key = String(stageNum);
+  if (list.includes(key)) {
+    list = list.filter(x => x !== key);
+  } else {
+    list.push(key);
+  }
+  try {
+    localStorage.setItem('agentz_finished_products_v1', JSON.stringify(list));
+  } catch(e) {}
+  drawBuild();
+  updateOverallTaskSummary();
+}
+
+function handleTelegramDemoClick(btn, actionType, feedbackText) {
+  const simBody = btn.closest('.telegram-sim-body');
+  if (!simBody) return;
+  
+  const allBtns = simBody.querySelectorAll('.telegram-kb-btn');
+  allBtns.forEach(b => {
+    b.style.opacity = '0.7';
+    b.style.borderColor = '#2f3e50';
+  });
+  btn.style.opacity = '1';
+  btn.style.borderColor = '#10b981';
+  btn.style.color = '#a7f3d0';
+
+  const oldFeedback = simBody.querySelector('.telegram-feedback-bubble');
+  if (oldFeedback) oldFeedback.remove();
+
+  const fb = document.createElement('div');
+  fb.className = 'telegram-feedback-bubble';
+  fb.innerHTML = feedbackText;
+  simBody.appendChild(fb);
+
+  if (actionType === 'view-catalog') {
+    setTimeout(() => {
+      const tabBtn = document.querySelector('#modeSetupContainer [data-tab="hasil-konten"]');
+      if (tabBtn) tabBtn.click();
+    }, 900);
+  } else if (actionType === 'view-profile') {
+    setTimeout(() => {
+      const tabBtn = document.querySelector('#modeSetupContainer [data-tab="profile"]');
+      if (tabBtn) tabBtn.click();
+    }, 900);
+  } else if (actionType === 'open-deliverable') {
+    setTimeout(() => {
+      openDeliverableModal('1. Pahami Kebocoran Bisnis Anda');
+    }, 800);
+  }
+}
+
 function drawBuild(){
   let tier = +document.getElementById('tier').value;
   let cards = TIMELINE_STAGES.filter(x => tier === 3 ? true : x.tier <= 2);
@@ -4485,6 +5116,7 @@ function drawBuild(){
       const stageTasks = getAllStageTasks(stageNum);
       const stageDone = stageTasks.filter(t => doneTasks.includes(t.id));
       const isCleared = stageTasks.length > 0 && stageDone.length === stageTasks.length;
+      const isFinished = isProductFinished(stageNum);
       const isExpanded = expandedStages.has(stageNum);
 
       return `
@@ -4498,8 +5130,11 @@ function drawBuild(){
                 <!-- Top Card Header: Clean Stage Title as primary header without distracting tags -->
                 <div class="stage-title-row" onclick="toggleStageDrawer(${stageNum})" title="Klik untuk membuka/menutup checklist tugas tahap ini" style="margin-bottom:8px;">
                   <h3 style="font-size:16px;font-weight:850;color:var(--ink);letter-spacing:-0.2px;margin:0;">${esc(x.name)}</h3>
-                  <div style="display:flex;align-items:center;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                     ${isUpgrade ? '<span class="pill owner" style="margin:0;font-size:10px;">Termasuk di Tier 2</span>' : ''}
+                    <button type="button" class="btn-finish-toggle ${isFinished ? 'finished' : ''}" onclick="event.stopPropagation(); toggleStageProductFinished(${stageNum});" title="Klik untuk mengubah status pengerjaan produk digital ini">
+                      ${isFinished ? '✓ Produk Selesai' : '○ Tandai Selesai'}
+                    </button>
                     <span class="stage-tasks-badge ${isCleared ? 'cleared' : ''}">
                       ${isCleared ? '✅ 100% Selesai' : `📋 ${stageDone.length}/${stageTasks.length} Tugas`}
                     </span>
@@ -4590,10 +5225,10 @@ function drawBuild(){
               ${shotSrc ? `
                 <div class="build-card-side">
                   ${isAiStage ? `
-                    <div class="ai-workforce-grid-wrap">
+                    <div class="ai-workforce-grid-wrap ${isFinished ? 'is-finished' : ''}">
                       <div class="ai-workforce-side-badge">
-                        <span>🤖 4 KARYAWAN AI AKTIF</span>
-                        <span style="font-size:7.5px;color:var(--muted);font-weight:700;">24/7 AUTONOMOUS</span>
+                        <span>${isFinished ? '⭐ 4 KARYAWAN AI AKTIF (SELESAI)' : '🤖 4 KARYAWAN AI AKTIF'}</span>
+                        <span style="font-size:7.5px;color:${isFinished ? '#10b981' : 'var(--muted)'};font-weight:700;">24/7 AUTONOMOUS</span>
                       </div>
                       <div class="ai-workforce-grid">
                         ${AI_WORKFORCE_AVATARS.map(av => `
@@ -4605,17 +5240,21 @@ function drawBuild(){
                       </div>
                       <div class="stage-shot-footer" style="margin-top:2px;">
                         <span class="zoom-hint" onclick="openDeliverableModal('${esc(x.name)}')">🔍 4 Avatar Karyawan AI</span>
-                        <span style="color:#059669;font-weight:800;font-size:10px;cursor:pointer;" onclick="openDeliverableModal('${esc(x.name)}')">Continuous AI ↗</span>
+                        ${isFinished ? `
+                          <button type="button" class="btn-lihat-hasil" onclick="openDeliverableModal('${esc(x.name)}')">⭐ <b>Lihat Hasil ↗</b></button>
+                        ` : `
+                          <span class="cta-lihat-demo" style="color:#059669;font-weight:800;font-size:10px;cursor:pointer;" onclick="openDeliverableModal('${esc(x.name)}')">Continuous AI ↗</span>
+                        `}
                       </div>
                     </div>
                   ` : `
-                    <div class="screenshot-wrap" id="stageShotWrap_${safeKey}" onclick="openDeliverableModal('${esc(x.name)}')" title="Klik untuk memperbesar pratinjau deliverable">
+                    <div class="screenshot-wrap ${isFinished ? 'is-finished' : ''}" id="stageShotWrap_${safeKey}" onclick="openDeliverableModal('${esc(x.name)}')" title="${isFinished ? '⭐ Klik untuk melihat hasil deliverable' : 'Klik untuk memperbesar pratinjau deliverable'}">
                       <img class="service-shot" id="stageShotImg_${safeKey}" src="${shotSrc}" alt="Pratinjau ${esc(x.name)}" loading="lazy" width="720" height="450">
-                      <span class="shot-caption" id="stageShotCaption_${safeKey}">${isWebsite ? 'PROTOTYPE LIVE ↗' : (meta.caption || 'CONTOH DELIVERABLE')}</span>
+                      <span class="shot-caption ${isFinished ? 'caption-finished' : ''}" id="stageShotCaption_${safeKey}">${isFinished ? 'HASIL SELESAI ✓' : (isWebsite ? 'PROTOTYPE LIVE ↗' : (meta.caption || 'CONTOH DELIVERABLE'))}</span>
                     </div>
                     <div class="stage-shot-footer" id="stageShotFooter_${safeKey}">
                       <span class="zoom-hint" onclick="openDeliverableModal('${esc(x.name)}')">🔍 Klik perbesar</span>
-                      ${isWebsite ? `<a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" style="color:var(--green);font-weight:700;text-decoration:none;" onclick="event.stopPropagation();">Buka Live ↗</a>` : `<span style="color:#527363;font-weight:700;cursor:pointer;" onclick="openDeliverableModal('${esc(x.name)}')">Lihat Demo ↗</span>`}
+                      ${isFinished ? (isWebsite ? `<a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" class="btn-lihat-hasil" onclick="event.stopPropagation();">⭐ <b>Lihat Hasil Live ↗</b></a>` : `<button type="button" class="btn-lihat-hasil" onclick="openDeliverableModal('${esc(x.name)}')">⭐ <b>Lihat Hasil ↗</b></button>`) : (isWebsite ? `<a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" style="color:var(--green);font-weight:700;text-decoration:none;" onclick="event.stopPropagation();">Buka Live ↗</a>` : `<span class="cta-lihat-demo" onclick="openDeliverableModal('${esc(x.name)}')">Lihat Demo ↗</span>`)}
                     </div>
                   `}
                 </div>
@@ -4640,12 +5279,13 @@ function drawBuild(){
       const stageTasks = STAGE_TASKS[stageNum] || [];
       const stageDone = stageTasks.filter(t => doneTasks.includes(t.id));
       const isCleared = stageTasks.length > 0 && stageDone.length === stageTasks.length;
+      const isFinished = isProductFinished(stageNum);
 
       return `
         <article class="showcase-grid-card ${isWebsite ? 'deliverable-website' : ''}">
           <div>
             <div class="showcase-card-top">
-              <span class="showcase-card-node">${isCleared ? '✓ Selesai' : 'Tahap ' + String(stageNum).padStart(2,'0')}</span>
+              <span class="showcase-card-node">${isFinished ? '⭐ Hasil Selesai' : (isCleared ? '✓ Selesai' : 'Tahap ' + String(stageNum).padStart(2,'0'))}</span>
               <span class="showcase-card-tag ${isUpgrade ? 'bonus' : ''}">${isUpgrade ? 'Tier 2+' : (meta.tag || 'DELIVERABLE')}</span>
             </div>
             <h3>${esc(x.name)}</h3>
@@ -4659,16 +5299,19 @@ function drawBuild(){
               </div>
             ` : ''}
 
-            <div style="margin-top:10px;">
+            <div style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
               <span class="stage-tasks-badge ${isCleared ? 'cleared' : ''}">
                 ${isCleared ? '✅ Tugas Selesai' : `📋 ${stageDone.length}/${stageTasks.length} Tugas Selesai`}
               </span>
+              <button type="button" class="btn-finish-toggle ${isFinished ? 'finished' : ''}" onclick="event.stopPropagation(); toggleStageProductFinished(${stageNum});" title="Ubah status selesai produk digital">
+                ${isFinished ? '✓ Selesai' : '○ Tandai'}
+              </button>
             </div>
           </div>
 
           <div>
             ${shotSrc ? (isAiStage ? `
-              <div class="ai-workforce-grid-wrap">
+              <div class="ai-workforce-grid-wrap ${isFinished ? 'is-finished' : ''}">
                 <div class="ai-workforce-grid">
                   ${AI_WORKFORCE_AVATARS.map(av => `
                     <div class="ai-avatar-card" onclick="openDeliverableModal('${esc(x.name)}', '${av.shot}', '${esc(av.name)}')" title="Klik untuk pratinjau ${esc(av.name)}">
@@ -4679,16 +5322,14 @@ function drawBuild(){
                 </div>
               </div>
             ` : `
-              <div class="screenshot-wrap" onclick="openDeliverableModal('${esc(x.name)}')" title="Klik untuk membuka demo">
+              <div class="screenshot-wrap ${isFinished ? 'is-finished' : ''}" onclick="openDeliverableModal('${esc(x.name)}')" title="${isFinished ? '⭐ Klik untuk melihat hasil deliverable' : 'Klik untuk membuka demo'}">
                 <img class="service-shot" src="${shotSrc}" alt="Pratinjau ${esc(x.name)}" loading="lazy" width="720" height="450">
-                <span class="shot-caption">${isWebsite ? 'PROTOTYPE LIVE ↗' : (meta.caption || 'CONTOH TAMPILAN')}</span>
+                <span class="shot-caption ${isFinished ? 'caption-finished' : ''}">${isFinished ? 'HASIL SELESAI ✓' : (isWebsite ? 'PROTOTYPE LIVE ↗' : (meta.caption || 'CONTOH TAMPILAN'))}</span>
               </div>
             `) : ''}
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:11.5px;">
               <span style="color:var(--muted);">${esc(x.who)}</span>
-              <button type="button" class="btn-sm" onclick="openDeliverableModal('${esc(x.name)}')" style="background:#edf4ec;border:1px solid #c8dccb;color:var(--green);padding:4px 9px;border-radius:6px;font-weight:700;cursor:pointer;">
-                ${isWebsite ? 'Buka Live ↗' : 'Lihat Demo ↗'}
-              </button>
+              ${isFinished ? (isWebsite ? `<a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" class="btn-lihat-hasil" onclick="event.stopPropagation();">⭐ <b>Lihat Hasil Live ↗</b></a>` : `<button type="button" class="btn-lihat-hasil" onclick="openDeliverableModal('${esc(x.name)}')">⭐ <b>Lihat Hasil ↗</b></button>`) : (isWebsite ? `<a href="https://paksiswoko.vercel.app/" target="_blank" rel="noopener" class="btn-sm" style="background:#edf4ec;border:1px solid #c8dccb;color:var(--green);padding:4px 9px;border-radius:6px;font-weight:700;text-decoration:none;" onclick="event.stopPropagation();">Buka Live ↗</a>` : `<button type="button" class="btn-sm" onclick="openDeliverableModal('${esc(x.name)}')" style="background:#edf4ec;border:1px solid #c8dccb;color:var(--green);padding:4px 9px;border-radius:6px;font-weight:700;cursor:pointer;">Lihat Demo ↗</button>`)}
             </div>
           </div>
         </article>

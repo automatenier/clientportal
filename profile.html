@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Profile Studio · Mockup Instagram &amp; YouTube</title>
+  <title>Profile Studio · Mockup Instagram, YouTube &amp; Google Maps</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f3f5f8; color: #1e2024; }
@@ -19,6 +19,7 @@
     .platform-tabs button.active[data-platform="instagram"] { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: transparent; }
     .platform-tabs button.active[data-platform="youtube"] { background: #cc0000; border-color: #cc0000; }
     .platform-tabs button.active[data-platform="tiktok"] { background: #000000; border-color: #000000; }
+    .platform-tabs button.active[data-platform="google"] { background: #1a73e8; border-color: #1a73e8; }
     .bar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     #status { font-size: 12px; color: #64748b; font-weight: 500; }
     
@@ -93,8 +94,6 @@
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .tile { padding: 0; border: 0; border-radius: 6px; position: relative; overflow: hidden; aspect-ratio: 1; background: #e2e8f0; }
     .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .tile .tile-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); opacity: 0; transition: opacity .2s; display: flex; align-items: center; justify-content: center; gap: 16px; color: white; font-weight: 700; font-size: 13px; }
-    .tile:hover .tile-overlay { opacity: 1; }
     .tile .badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: white; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; }
     .tile .caption-bar { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -135,7 +134,6 @@
     .yt-nav button { border: 0; background: transparent; border-bottom: 2px solid transparent; border-radius: 0; padding: 12px 6px; font-size: 14px; font-weight: 700; color: #606060; }
     .yt-nav button.active { color: #0f0f0f; border-bottom-color: #0f0f0f; }
 
-    /* YouTube Videos Grid (16:9) */
     .yt-video-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .yt-video-card { border: 0; background: transparent; padding: 0; text-align: left; cursor: pointer; display: flex; flex-direction: column; }
     .yt-thumb-wrap { width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: #e2e8f0; position: relative; margin-bottom: 10px; }
@@ -145,7 +143,6 @@
     .yt-card-title { font-size: 14px; font-weight: 700; color: #0f0f0f; line-height: 1.4; margin: 0 0 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .yt-card-meta { font-size: 12px; color: #606060; line-height: 1.4; }
 
-    /* YouTube Shorts Grid (9:16) */
     .yt-shorts-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
     .yt-short-card { border: 0; background: transparent; padding: 0; text-align: left; cursor: pointer; }
     .yt-short-thumb-wrap { width: 100%; aspect-ratio: 9/16; border-radius: 12px; overflow: hidden; background: #e2e8f0; position: relative; margin-bottom: 8px; }
@@ -154,19 +151,259 @@
     .yt-short-title { font-size: 13.5px; font-weight: 700; color: #0f0f0f; line-height: 1.35; margin: 0 0 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .yt-short-views { font-size: 12px; color: #606060; }
 
-    /* Google & Website Mockups */
-    .bizHead { position: relative; margin: -4px -4px 16px; height: 185px; border-radius: 14px; overflow: hidden; background: #dce8ec; }
+    /* ========================================================
+       GOOGLE MAPS VIEWER & GMB MOCKUP
+       ======================================================== */
+    .maps-app-container {
+      background: #f8fafc;
+      border: 1px solid #dadce0;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .maps-search-bar {
+      background: #ffffff;
+      padding: 12px 18px;
+      border-bottom: 1px solid #e8eaed;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .maps-search-box {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #dadce0;
+      border-radius: 24px;
+      padding: 6px 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .maps-search-box input {
+      border: 0;
+      outline: none;
+      flex: 1;
+      padding: 4px 8px;
+      font-size: 14px;
+      color: #202124;
+      background: transparent;
+    }
+    .maps-search-btn {
+      background: #1a73e8;
+      color: white;
+      border: 0;
+      border-radius: 18px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .maps-filter-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+    .maps-pill {
+      background: #f1f3f4;
+      border: 1px solid #dadce0;
+      border-radius: 16px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: #3c4043;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .maps-pill.active {
+      background: #e8f0fe;
+      color: #1a73e8;
+      border-color: #d2e3fc;
+    }
+
+    .maps-workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(360px, 440px) minmax(0, 1fr);
+      min-height: 600px;
+      background: #ffffff;
+    }
+    .maps-panel {
+      border-right: 1px solid #dadce0;
+      display: flex;
+      flex-direction: column;
+      max-height: 800px;
+      overflow-y: auto;
+      background: #ffffff;
+    }
+    .gmb-nav-tabs {
+      display: flex;
+      border-bottom: 1px solid #dadce0;
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .gmb-nav-tabs button {
+      flex: 1;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      border-radius: 0;
+      background: transparent;
+      padding: 12px 6px;
+      font-size: 13px;
+      font-weight: 650;
+      color: #5f6368;
+    }
+    .gmb-nav-tabs button.active {
+      color: #1a73e8;
+      border-bottom-color: #1a73e8;
+    }
+
+    /* GMB Summary Tab */
+    .bizHead { position: relative; height: 180px; overflow: hidden; background: #e8f0fe; cursor: pointer; }
     .bizHead img { width: 100%; height: 100%; object-fit: cover; }
-    .bizHead .bizAvatar { position: absolute; bottom: 12px; left: 16px; width: 72px; height: 72px; background: white; border-radius: 12px; padding: 4px; object-fit: cover; box-shadow: 0 2px 8px #0003; }
-    .bizPanel { max-width: 660px; background: white; border: 1px solid #dadce0; border-radius: 16px; padding: 16px; }
-    .bizPanel h2 { font-size: 24px; margin: 8px 0; }
-    .bizMeta { color: #5f6368; font-size: 14px; line-height: 1.7; }
-    .bizActions { display: flex; gap: 10px; flex-wrap: wrap; border-bottom: 1px solid #eee; padding: 14px 0; }
-    .bizAction { color: #1967d2; border: 1px solid #dadce0; border-radius: 22px; padding: 8px 14px; background: white; }
-    .bizRow { padding: 12px 0; border-bottom: 1px solid #eee; }
-    .bizMap { min-height: 280px; border-radius: 14px; position: relative; overflow: hidden; background-color: #e8eadf; background-image: linear-gradient(32deg,transparent 46%,#fff 47%,#fff 51%,transparent 52%),linear-gradient(120deg,transparent 46%,#fff 47%,#fff 51%,transparent 52%),linear-gradient(10deg,transparent 46%,#c7dedb 47%,#c7dedb 51%,transparent 52%); background-size: 160px 120px,190px 150px,240px 170px; }
-    .mapLabel { position: absolute; left: 47%; top: 47%; background: #4285f4; color: #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); padding: 9px; box-shadow: 0 2px 5px #0004; }
+    .bizHead .bizAvatar { position: absolute; bottom: 12px; left: 16px; width: 68px; height: 68px; background: white; border-radius: 12px; padding: 4px; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .bizDetails { padding: 16px; }
+    .bizDetails h2 { font-size: 22px; margin: 4px 0 6px; color: #202124; font-weight: 800; }
+    .bizMeta { color: #5f6368; font-size: 13.5px; line-height: 1.6; margin-bottom: 14px; }
+    .bizActions { display: flex; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid #eee; padding-bottom: 14px; margin-bottom: 14px; }
+    .bizAction { color: #1a73e8; border: 1px solid #dadce0; border-radius: 20px; padding: 7px 14px; background: white; font-size: 12.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+    .bizAction.primary { background: #1a73e8; color: white; border-color: #1a73e8; }
+    .bizRow { padding: 10px 0; border-bottom: 1px solid #f1f3f4; font-size: 13px; color: #3c4043; display: flex; gap: 10px; align-items: flex-start; }
+
+    /* Nearby Business List */
+    .nearby-list { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .nearby-card { border: 1px solid #dadce0; border-radius: 12px; padding: 14px; cursor: pointer; transition: all .15s ease; background: #ffffff; }
+    .nearby-card:hover { border-color: #1a73e8; box-shadow: 0 4px 12px rgba(26,115,232,0.1); }
+    .nearby-card.target { border: 2px solid #1a73e8; background: #f8fbff; }
+    .nearby-card-title { font-size: 15px; font-weight: 750; color: #202124; margin: 0 0 4px; display: flex; justify-content: space-between; align-items: center; }
+    .nearby-badge { font-size: 10.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: #e8f0fe; color: #1a73e8; }
+    .nearby-rating { color: #e37400; font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+    .nearby-cat { color: #5f6368; font-size: 12.5px; }
+
+    /* Editable Gallery */
+    .gallery-view { padding: 16px; }
+    .gallery-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .gallery-tile { aspect-ratio: 4/3; border-radius: 10px; overflow: hidden; background: #f1f3f4; position: relative; cursor: pointer; border: 1px solid #e8eaed; }
+    .gallery-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-tile-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 8px 10px; font-size: 11.5px; font-weight: 600; }
+
+    /* Maps Canvas View */
+    .maps-canvas-view {
+      position: relative;
+      background: #e5e3df;
+      overflow: hidden;
+      min-height: 550px;
+    }
+    .maps-bg-grid {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      background-color: #f4f3f0;
+      background-image: 
+        radial-gradient(#d5ded7 20%, transparent 20%),
+        linear-gradient(to right, #ffffff 1px, transparent 1px),
+        linear-gradient(to bottom, #ffffff 1px, transparent 1px);
+      background-size: 120px 120px, 60px 60px, 60px 60px;
+    }
+    .map-road-1 { position: absolute; top: 40%; left: 0; right: 0; height: 18px; background: #ffffff; border-top: 1px solid #dadce0; border-bottom: 1px solid #dadce0; }
+    .map-road-2 { position: absolute; top: 0; bottom: 0; left: 45%; width: 22px; background: #ffffff; border-left: 1px solid #dadce0; border-right: 1px solid #dadce0; }
+    .map-road-3 { position: absolute; top: 65%; left: 0; right: 0; height: 14px; background: #ffd97d; }
+    .map-river { position: absolute; top: 15%; right: -5%; width: 50%; height: 28px; background: #aadaff; transform: rotate(-25deg); border-radius: 99px; }
+    .map-park { position: absolute; top: 18%; left: 15%; width: 120px; height: 90px; background: #c8e6c9; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #2e7d32; font-weight: 700; }
+    .map-label { position: absolute; font-size: 11px; font-weight: 750; color: #5f6368; pointer-events: none; background: rgba(255,255,255,0.8); padding: 2px 6px; border-radius: 4px; }
     
+    /* Map Pins */
+    .map-pin {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform .2s ease;
+      z-index: 5;
+    }
+    .map-pin:hover { transform: translate(-50%, -105%) scale(1.1); z-index: 20; }
+    .map-pin.target .pin-head {
+      background: #ea4335;
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(234,67,53,0.4);
+    }
+    .map-pin.target .pin-head span { transform: rotate(45deg); font-size: 16px; }
+    .map-pin.competitor .pin-head {
+      background: #1a73e8;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+    .map-pin.competitor .pin-head span { transform: rotate(45deg); font-size: 12px; font-weight: 800; }
+    .pin-label-card {
+      margin-top: 6px;
+      background: #ffffff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 750;
+      color: #202124;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      border: 1px solid #dadce0;
+    }
+    .radar-pulse {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid rgba(234,67,53,0.6);
+      animation: radar 2s infinite ease-out;
+      pointer-events: none;
+    }
+    @keyframes radar {
+      0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+    }
+
+    .map-controls-overlay {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+    }
+    .map-ctrl-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #dadce0;
+      font-size: 16px;
+      font-weight: 700;
+      color: #5f6368;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* Website Mockup */
     .sitePage { margin: -8px; border-radius: 14px; overflow: hidden; background: white; }
     .siteNav { padding: 18px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
     .siteNav strong { font-size: 19px; }
@@ -186,6 +423,7 @@
       .inspector { position: static; max-height: none; }
       .yt-video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .yt-shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .maps-workspace-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .identity { flex-direction: column; text-align: center; }
@@ -207,8 +445,8 @@
     <div class="platform-tabs" role="tablist">
       <button data-platform="instagram" class="active">📸 Instagram</button>
       <button data-platform="youtube">▶️ YouTube</button>
+      <button data-platform="google">📍 Google Maps &amp; Business</button>
       <button data-platform="tiktok">🎵 TikTok</button>
-      <button data-platform="google">📍 Google Business</button>
       <button data-platform="website">🌐 Website</button>
     </div>
     <div class="bar-actions">
@@ -223,7 +461,7 @@
 
   <!-- Helpful Guide Bar -->
   <div class="note-bar">
-    <span>💡 <b>Mockup Profil Klien</b> · Klik pada avatar, banner, atau thumbnail video untuk langsung mengganti foto dan teks di Properties Inspector.</span>
+    <span>💡 <b>Mockup Profil &amp; Google Maps Klien</b> · Klik pada avatar, banner, atau foto untuk langsung mengganti foto dan teks di Properties Inspector.</span>
     <span style="font-size:11.5px;color:#64748b;">Disimpan otomatis di browser ini</span>
   </div>
 
@@ -399,21 +637,34 @@
       ]
     });
 
+    // Defaults for Google Business & Maps Viewer
     const businessDefaults = () => ({
       name: 'Rumah Sosis Pasar Darurat Menceng',
-      category: 'Grocery store',
+      category: 'Toko Makanan Beku (Frozen Food)',
       rating: '4.6',
       reviews: '10',
       address: 'Jl. Albasia No.7 Blok A 12, RT.2/RW.7, Tegal Alur, Kalideres, Jakarta Barat 11820',
       hours: 'Buka hari ini · 06.00–19.00',
       phone: '0877-8098-3287',
       website: '',
-      description: 'Toko bahan makanan dan aneka frozen food di Menceng.',
+      description: 'Toko bahan makanan dan aneka frozen food di Pasar Darurat Menceng. Sosis, nugget, dan olahan makanan beku lengkap untuk stok praktis di rumah.',
       cover: urls[7],
       logo: urls[4],
-      photo1: urls[8],
-      photo2: urls[5],
-      photo3: urls[2]
+      activeTab: 'summary', // 'summary', 'nearby', 'gallery'
+      selectedNearbyId: 1,
+      nearby: [
+        { id: 1, name: 'Rumah Sosis Pasar Darurat Menceng', cat: 'Toko Bahan Makanan & Frozen Food', rating: '4.6', reviews: '10', distance: '0 m (Lokasi Anda)', isTarget: true, address: 'Jl. Albasia No.7 Blok A 12', open: 'Buka · Tutup pukul 19.00' },
+        { id: 2, name: 'Toko Frozen Food Albasia Barokah', cat: 'Toko Makanan Beku', rating: '4.3', reviews: '28', distance: '280 m', isTarget: false, address: 'Jl. Albasia No.14', open: 'Buka · Tutup pukul 20.00' },
+        { id: 3, name: 'Agen Sosis & Nugget Tegal Alur', cat: 'Distributor Sosis', rating: '4.1', reviews: '15', distance: '450 m', isTarget: false, address: 'Jl. Menceng Raya No.8', open: 'Buka · Tutup pukul 18.00' },
+        { id: 4, name: 'Sentra Daging & Olahan Kalideres', cat: 'Pasar Tradisional & Grosir', rating: '4.5', reviews: '62', distance: '1.2 km', isTarget: false, address: 'Jl. Satu Maret No.22', open: 'Buka · Tutup pukul 21.00' }
+      ],
+      gallery: [
+        { id: 1, title: 'Etalase Toko & Freezer', cat: 'Etalase', image: urls[8] },
+        { id: 2, title: 'Aneka Sosis & Nugget Kemasan', cat: 'Produk', image: urls[5] },
+        { id: 3, title: 'Stok Frozen Food Dapur', cat: 'Produk', image: urls[2] },
+        { id: 4, title: 'Area Penimbangan & Kasir', cat: 'Suasana', image: urls[1] },
+        { id: 5, title: 'Spanduk & Papan Nama Toko', cat: 'Identitas', image: urls[7] }
+      ]
     });
 
     const websiteDefaults = () => ({
@@ -435,8 +686,8 @@
     let state = {
       instagram: defaults(),
       youtube: youtubeDefaults(),
-      tiktok: defaults(),
       google: businessDefaults(),
+      tiktok: defaults(),
       website: websiteDefaults()
     };
     let platform = 'instagram';
@@ -452,6 +703,7 @@
           if (saved[name]) state[name] = saved[name];
         }
         if (!saved.youtube) state.youtube = youtubeDefaults();
+        if (!saved.google || !saved.google.nearby) state.google = businessDefaults();
       }
     } catch {}
 
@@ -725,53 +977,250 @@
     }
 
     // ==========================================
-    // RENDER: GOOGLE BUSINESS
+    // RENDER: GOOGLE BUSINESS & MAPS VIEWER
     // ==========================================
     function renderGoogle() {
       const p = state.google;
       $('preview').className = 'preview gmb' + (mobile ? ' mobile' : '');
+
       $('preview').innerHTML = `
-        <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(200px,.9fr);gap:16px;align-items:start">
-          <section class="bizPanel">
-            <div class="bizHead img-editable-wrap" data-select="cover">
-              <img src="${esc(safeImage(p.cover))}" alt="Business cover">
-              <img class="bizAvatar" src="${esc(safeImage(p.logo))}" alt="Business logo">
-              <div class="edit-overlay-btn">📷 Ganti Foto Profil / Cover</div>
+        <div class="maps-app-container">
+          <!-- Search Header -->
+          <div class="maps-search-bar">
+            <div class="maps-search-box">
+              <span style="font-size:16px;color:#5f6368;margin-right:6px;">📍</span>
+              <input type="text" value="frozen food pasar darurat menceng kalideres" readonly>
+              <button class="maps-search-btn">Telusuri</button>
             </div>
-            <h2>${esc(p.name)}</h2>
-            <div class="bizMeta">${esc(p.rating)} <span style="color:#f9ab00">★★★★★</span> (${esc(p.reviews)}) · ${esc(p.category)}</div>
-            <div class="bizActions">
-              <a class="bizAction" style="text-decoration:none" target="_blank" rel="noopener noreferrer" href="https://maps.google.com/?q=${encodeURIComponent(p.address)}">➤ Petunjuk Arah</a>
-              <button class="bizAction">♧ Simpan</button>
-              <button class="bizAction">⌖ Terdekat</button>
-              <button class="bizAction">↗ Bagikan</button>
-              ${p.website ? '<button class="bizAction">🌐 Website</button>' : ''}
+            <div class="maps-filter-pills">
+              <button class="maps-pill active">Semua</button>
+              <button class="maps-pill">Bahan Makanan</button>
+              <button class="maps-pill">Daging &amp; Sosis</button>
+              <button class="maps-pill">Buka Sekarang</button>
+              <button class="maps-pill">Rating 4.5+ ⭐</button>
             </div>
-            <div class="bizRow">📍 &nbsp;${esc(p.address)}</div>
-            <div class="bizRow">◷ &nbsp;${esc(p.hours)}</div>
-            <div class="bizRow">☎ &nbsp;${esc(p.phone)}</div>
-            ${p.website ? `<div class="bizRow">🌐 &nbsp;${esc(p.website)}</div>` : '<div class="bizRow" style="color:#94a3b8">＋ Tambah website</div>'}
-            <div class="bizRow">${esc(p.description)}</div>
-            <h3>Foto &amp; Video</h3>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
-              ${[p.photo1, p.photo2, p.photo3].map(x => `<img style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px" src="${esc(safeImage(x))}" alt="Business photo">`).join('')}
+          </div>
+
+          <!-- Maps Workspace Grid -->
+          <div class="maps-workspace-grid">
+            <!-- Left Side: Interactive Panel (Tabs) -->
+            <div class="maps-panel">
+              <div class="gmb-nav-tabs">
+                <button class="${p.activeTab === 'summary' ? 'active' : ''}" data-gmbtab="summary">🏪 Profil Bisnis</button>
+                <button class="${p.activeTab === 'nearby' ? 'active' : ''}" data-gmbtab="nearby">📍 Bisnis Sekitar (${p.nearby.length})</button>
+                <button class="${p.activeTab === 'gallery' ? 'active' : ''}" data-gmbtab="gallery">🖼️ Galeri Foto (${p.gallery.length})</button>
+              </div>
+
+              ${p.activeTab === 'summary' ? `
+                <!-- Summary View -->
+                <div class="bizHead img-editable-wrap" data-select="cover" title="Klik untuk mengganti cover foto listing">
+                  <img src="${esc(safeImage(p.cover))}" alt="Cover Toko">
+                  <img class="bizAvatar" src="${esc(safeImage(p.logo))}" alt="Logo Toko">
+                  <div class="edit-overlay-btn">📷 Ganti Cover / Logo</div>
+                </div>
+                <div class="bizDetails">
+                  <h2>${esc(p.name)}</h2>
+                  <div class="bizMeta">
+                    <b>${esc(p.rating)}</b> <span style="color:#f9ab00">★★★★★</span> (${esc(p.reviews)} ulasan) · <span style="color:#1a73e8;font-weight:600;">${esc(p.category)}</span>
+                  </div>
+                  <div class="bizActions">
+                    <a class="bizAction primary" style="text-decoration:none;" target="_blank" rel="noopener" href="https://maps.google.com/?q=${encodeURIComponent(p.address)}">
+                      ➤ Rute
+                    </a>
+                    <button class="bizAction">📞 Telepon</button>
+                    <button class="bizAction">♧ Simpan</button>
+                    <button class="bizAction">↗ Bagikan</button>
+                    ${p.website ? '<button class="bizAction">🌐 Website</button>' : ''}
+                  </div>
+                  <div class="bizRow">
+                    <span>📍</span>
+                    <div><b>Alamat:</b><br>${esc(p.address)}</div>
+                  </div>
+                  <div class="bizRow">
+                    <span>◷</span>
+                    <div><b>Jam Operasional:</b><br>${esc(p.hours)}</div>
+                  </div>
+                  <div class="bizRow">
+                    <span>☎</span>
+                    <div><b>Kontak:</b><br>${esc(p.phone)}</div>
+                  </div>
+                  <div class="bizRow">
+                    <span>ℹ️</span>
+                    <div>${esc(p.description)}</div>
+                  </div>
+
+                  <!-- Quick Preview 3 Photos -->
+                  <div style="margin-top:16px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                      <b style="font-size:13px;color:#202124;">Foto &amp; Suasana Toko</b>
+                      <span style="font-size:12px;color:#1a73e8;font-weight:600;cursor:pointer;" onclick="switchGmbTab('gallery')">Lihat Semua (${p.gallery.length}) ↗</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+                      ${p.gallery.slice(0,3).map(g => `
+                        <img src="${esc(safeImage(g.image))}" alt="${esc(g.title)}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;">
+                      `).join('')}
+                    </div>
+                  </div>
+                </div>
+              ` : p.activeTab === 'nearby' ? `
+                <!-- Nearby Businesses List -->
+                <div class="nearby-list">
+                  <div style="padding:4px 0 6px;color:#5f6368;font-size:12px;font-weight:600;">
+                    Menampilkan 4 bisnis sejenis di kawasan Pasar Menceng &amp; Tegal Alur:
+                  </div>
+                  ${p.nearby.map(nb => `
+                    <article class="nearby-card ${nb.isTarget ? 'target' : ''}" data-nearby="${nb.id}">
+                      <div class="nearby-card-title">
+                        <span>${esc(nb.name)}</span>
+                        ${nb.isTarget ? '<span class="nearby-badge">⭐ BISNIS ANDA</span>' : ''}
+                      </div>
+                      <div class="nearby-rating">
+                        ${esc(nb.rating)} ★★★★★ <span style="color:#5f6368;font-weight:normal;">(${esc(nb.reviews)})</span>
+                      </div>
+                      <div class="nearby-cat">${esc(nb.cat)} · <b>${esc(nb.distance)}</b></div>
+                      <div style="font-size:12px;color:#059669;margin-top:4px;">${esc(nb.open)}</div>
+                      <div style="font-size:11.5px;color:#5f6368;margin-top:2px;">📍 ${esc(nb.address)}</div>
+                    </article>
+                  `).join('')}
+                </div>
+              ` : `
+                <!-- Editable Photo Gallery -->
+                <div class="gallery-view">
+                  <div class="gallery-toolbar">
+                    <b style="font-size:13.5px;color:#202124;">Galeri Foto Produk &amp; Toko (${p.gallery.length})</b>
+                    <button class="primary-btn" id="btnAddGmbPhoto" style="font-size:11.5px;padding:5px 10px;">＋ Tambah Foto</button>
+                  </div>
+                  <div class="gallery-grid">
+                    ${p.gallery.map((g, idx) => `
+                      <div class="gallery-tile img-editable-wrap ${selected.type === 'gallery' && selected.index === idx ? 'selected' : ''}" data-gallery="${idx}" title="Klik untuk mengganti foto ini">
+                        <img src="${esc(safeImage(g.image))}" alt="${esc(g.title)}">
+                        <div class="gallery-tile-caption">${esc(g.title)}</div>
+                        <div class="edit-overlay-btn">📷 Ganti Foto</div>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              `}
             </div>
-            <h3>Ringkasan Ulasan</h3>
-            <div style="font-size:28px">${esc(p.rating)} <span style="color:#f9ab00">★★★★★</span></div>
-            <div class="bizMeta">Berdasarkan ${esc(p.reviews)} ulasan pelanggan</div>
-          </section>
-          <div class="bizMap">
-            <span class="mapLabel">●</span>
-            <span style="position:absolute;top:20%;left:20%;color:#54756c;font-weight:700">Tegal Alur</span>
-            <span style="position:absolute;top:70%;right:12%;color:#54756c;font-weight:700">Menceng Raya</span>
-            <span style="position:absolute;left:38%;top:58%;font-size:12px;color:#596c57;font-weight:600">Jl. Albasia</span>
+
+            <!-- Right Side: Google Maps Canvas View -->
+            <div class="maps-canvas-view">
+              <div class="maps-bg-grid"></div>
+              <div class="map-river"></div>
+              <div class="map-park">Taman Tegal Alur</div>
+              <div class="map-road-1"></div>
+              <div class="map-road-2"></div>
+              <div class="map-road-3"></div>
+
+              <div class="map-label" style="top:36%;left:8%;">Jl. Menceng Raya</div>
+              <div class="map-label" style="top:25%;left:48%;">Jl. Albasia</div>
+              <div class="map-label" style="top:68%;left:22%;">Pasar Darurat Menceng</div>
+
+              <!-- Main Target Business Pin -->
+              <div class="map-pin target" style="top:44%;left:47%;" onclick="selectNearbyStore(1)">
+                <div class="radar-pulse"></div>
+                <div class="pin-head">
+                  <span>🏪</span>
+                </div>
+                <div class="pin-label-card">
+                  ⭐ ${esc(p.name)} (4.6★)
+                </div>
+              </div>
+
+              <!-- Nearby Competitor Pins -->
+              <div class="map-pin competitor" style="top:32%;left:38%;" onclick="selectNearbyStore(2)">
+                <div class="pin-head">
+                  <span>#2</span>
+                </div>
+                <div class="pin-label-card">Frozen Food Barokah</div>
+              </div>
+
+              <div class="map-pin competitor" style="top:58%;left:26%;" onclick="selectNearbyStore(3)">
+                <div class="pin-head">
+                  <span>#3</span>
+                </div>
+                <div class="pin-label-card">Agen Sosis Tegal Alur</div>
+              </div>
+
+              <div class="map-pin competitor" style="top:72%;left:65%;" onclick="selectNearbyStore(4)">
+                <div class="pin-head">
+                  <span>#4</span>
+                </div>
+                <div class="pin-label-card">Sentra Daging Kalideres</div>
+              </div>
+
+              <!-- Map Controls Overlay -->
+              <div class="map-controls-overlay">
+                <button class="map-ctrl-btn" title="Perbesar">+</button>
+                <button class="map-ctrl-btn" title="Perkecil">−</button>
+                <button class="map-ctrl-btn" title="Peta / Satelit" style="font-size:12px;">🗺️</button>
+              </div>
+            </div>
           </div>
         </div>
       `;
-      $('preview').querySelector('[data-select="cover"]').onclick = () => {
-        selected = { type: 'google' };
-        inspector();
-      };
+
+      // Event Listeners for Google Maps Mockup
+      $('preview').querySelectorAll('.gmb-nav-tabs button').forEach(btn => {
+        btn.onclick = () => {
+          p.activeTab = btn.dataset.gmbtab;
+          render();
+          inspector();
+        };
+      });
+
+      if ($('preview').querySelector('[data-select="cover"]')) {
+        $('preview').querySelector('[data-select="cover"]').onclick = () => {
+          selected = { type: 'google' };
+          render();
+          inspector();
+        };
+      }
+
+      $('preview').querySelectorAll('[data-gallery]').forEach(tile => {
+        tile.onclick = () => {
+          selected = { type: 'gallery', index: +tile.dataset.gallery };
+          render();
+          inspector();
+        };
+      });
+
+      $('preview').querySelectorAll('[data-nearby]').forEach(card => {
+        card.onclick = () => {
+          const id = +card.dataset.nearby;
+          selectNearbyStore(id);
+        };
+      });
+
+      if ($('btnAddGmbPhoto')) {
+        $('btnAddGmbPhoto').onclick = () => {
+          p.gallery.push({
+            id: p.gallery.length + 1,
+            title: 'Foto Produk Baru',
+            cat: 'Produk',
+            image: urls[0]
+          });
+          selected = { type: 'gallery', index: p.gallery.length - 1 };
+          save();
+          render();
+          inspector();
+        };
+      }
+    }
+
+    function switchGmbTab(tabName) {
+      state.google.activeTab = tabName;
+      render();
+      inspector();
+    }
+
+    function selectNearbyStore(id) {
+      const p = state.google;
+      p.selectedNearbyId = id;
+      p.activeTab = (id === 1) ? 'summary' : 'nearby';
+      selected = { type: 'google' };
+      render();
+      inspector();
     }
 
     // ==========================================
@@ -847,7 +1296,12 @@
           title = 'Profil Akun';
         }
       } else if (platform === 'google') {
-        title = 'Google Business';
+        if (selected.type === 'gallery') {
+          o = p.gallery[selected.index];
+          title = `Foto Galeri #${selected.index + 1}`;
+        } else {
+          title = 'Google Business & Maps';
+        }
       } else if (platform === 'website') {
         title = 'Website';
       }
@@ -877,13 +1331,17 @@
           fields = ['handle', 'name', 'category', 'bio', 'link', 'postsCount', 'followers', 'following', ...(platform === 'tiktok' ? ['likes'] : []), 'avatar'];
         }
       } else if (platform === 'google') {
-        fields = ['name', 'category', 'rating', 'reviews', 'address', 'hours', 'phone', 'website', 'description', 'cover', 'logo'];
+        if (selected.type === 'gallery') {
+          fields = ['title', 'cat', 'image'];
+        } else {
+          fields = ['name', 'category', 'rating', 'reviews', 'address', 'hours', 'phone', 'website', 'description', 'cover', 'logo'];
+        }
       } else if (platform === 'website') {
         fields = ['name', 'eyebrow', 'headline', 'description', 'button', 'phone', 'address', 'heroImage', 'product1', 'product2', 'product3'];
       }
 
       const labels = {
-        name: 'Nama Tampilan',
+        name: 'Nama Tampilan / Bisnis',
         handle: 'Username / Handle',
         category: 'Kategori / Niche',
         subscribers: 'Jumlah Subscribers',
@@ -893,7 +1351,8 @@
         avatar: 'Foto Avatar (URL / File)',
         banner: 'Banner Channel (URL / File)',
         bannerZoom: 'Zoom Banner (%)',
-        title: 'Judul Video',
+        title: 'Judul / Label Foto',
+        cat: 'Kategori Foto (Etalase/Produk/Suasana)',
         duration: 'Durasi (Contoh: 14:25)',
         views: 'Jumlah Views',
         time: 'Waktu Upload',
@@ -906,7 +1365,14 @@
         followers: 'Followers',
         following: 'Following',
         likes: 'Total Likes',
-        heroImage: 'Foto Utama Website'
+        heroImage: 'Foto Utama Website',
+        cover: 'Cover Foto Google Maps',
+        logo: 'Logo Bisnis Google Maps',
+        rating: 'Rating Bintang (1.0 - 5.0)',
+        reviews: 'Jumlah Ulasan Pelanggan',
+        hours: 'Jam Buka Operasional',
+        phone: 'Nomor Telepon / WhatsApp',
+        website: 'Website Bisnis'
       };
 
       let html = fields.map(f => {
@@ -972,6 +1438,11 @@
         if (selected.type === 'post' || selected.type === 'highlight') {
           html += `<button type="button" class="danger-btn" id="btnRemoveItem">Hapus Item Ini</button>`;
         }
+      } else if (platform === 'google') {
+        html += `<button type="button" class="primary-btn" onclick="state.google.activeTab='gallery';render();inspector();">🖼️ Buka Galeri Foto</button>`;
+        if (selected.type === 'gallery') {
+          html += `<button type="button" class="danger-btn" id="btnRemoveGalleryPhoto">Hapus Foto Ini</button>`;
+        }
       }
       html += '</div>';
 
@@ -1012,7 +1483,6 @@
           const reader = new FileReader();
           reader.onload = () => {
             const result = reader.result;
-            // Determine target image field
             if (platform === 'youtube') {
               if (selected.type === 'banner') p.banner = result;
               else if (selected.type === 'avatar') p.avatar = result;
@@ -1023,7 +1493,11 @@
               else if (selected.type === 'highlight') o.image = result;
               else p.avatar = result;
             } else if (platform === 'google') {
-              p.cover = result;
+              if (selected.type === 'gallery') {
+                o.image = result;
+              } else {
+                p.cover = result;
+              }
             } else if (platform === 'website') {
               p.heroImage = result;
             }
@@ -1113,6 +1587,16 @@
             if (selected.type === 'highlight') p.highlights.splice(selected.index, 1);
             selected = { type: 'profile' };
           }
+          save();
+          render();
+          inspector();
+        };
+      }
+      if ($('btnRemoveGalleryPhoto')) {
+        $('btnRemoveGalleryPhoto').onclick = () => {
+          if (!confirm('Hapus foto ini dari galeri?')) return;
+          state.google.gallery.splice(selected.index, 1);
+          selected = { type: 'google' };
           save();
           render();
           inspector();
