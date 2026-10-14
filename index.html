@@ -52,6 +52,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-
 
 /* Cards & Layout */
 .summary{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:12px;margin:20px 0}
+#modeSetupContainer>.summary{grid-template-columns:1.5fr repeat(2,1fr)}
 .stat,.card,.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
 .stat{padding:16px}
 .stat b{display:block;font-size:21px;font-weight:850;margin-top:2px}
@@ -2529,9 +2530,6 @@ VIEW MODE 2: SETUP & ONBOARDING
   <section class="hero">
     <div class="eyebrow">Transparansi proyek · satu sumber progres</div>
     <h1>Progres yang jelas. Kendali tetap di tangan Anda.</h1>
-    <div class="hero-image-wrap" style="margin-top:16px;max-width:820px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);">
-      <img src="276392b0-435e-4714-babf-d0640aaa607a.png" alt="Solusi Usaha Digital dalam 1 Minggu" onerror="this.onerror=null;this.src='file:///home/jordan/Downloads/276392b0-435e-4714-babf-d0640aaa607a.png';" style="width:100%;height:auto;display:block;">
-    </div>
   </section>
 
   <section class="summary">
@@ -2548,15 +2546,6 @@ VIEW MODE 2: SETUP & ONBOARDING
     <div class="stat">
       <span>Fase aktif</span>
       <b id="activePhaseName">01 · Audit &amp; Fondasi</b>
-    </div>
-    <div class="stat">
-      <span>Pembaruan terakhir</span>
-      <b>Live Alur</b>
-    </div>
-    <div class="stat">
-      <span>Koneksi Database KPI</span>
-      <b style="color:var(--green);font-size:14px;display:flex;align-items:center;gap:6px;"><span class="pulse-dot"></span> Live Sync</b>
-      <span style="font-size:11px;" id="setupDbSyncStatus">Google Sheet &amp; DB Postgres Backup</span>
     </div>
   </section>
 
@@ -4540,7 +4529,7 @@ function switchPortalMode(mode) {
       badge.innerHTML = '<span class="pulse-dot"></span> SISTEM LIVE · GARANSI KPI AKTIF';
     } else if (isSetup) {
       badge.className = 'demo';
-      badge.textContent = 'FASE 2 · SETUP & BUILD (25%)';
+      badge.textContent = 'FASE 2 · SETUP & BUILD';
     } else {
       badge.className = 'demo';
       badge.textContent = 'FASE 1 · AUDIT & DIAGNOSTIK';
@@ -4623,12 +4612,6 @@ async function syncLiveKpiData() {
       } else {
         sourceEl.innerHTML = '<span class="pulse-dot"></span> SISTEM TERARAH HASIL · LIVE DATA: GOOGLE SHEETS (Jordan_engo_KPI) · DB POSTGRES BACKUP ACTIVE';
       }
-    }
-
-    // Update Setup summary
-    const setupSync = document.getElementById('setupDbSyncStatus');
-    if (setupSync) {
-      setupSync.textContent = data.is_postgres_backup ? 'Postgres DB Active · Sheet Ready' : 'Google Sheet (Jordan_engo_KPI) & Postgres Active';
     }
 
     // Update Live mode stats
