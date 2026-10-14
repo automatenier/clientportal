@@ -2540,7 +2540,7 @@ VIEW MODE 2: SETUP & ONBOARDING
       <span id="clientOverallCount">0 tugas selesai</span>
     </div>
     <div class="stat">
-      <span>Paket contoh</span>
+      <span>Paket checklist</span>
       <b id="selectedPackage">Tier 2 · Growth Workforce</b>
     </div>
     <div class="stat">
@@ -2575,6 +2575,13 @@ VIEW MODE 2: SETUP & ONBOARDING
         <div class="setup-form-save" id="setupFormSaveStatus" role="status" aria-live="polite">Jawaban disimpan otomatis di browser ini.</div>
       </div>
       <div class="setup-form-notice"><b>Privasi:</b> jawaban tersimpan di browser dan perangkat ini. Unduh ringkasan untuk menyimpannya atau membagikannya melalui saluran yang sudah Anda sepakati dengan tim. Jangan masukkan kata sandi, kode OTP, kunci API, atau kode pemulihan.</div>
+      <section class="setup-form-section" aria-labelledby="setupPackageTitle">
+        <h3 id="setupPackageTitle">Paket yang tercantum di proposal</h3>
+        <p>Pilih paket yang sudah dibahas bersama tim. Jika belum yakin, biarkan belum dipilih dan tanyakan saat pertemuan setup.</p>
+        <div class="setup-form-grid">
+          <div class="setup-form-field full"><label for="setupPackage">Paket pada proposal</label><select id="setupPackage" data-setup-key="Paket pada proposal"><option value="">Belum dipilih / perlu dikonfirmasi</option><option value="1">Tier 1 · Operations Workforce</option><option value="2">Tier 2 · Growth Workforce</option><option value="3">Tier 3 · Business OS &amp; Academy</option></select></div>
+        </div>
+      </section>
       <details class="setup-form-section" id="setupDiscoveryContext" hidden>
         <summary><b>Ringkasan discovery atau audit yang sudah Anda isi</b></summary>
         <p>Gunakan catatan ini sebagai rujukan. Periksa dan perbaiki bila keadaan usaha sudah berubah.</p>
@@ -6776,11 +6783,16 @@ if(initialSetupTab)[...document.querySelectorAll('#modeSetupContainer [data-tab]
     const context=[localStorage.getItem('business_discovery_export_text'),localStorage.getItem('business_discovery_asset_audit_summary')].filter(Boolean).join('\n\nRINGKASAN AUDIT ASET\n');
     if(context){document.getElementById('setupDiscoveryContextText').textContent=context;document.getElementById('setupDiscoveryContext').hidden=false}
   }catch{}
+  const packageSelect=document.getElementById('setupPackage');
+  const buildTier=document.getElementById('tier');
   const updateTierQuestions=()=>{
-    const tier=Number(document.getElementById('tier')?.value||2);
-    document.querySelectorAll('[data-tier-extra]').forEach(field=>{field.hidden=Number(field.dataset.tierExtra)>tier});
-    document.getElementById('setupTierDescription').textContent=`Paket contoh: Tier ${tier}. Periksa kembali paket pada proposal Anda. Jawaban tambahan hanya muncul jika sesuai paket.`;
+    const selected=packageSelect.value;
+    const tier=Number(selected||0);
+    document.querySelectorAll('[data-tier-extra]').forEach(field=>{field.hidden=!tier||Number(field.dataset.tierExtra)>tier});
+    document.getElementById('setupTierDescription').textContent=tier?`Pertanyaan tambahan untuk Tier ${tier}. Jika paket di proposal berbeda, ubah pilihan di bagian atas formulir.`:'Pilih paket pada proposal di bagian atas formulir untuk melihat pertanyaan terkait.';
   };
+  if(saved['Paket pada proposal'])buildTier.value=saved['Paket pada proposal'];
+  packageSelect.addEventListener('change',()=>{if(packageSelect.value)buildTier.value=packageSelect.value;updateTierQuestions();save()});
   const save=()=>{
     const data={};
     fields.forEach(field=>{data[field.dataset.setupKey]=field.type==='checkbox'?field.checked:field.value.trim()});
@@ -6794,9 +6806,10 @@ if(initialSetupTab)[...document.querySelectorAll('#modeSetupContainer [data-tab]
     }
   };
   fields.forEach(field=>field.addEventListener(field.type==='checkbox'?'change':'input',save));
-  document.getElementById('tier')?.addEventListener('change',updateTierQuestions);
+  buildTier?.addEventListener('change',()=>{packageSelect.value=buildTier.value;updateTierQuestions();save()});
   document.getElementById('setupFormDownload').addEventListener('click',()=>{
-    const lines=['PERSIAPAN SETUP AGENTZ',`Paket pada portal: Tier ${Number(document.getElementById('tier')?.value||2)} (periksa dengan proposal)`, '', 'Jawaban:'];
+    const packageLabel=packageSelect.value?packageSelect.selectedOptions[0].textContent:'Belum dipilih / perlu dikonfirmasi';
+    const lines=['PERSIAPAN SETUP AGENTZ',`Paket pada proposal: ${packageLabel}`, '', 'Jawaban:'];
     fields.forEach(field=>{
       const label=field.type==='checkbox'?field.closest('label')?.textContent.trim():field.closest('.setup-form-field')?.querySelector('label')?.textContent.trim();
       const value=field.type==='checkbox'?(field.checked?'Dipilih':'Belum dipilih'):(field.value.trim()||'Belum diisi');
