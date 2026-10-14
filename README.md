@@ -22,3 +22,6 @@ Setup & Build → Hasil konten (setelah Profile) memuat `hasil-konten.html`. Men
 - **Konsol Approval Klien**: Menampilkan hook 3 detik pembuka, spesifikasi teknis (1080×1920 60FPS Rec.709), status persetujuan (Approved, Siap Review, Butuh Revisi), serta kotak catatan revisi klien yang tersimpan di browser.
 - **Upload & Ganti Video Mandiri**: Pengguna atau klien dapat mengunggah file video MP4 baru dari komputer atau menempelkan tautan video URL langsung.
 - **Kategori & Filter**: Dilengkapi filter format (Hook & Edukasi, Fast-Cut Showcase, Screencast & Alur, Review & Listicle), pencarian instan, dan penambahan video baru via formulir modal.
+
+## Persiapan setup klien
+Setup & Build → **Persiapan setup** lets a client describe their business, priorities, current workflow, approval boundaries, and meeting availability in everyday language. The business name and earlier discovery/audit summaries appear when they are already saved in the same browser. Answers save to that browser's local storage; **Unduh jawaban** creates a text summary the client can keep or share through an agreed channel. Nothing from this form is sent to the team or shared across devices. The form explicitly tells clients not to enter passwords, OTPs, API keys, or recovery codes.
