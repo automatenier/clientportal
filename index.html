@@ -677,6 +677,27 @@ dialog.deliverable-dialog::backdrop {
   align-items: center;
   transition: all .18s ease;
 }
+.setup-form-shell{max-width:1040px;margin:0 auto;display:grid;gap:16px}
+.setup-form-intro,.setup-form-section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow-sm)}
+.setup-form-intro{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.setup-form-intro h2,.setup-form-section h3{margin:0 0 6px}
+.setup-form-intro p,.setup-form-section>p{color:var(--muted);line-height:1.55;margin:0}
+.setup-form-actions{display:flex;gap:8px;flex-wrap:wrap}
+.setup-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.setup-form-field{display:grid;gap:6px;min-width:0}
+.setup-form-field.full{grid-column:1/-1}
+.setup-form-field label,.setup-form-section legend{font-size:13px;font-weight:750;color:var(--ink)}
+.setup-form-field small{font-size:11px;color:var(--muted);line-height:1.45}
+.setup-form-field input,.setup-form-field select,.setup-form-field textarea{width:100%;box-sizing:border-box;border:1px solid #ccd9cf;border-radius:9px;padding:10px 12px;background:#fff;color:var(--ink);font:inherit;font-size:13px}
+.setup-form-field textarea{min-height:88px;resize:vertical}
+.setup-form-field input:focus,.setup-form-field select:focus,.setup-form-field textarea:focus{outline:3px solid #bfe6d1;border-color:var(--green)}
+.setup-form-checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.setup-form-check{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:10px;font-size:12px;line-height:1.45}
+.setup-form-check input{margin-top:2px;accent-color:var(--green)}
+.setup-form-notice{padding:12px 14px;background:#fff8e6;border:1px solid #f1dfae;border-radius:10px;color:#634b17;font-size:12px;line-height:1.55}
+.setup-form-save{font-size:12px;font-weight:700;color:var(--green);min-height:18px}
+[data-tier-extra][hidden]{display:none}
+@media(max-width:650px){.setup-form-grid,.setup-form-checks{grid-template-columns:1fr}.setup-form-intro,.setup-form-section{padding:15px}}
 .client-task-card:hover {
   border-color: #9abfae;
   box-shadow: 0 6px 20px rgba(20,52,43,0.08);
@@ -2540,6 +2561,7 @@ VIEW MODE 2: SETUP & ONBOARDING
   </section>
 
   <div class="tabs" role="tablist">
+    <button data-tab="setup-form">Persiapan setup</button>
     <button class="active" data-tab="build">Alur &amp; Checklist Tugas</button>
     <button data-tab="brand-audit">Personal brand audit</button>
     <button data-tab="assets">Personal brand assets</button>
@@ -2548,6 +2570,107 @@ VIEW MODE 2: SETUP & ONBOARDING
     <button data-tab="hasil-konten">Hasil konten</button>
     <button data-tab="ai-workforce">Karyawan AI</button>
   </div>
+
+  <section id="setup-form" class="view hide" aria-labelledby="setupFormTitle">
+    <div class="setup-form-shell">
+      <div class="setup-form-intro">
+        <div>
+          <div class="eyebrow">MULAI DI SINI · PERSIAPAN BERSAMA</div>
+          <h2 id="setupFormTitle">Ceritakan cara usaha Anda berjalan</h2>
+          <p>Jawab yang sudah Anda tahu. Kita bisa membahas sisanya bersama saat pertemuan setup.</p>
+        </div>
+        <div class="setup-form-actions">
+          <button type="button" class="filter" id="setupFormDownload">Unduh jawaban</button>
+          <button type="button" class="filter" id="setupFormClear">Kosongkan jawaban</button>
+        </div>
+        <div class="setup-form-save" id="setupFormSaveStatus" role="status" aria-live="polite">Jawaban disimpan otomatis di browser ini.</div>
+      </div>
+      <div class="setup-form-notice"><b>Privasi:</b> jawaban tersimpan di browser dan perangkat ini. Unduh ringkasan untuk menyimpannya atau membagikannya melalui saluran yang sudah Anda sepakati dengan tim. Jangan masukkan kata sandi, kode OTP, kunci API, atau kode pemulihan.</div>
+      <details class="setup-form-section" id="setupDiscoveryContext" hidden>
+        <summary><b>Ringkasan discovery atau audit yang sudah Anda isi</b></summary>
+        <p>Gunakan catatan ini sebagai rujukan. Periksa dan perbaiki bila keadaan usaha sudah berubah.</p>
+        <pre id="setupDiscoveryContextText" style="white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.6 inherit;color:var(--muted);margin:12px 0 0"></pre>
+      </details>
+
+      <section class="setup-form-section" aria-labelledby="setupBasicsTitle">
+        <h3 id="setupBasicsTitle">1. Tentang usaha Anda</h3>
+        <p>Informasi dasar membantu kami menyesuaikan contoh dan jadwal kerja.</p>
+        <div class="setup-form-grid">
+          <div class="setup-form-field"><label for="setupBusinessName">Nama usaha</label><input id="setupBusinessName" data-setup-key="Nama usaha" autocomplete="organization" placeholder="Contoh: Ayam Berkah"></div>
+          <div class="setup-form-field"><label for="setupBusinessType">Jenis usaha</label><input id="setupBusinessType" data-setup-key="Jenis usaha" placeholder="Contoh: toko, jasa, restoran"></div>
+          <div class="setup-form-field"><label for="setupMainContact">Nama orang yang menjadi penghubung</label><input id="setupMainContact" data-setup-key="Penghubung utama" autocomplete="name" placeholder="Nama dan peran"></div>
+          <div class="setup-form-field"><label for="setupContactChannel">Cara terbaik menghubungi Anda</label><input id="setupContactChannel" data-setup-key="Cara menghubungi" placeholder="WhatsApp, email, atau cara lain"></div>
+          <div class="setup-form-field"><label for="setupHours">Hari dan jam usaha</label><input id="setupHours" data-setup-key="Hari dan jam usaha" placeholder="Contoh: Senin–Sabtu, 08.00–17.00"></div>
+          <div class="setup-form-field"><label for="setupBusyTime">Waktu usaha paling sibuk</label><input id="setupBusyTime" data-setup-key="Waktu paling sibuk" placeholder="Contoh: pagi sebelum pengiriman"></div>
+        </div>
+      </section>
+
+      <section class="setup-form-section" aria-labelledby="setupGoalsTitle">
+        <h3 id="setupGoalsTitle">2. Apa yang ingin dibantu?</h3>
+        <p>Pilih yang paling penting sekarang. Anda boleh memilih beberapa.</p>
+        <div class="setup-form-checks">
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Prioritas: pesanan">Merapikan pesanan dan status pekerjaan</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Prioritas: pelanggan">Menjawab pelanggan dan menindaklanjuti calon pembeli</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Prioritas: stok">Memantau stok atau kebutuhan pemasok</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Prioritas: pembayaran">Menyiapkan tagihan dan mencatat pembayaran</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Prioritas: laporan">Membuat laporan usaha lebih mudah dibaca</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Prioritas: pemasaran">Membantu pemasaran dan membuat konten</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Prioritas: website">Merapikan website atau informasi usaha di internet</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Prioritas: academy" data-setup-tier="3">Membuat kelas, keanggotaan, atau produk belajar</label>
+        </div>
+        <div class="setup-form-grid">
+          <div class="setup-form-field full"><label for="setupPain">Pekerjaan yang paling sering menyita waktu atau membuat repot</label><textarea id="setupPain" data-setup-key="Pekerjaan yang merepotkan" placeholder="Ceritakan dengan bahasa Anda sendiri. Contoh: pesanan masuk dari banyak chat sehingga ada yang terlewat."></textarea></div>
+          <div class="setup-form-field full"><label for="setupSuccess">Apa yang membuat Anda merasa proyek ini berhasil?</label><textarea id="setupSuccess" data-setup-key="Tanda proyek berhasil" placeholder="Contoh: pesanan lebih mudah dilacak, atau tim tidak perlu mengetik jawaban yang sama berulang kali."></textarea></div>
+        </div>
+      </section>
+
+      <section class="setup-form-section" aria-labelledby="setupWorkflowTitle">
+        <h3 id="setupWorkflowTitle">3. Bagaimana pekerjaan berjalan sekarang?</h3>
+        <p>Tidak perlu istilah khusus. Ceritakan dari saat pelanggan menghubungi sampai pekerjaan selesai.</p>
+        <div class="setup-form-grid">
+          <div class="setup-form-field full"><label for="setupOrderFlow">Bagaimana pesanan atau permintaan pelanggan biasanya diterima dan diproses?</label><textarea id="setupOrderFlow" data-setup-key="Alur pesanan sekarang" placeholder="Contoh: pelanggan chat admin, admin mencatat ke buku, lalu mengabari bagian pengiriman."></textarea></div>
+          <div class="setup-form-field"><label for="setupTools">Aplikasi atau alat yang biasa dipakai</label><textarea id="setupTools" data-setup-key="Aplikasi yang dipakai" placeholder="Contoh: WhatsApp, buku catatan, Excel"></textarea></div>
+          <div class="setup-form-field"><label for="setupTeam">Siapa saja yang terlibat dan apa tugasnya?</label><textarea id="setupTeam" data-setup-key="Orang dan tugas" placeholder="Contoh: pemilik menyetujui harga, admin mencatat pesanan"></textarea></div>
+          <div class="setup-form-field full"><label for="setupData">Di mana informasi usaha saat ini disimpan?</label><textarea id="setupData" data-setup-key="Tempat penyimpanan informasi" placeholder="Contoh: chat, spreadsheet, aplikasi kasir, atau dokumen"></textarea></div>
+        </div>
+      </section>
+
+      <section class="setup-form-section" aria-labelledby="setupApprovalTitle">
+        <h3 id="setupApprovalTitle">4. Keputusan yang harus tetap Anda kendalikan</h3>
+        <p>Kami akan menyepakati batas tugas bersama Anda sebelum sistem digunakan.</p>
+        <div class="setup-form-checks">
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Persetujuan: tagihan resmi">Tagihan resmi perlu saya periksa dahulu</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Persetujuan: perubahan stok">Perubahan jumlah stok perlu saya setujui</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Persetujuan: jadwal/pengiriman">Perubahan jadwal atau pengiriman perlu saya setujui</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Persetujuan: publikasi">Konten harus saya tinjau sebelum dipublikasikan</label>
+          <label class="setup-form-check"><input type="checkbox" data-setup-key="Persetujuan: harga/pengeluaran">Perubahan harga atau pengeluaran perlu persetujuan saya</label>
+        </div>
+        <div class="setup-form-grid">
+          <div class="setup-form-field full"><label for="setupApprovalOther">Hal lain yang harus selalu mendapat izin Anda</label><textarea id="setupApprovalOther" data-setup-key="Persetujuan lain" placeholder="Opsional"></textarea></div>
+        </div>
+      </section>
+
+      <section class="setup-form-section" aria-labelledby="setupReadinessTitle">
+        <h3 id="setupReadinessTitle">5. Persiapan dan jadwal</h3>
+        <p>Kami akan menentukan bersama dokumen, orang, dan tanggal yang dibutuhkan.</p>
+        <div class="setup-form-grid">
+          <div class="setup-form-field"><label for="setupTargetDate">Kapan Anda berharap sesi setup dimulai?</label><input id="setupTargetDate" data-setup-key="Waktu mulai yang diharapkan" placeholder="Contoh: minggu kedua November"></div>
+          <div class="setup-form-field"><label for="setupMeetingAvailability">Waktu yang biasanya cocok untuk bertemu</label><input id="setupMeetingAvailability" data-setup-key="Waktu pertemuan yang cocok" placeholder="Hari dan rentang waktu"></div>
+          <div class="setup-form-field full"><label for="setupQuestions">Pertanyaan atau kekhawatiran yang ingin dibahas lebih dulu</label><textarea id="setupQuestions" data-setup-key="Pertanyaan sebelum setup" placeholder="Tuliskan apa pun yang masih belum jelas."></textarea></div>
+        </div>
+      </section>
+
+      <section class="setup-form-section" id="setupTierQuestions" aria-labelledby="setupTierTitle">
+        <h3 id="setupTierTitle">Tambahan sesuai paket</h3>
+        <p id="setupTierDescription">Pilih paket yang tercantum di proposal untuk melihat pertanyaan terkait. Paket yang tampil di sini adalah contoh.</p>
+        <div class="setup-form-grid">
+          <div class="setup-form-field full" data-tier-extra="2"><label for="setupGrowth">Kanal pemasaran atau sumber calon pelanggan yang paling ingin ditingkatkan</label><textarea id="setupGrowth" data-setup-key="Kanal pemasaran prioritas" placeholder="Contoh: Instagram, Google, rekomendasi pelanggan"></textarea></div>
+          <div class="setup-form-field full" data-tier-extra="3"><label for="setupAcademy">Siapa yang akan belajar atau memakai materi/kelas, dan apa yang perlu mereka pelajari?</label><textarea id="setupAcademy" data-setup-key="Kebutuhan belajar/academy" placeholder="Isi jika kelas, membership, atau produk belajar termasuk dalam kesepakatan."></textarea></div>
+        </div>
+      </section>
+      <p class="setup-form-save" id="setupFormFooterStatus" role="status" aria-live="polite">Belum ada jawaban yang dibagikan kepada tim.</p>
+    </div>
+  </section>
 
   <section id="build" class="view">
     <div class="toolbar">
@@ -6636,16 +6759,8 @@ drawTeam();
 
 
 // Initialize Portal View Mode (defaults to 'audit')
-(function() {
-  const p = new URLSearchParams(window.location.search);
-  const initialMode = p.get('mode') || 'audit';
-  switchPortalMode(initialMode);
-  const initialTab = p.get('tab');
-  if (initialTab) {
-    const tabBtn = document.querySelector(`#modeSetupContainer [data-tab="${initialTab}"]`);
-    if (tabBtn) tabBtn.click();
-  }
-})();
+const initialPortalParams = new URLSearchParams(window.location.search);
+switchPortalMode(initialPortalParams.get('mode') || 'audit');
 
 // Setup Mode Tabs
 document.querySelectorAll('#modeSetupContainer [data-tab]').forEach(b => {
@@ -6654,6 +6769,76 @@ document.querySelectorAll('#modeSetupContainer [data-tab]').forEach(b => {
     document.querySelectorAll('#modeSetupContainer .view').forEach(x => x.classList.toggle('hide', x.id !== b.dataset.tab));
   };
 });
+const initialSetupTab=initialPortalParams.get('tab');
+if(initialSetupTab)[...document.querySelectorAll('#modeSetupContainer [data-tab]')].find(button=>button.dataset.tab===initialSetupTab)?.click();
+
+// Client setup intake: answers stay in this browser until the client chooses to export them.
+(function initSetupIntake(){
+  const key='agentz-setup-intake-v1';
+  const fields=[...document.querySelectorAll('#setup-form [data-setup-key]')];
+  const saveStatus=document.getElementById('setupFormSaveStatus');
+  const footerStatus=document.getElementById('setupFormFooterStatus');
+  if(!fields.length||!saveStatus)return;
+  const read=()=>{try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return {}}};
+  const saved=read();
+  fields.forEach(field=>{
+    const value=saved[field.dataset.setupKey];
+    if(field.type==='checkbox')field.checked=Boolean(value);
+    else if(typeof value==='string')field.value=value;
+  });
+  if(!saved['Nama usaha']){
+    try{document.getElementById('setupBusinessName').value=localStorage.getItem('business_discovery_name')||''}catch{}
+  }
+  try{
+    const context=[localStorage.getItem('business_discovery_export_text'),localStorage.getItem('business_discovery_asset_audit_summary')].filter(Boolean).join('\n\nRINGKASAN AUDIT ASET\n');
+    if(context){document.getElementById('setupDiscoveryContextText').textContent=context;document.getElementById('setupDiscoveryContext').hidden=false}
+  }catch{}
+  const updateTierQuestions=()=>{
+    const tier=Number(document.getElementById('tier')?.value||2);
+    document.querySelectorAll('[data-tier-extra]').forEach(field=>{field.hidden=Number(field.dataset.tierExtra)>tier});
+    document.getElementById('setupTierDescription').textContent=`Paket contoh: Tier ${tier}. Periksa kembali paket pada proposal Anda. Jawaban tambahan hanya muncul jika sesuai paket.`;
+  };
+  const save=()=>{
+    const data={};
+    fields.forEach(field=>{data[field.dataset.setupKey]=field.type==='checkbox'?field.checked:field.value.trim()});
+    try{
+      localStorage.setItem(key,JSON.stringify(data));
+      saveStatus.textContent='Jawaban disimpan otomatis di browser ini.';
+      footerStatus.textContent='Jawaban tetap di perangkat ini sampai Anda mengunduh ringkasan.';
+    }catch{
+      saveStatus.textContent='Penyimpanan browser penuh atau tidak tersedia. Unduh jawaban agar tidak hilang.';
+      footerStatus.textContent='Belum tersimpan. Unduh jawaban sebelum meninggalkan halaman.';
+    }
+  };
+  fields.forEach(field=>field.addEventListener(field.type==='checkbox'?'change':'input',save));
+  document.getElementById('tier')?.addEventListener('change',updateTierQuestions);
+  document.getElementById('setupFormDownload').addEventListener('click',()=>{
+    const lines=['PERSIAPAN SETUP AGENTZ',`Paket pada portal: Tier ${Number(document.getElementById('tier')?.value||2)} (periksa dengan proposal)`, '', 'Jawaban:'];
+    fields.forEach(field=>{
+      const label=field.type==='checkbox'?field.closest('label')?.textContent.trim():field.closest('.setup-form-field')?.querySelector('label')?.textContent.trim();
+      const value=field.type==='checkbox'?(field.checked?'Dipilih':'Belum dipilih'):(field.value.trim()||'Belum diisi');
+      if(label)lines.push(`${label}: ${value}`);
+    });
+    const previousContext=document.getElementById('setupDiscoveryContextText')?.textContent.trim();
+    if(previousContext)lines.push('', 'RINGKASAN DISCOVERY / AUDIT SEBELUMNYA', previousContext);
+    const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+    const url=URL.createObjectURL(blob),link=document.createElement('a');
+    link.href=url;
+    link.download='persiapan-setup-agentz.txt';
+    link.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    saveStatus.textContent='Ringkasan jawaban berhasil diunduh ke perangkat ini.';
+    footerStatus.textContent='Simpan file ini di tempat yang aman atau bagikan melalui saluran yang disepakati.';
+  });
+  document.getElementById('setupFormClear').addEventListener('click',()=>{
+    if(!confirm('Kosongkan semua jawaban persiapan setup yang tersimpan di browser ini?'))return;
+    fields.forEach(field=>{if(field.type==='checkbox')field.checked=false;else field.value=''});
+    try{localStorage.removeItem(key)}catch{}
+    saveStatus.textContent='Jawaban persiapan setup sudah dikosongkan.';
+    footerStatus.textContent='Belum ada jawaban yang dibagikan kepada tim.';
+  });
+  updateTierQuestions();
+})();
 
 // ==========================================
 // PERSONAL BRAND AUDIT / BRANDKIT ENGINE
