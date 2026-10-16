@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>engo-1 | Workspace Dashboard — Active Client Stages Funnel</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..24,300..600,0..1,0" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            display: ['Sora', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+            },
+            mint: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+            }
+          },
+          boxShadow: {
+            'card': '0 2px 14px -2px rgba(15, 23, 42, 0.05), 0 1px 4px -1px rgba(15, 23, 42, 0.03)',
+            'card-hover': '0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.03)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8FAFC;
+      color: #0F172A;
+      min-height: 100vh;
+    }
+    .dark body {
+      background-color: #0F172A;
+      color: #F8FAFC;
+    }
+    .metric-num {
+      font-feature-settings: "tnum" on, "lnum" on;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 2px 14px -2px rgba(15, 23, 42, 0.05), 0 1px 4px -1px rgba(15, 23, 42, 0.03);
+      transition: all 0.2s ease;
+    }
+    .dark .glass-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(51, 65, 85, 0.8);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+    }
+    .pulse-ring {
+      animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 0.0; }
+      100% { transform: scale(0.95); opacity: 0; }
+    }
+  </style>
+</head>
+<body class="p-4 sm:p-6 lg:p-8">
+  <div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- Top Bar: Theme Switcher & Context -->
+    <div class="bg-white/95 dark:bg-slate-900/90 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-card px-5 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block shadow-xs shadow-emerald-400"></span>
+        <h2 class="text-sm font-bold tracking-tight text-slate-900 dark:text-white">
+          Executive Control Center · https://engo-1.jordanengo.com/workspace#dashboard
+        </h2>
+        <span class="text-slate-300 dark:text-slate-700">•</span>
+        <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">All systems operational</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-sm">dark_mode</span>
+          <span id="theme-btn-label">Dark / Light Mode</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         TOP 5 KPI CARDS (MATCHING EXACT SCREENSHOT FROM JORDAN)
+    ══════════════════════════════════════════════════════ -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-5" data-purpose="top-kpi-grid">
+      <!-- Card 1: Collected (7 Days) -->
+      <div class="glass-card rounded-2xl p-5 hover:shadow-card-hover transition-all flex flex-col justify-between relative overflow-hidden group">
+        <div>
+          <div class="flex items-center justify-between text-slate-600 dark:text-slate-400 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Collected (7 Days)</span>
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-100 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-num text-2xl lg:text-[28px] font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1.5">
+            Rp 0
+          </div>
+          <div class="flex items-center gap-1 text-xs font-semibold text-rose-600 dark:text-rose-400">
+            <span>▼ 100%</span>
+            <span class="text-slate-400 font-normal ml-0.5">Real closed deals</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+          <div class="flex items-center justify-between text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            <span>Target: Rp 50M</span>
+            <span class="font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/50 dark:border-emerald-800 px-1.5 py-0.5 rounded">80% Achieved</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Active Pipeline -->
+      <div class="glass-card rounded-2xl p-5 hover:shadow-card-hover transition-all flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-slate-600 dark:text-slate-400 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Active Pipeline</span>
+            <div class="w-8 h-8 rounded-lg bg-[#e5eedf] dark:bg-[#17332b] border border-[#cbd5c8] dark:border-[#244b3e] flex items-center justify-center text-[#195846] dark:text-[#a4e5c4]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-num text-2xl lg:text-[28px] font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1.5">
+            Rp 15M
+          </div>
+          <div class="text-xs text-slate-600 dark:text-slate-400 font-medium">
+            <span class="font-bold text-slate-900 dark:text-white">2</span> Deals Won
+          </div>
+        </div>
+        <div class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+          <div class="flex items-center justify-between text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            <span>Warm Prospects</span>
+            <span class="font-bold text-[#195846] dark:text-[#a4e5c4]">66.7% Win-Rate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Strategy Calls -->
+      <div class="glass-card rounded-2xl p-5 hover:shadow-card-hover transition-all flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-slate-600 dark:text-slate-400 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Strategy Calls</span>
+            <div class="w-8 h-8 rounded-lg bg-[#e5eedf] dark:bg-[#17332b] border border-[#cbd5c8] dark:border-[#244b3e] flex items-center justify-center text-[#195846] dark:text-[#a4e5c4]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-num text-2xl lg:text-[28px] font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1.5">
+            3
+          </div>
+          <div class="text-xs text-[#183e36] dark:text-[#a4e5c4] font-semibold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#195846] dark:bg-[#a4e5c4]"></span>
+            <span>Cal.com &amp; Voice Sessions</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+          <div class="flex items-center justify-between text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            <span>2 Total Bookings</span>
+            <span class="text-purple-600 dark:text-purple-400 font-bold">Capacity 100%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Qualification Rate -->
+      <div class="glass-card rounded-2xl p-5 hover:shadow-card-hover transition-all flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-slate-600 dark:text-slate-400 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Qualification Rate</span>
+            <div class="w-8 h-8 rounded-lg bg-[#fff2e8] dark:bg-[#2e1e14] border border-[#fed7aa] dark:border-[#522b16] flex items-center justify-center text-[#ea8341] dark:text-[#fba76d]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="metric-num text-2xl lg:text-[28px] font-black text-slate-900 dark:text-white tracking-tight leading-none mb-1.5">
+            21.4%
+          </div>
+          <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+            <span>▲ 100%</span>
+            <span class="text-slate-400 font-normal">vs baseline</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+          <span class="text-[11px] text-slate-500">AI Qualification</span>
+          <span class="text-[10px] font-extrabold text-[#ea8341] dark:text-[#fba76d] px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800">ACTIVE AI</span>
+        </div>
+      </div>
+
+      <!-- Card 5: Pipeline Health -->
+      <div class="glass-card bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/40 dark:from-emerald-950/30 dark:via-slate-900/90 dark:to-emerald-950/20 rounded-2xl border border-emerald-200/90 dark:border-emerald-800 p-5 hover:shadow-card-hover transition-all flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-slate-600 dark:text-slate-400 mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">Pipeline Health</span>
+            <div class="w-8 h-8 rounded-full bg-emerald-100/90 dark:bg-emerald-900/50 border border-emerald-300 dark:border-emerald-700 flex items-center justify-center text-emerald-700 dark:text-emerald-300">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="metric-num text-3xl font-black text-emerald-700 dark:text-emerald-400 leading-none">0</span>
+            <span class="text-base font-extrabold text-emerald-700 dark:text-emerald-400">Zero Leaks</span>
+          </div>
+          <div class="mt-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+            Flawless Funnel Performance
+          </div>
+        </div>
+        <div class="mt-4 pt-2 border-t border-emerald-200/60 dark:border-emerald-800/80">
+          <div class="w-full py-1.5 px-2 bg-emerald-100/80 dark:bg-emerald-950/70 rounded-lg text-center border border-emerald-200 dark:border-emerald-800 text-xs font-bold text-emerald-800 dark:text-emerald-300 tracking-wide">
+            100% Pipeline Processed
+          </div>
+          <div class="text-[11px] text-emerald-700 dark:text-emerald-400 text-center mt-1.5 font-medium">
+            0 Leads Abandoned
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════════════
+         ⭐ THE NEW SECTION: ACTIVE CLIENT DELIVERY & HANDOVER STAGES FUNNEL ⭐
+         (BUILT LIKE SALES & QUAL FUNNEL, PLACED DIRECTLY UNDER THE TOP 5 KPI CARDS)
+    ══════════════════════════════════════════════════════════════════════════════ -->
+    <div id="overview-client-stages-funnel-card" class="bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/85 dark:border-slate-800 p-6 shadow-card" data-purpose="active-client-delivery-stages">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-5 border-b border-slate-100 dark:border-slate-800 gap-3">
+        <div>
+          <div class="flex items-center gap-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white tracking-tight uppercase flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-purple-600"></span>
+              <span>Active Client Delivery Stages (Klien Aktif)</span>
+            </h3>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+              4 Klien Aktif · 100% On-Track
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Pantau progres delivery klien setelah tanda tangan deal: <strong>Intake ➔ Setup ➔ Kalibrasi ➔ Live Pilot ➔ Handover</strong> (Mengacu pada SOP 90-Day Sprint &amp; AGentZ New Offer).
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2.5 py-1 rounded-lg">
+            Total Nilai: Rp 111.5M
+          </span>
+          <button onclick="alert('Buka board detail di tab Delivery')" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 group transition-colors cursor-pointer" type="button">
+            <span>Delivery Board</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Horizontal Multi-Stage Funnel Grid (Desktop 5 Columns) -->
+      <div class="pt-6">
+        
+        <!-- Stage Headers & Metric Badges (5 Delivery Stages) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-3 text-left">
+          
+          <!-- Step 1: Intake & Scope -->
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#182333] border border-slate-200/60 dark:border-[#22334a] hover:border-blue-400 transition cursor-pointer" onclick="filterByStage(1)" title="Klik untuk filter klien di tahap Intake">
+            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-blue-700 dark:text-blue-300 uppercase tracking-tight">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+              <span>1. Intake &amp; Scope</span>
+            </div>
+            <div class="mt-1 flex items-baseline justify-between">
+              <span class="text-base font-extrabold text-slate-900 dark:text-white">1 Klien</span>
+              <span class="text-[11px] font-bold text-blue-600 dark:text-blue-400">25%</span>
+            </div>
+            <div class="text-[10px] text-slate-400 truncate mt-0.5">Akses &amp; business.yaml</div>
+          </div>
+
+          <!-- Step 2: System Setup -->
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#201d36] border border-slate-200/60 dark:border-[#352e5a] hover:border-purple-400 transition cursor-pointer" onclick="filterByStage(2)" title="Klik untuk filter klien di tahap Setup">
+            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-purple-700 dark:text-purple-300 uppercase tracking-tight">
+              <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+              <span>2. System Setup</span>
+            </div>
+            <div class="mt-1 flex items-baseline justify-between">
+              <span class="text-base font-extrabold text-slate-900 dark:text-white">1 Klien</span>
+              <span class="text-[11px] font-bold text-purple-600 dark:text-purple-400">25%</span>
+            </div>
+            <div class="text-[10px] text-slate-400 truncate mt-0.5">WA API &amp; Telegram L0–3</div>
+          </div>
+
+          <!-- Step 3: Kalibrasi & Testing -->
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#2b2219] border border-slate-200/60 dark:border-[#42301f] hover:border-amber-400 transition cursor-pointer" onclick="filterByStage(3)" title="Klik untuk filter klien di tahap Kalibrasi">
+            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-tight">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+              <span>3. Kalibrasi</span>
+            </div>
+            <div class="mt-1 flex items-baseline justify-between">
+              <span class="text-base font-extrabold text-slate-900 dark:text-white">1 Klien</span>
+              <span class="text-[11px] font-bold text-amber-600 dark:text-amber-400">25%</span>
+            </div>
+            <div class="text-[10px] text-slate-400 truncate mt-0.5">Uji 20 Skenario Nyata</div>
+          </div>
+
+          <!-- Step 4: Live Pilot -->
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#182e28] border border-slate-200/60 dark:border-[#213c34] hover:border-teal-400 transition cursor-pointer" onclick="filterByStage(4)" title="Klik untuk filter klien di tahap Pilot">
+            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-teal-700 dark:text-teal-300 uppercase tracking-tight">
+              <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+              <span>4. Live Pilot</span>
+            </div>
+            <div class="mt-1 flex items-baseline justify-between">
+              <span class="text-base font-extrabold text-slate-500 dark:text-slate-400">0 Klien</span>
+              <span class="text-[11px] font-bold text-slate-400">0%</span>
+            </div>
+            <div class="text-[10px] text-slate-400 truncate mt-0.5">Shadow Run Pesanan</div>
+          </div>
+
+          <!-- Step 5: Handover & Serah Terima -->
+          <div class="p-2.5 rounded-xl bg-[#ecfdf5] dark:bg-[#112d22] border border-[#a7f3d0] dark:border-[#1d523e] hover:border-emerald-500 transition cursor-pointer" onclick="filterByStage(5)" title="Klik untuk filter klien di tahap Handover">
+            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 uppercase tracking-tight">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>5. Handover</span>
+            </div>
+            <div class="mt-1 flex items-baseline justify-between">
+              <span class="text-base font-extrabold text-slate-900 dark:text-white">1 Klien</span>
+              <span class="text-[11px] font-black text-emerald-600 dark:text-emerald-400">25%</span>
+            </div>
+            <div class="text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold truncate mt-0.5">SOP Mandiri &amp; Sign-off</div>
+          </div>
+
+        </div>
+
+        <!-- Proportional Visual Delivery Funnel Bars (5 Columns) -->
+        <div class="grid grid-cols-5 gap-3 h-24 items-end bg-slate-50/70 dark:bg-slate-800/40 p-3 rounded-2xl border border-slate-100 dark:border-slate-800">
+          
+          <!-- Bar 1: Intake -->
+          <div class="h-full flex flex-col justify-end group cursor-pointer" onclick="filterByStage(1)" title="Stage 1 · Intake: 1 Klien (Akademi Ekspor)">
+            <div class="w-full bg-blue-500/85 hover:bg-blue-600 rounded-lg transition-all h-[50%] relative flex items-center justify-center text-white text-xs font-bold shadow-sm">
+              <span class="text-[11px]">1 Klien</span>
+            </div>
+          </div>
+
+          <!-- Bar 2: Setup -->
+          <div class="h-full flex flex-col justify-end group cursor-pointer" onclick="filterByStage(2)" title="Stage 2 · Setup: 1 Klien (Resto Makmur)">
+            <div class="w-full bg-purple-500/85 hover:bg-purple-600 rounded-lg transition-all h-[50%] relative flex items-center justify-center text-white text-xs font-bold shadow-sm">
+              <span class="text-[11px]">1 Klien</span>
+            </div>
+          </div>
+
+          <!-- Bar 3: Kalibrasi -->
+          <div class="h-full flex flex-col justify-end group cursor-pointer" onclick="filterByStage(3)" title="Stage 3 · Kalibrasi: 1 Klien (drg. Hendra)">
+            <div class="w-full bg-amber-500/85 hover:bg-amber-600 rounded-lg transition-all h-[50%] relative flex items-center justify-center text-white text-xs font-bold shadow-sm">
+              <span class="text-[11px]">1 Klien</span>
+            </div>
+          </div>
+
+          <!-- Bar 4: Live Pilot -->
+          <div class="h-full flex flex-col justify-end group cursor-pointer" onclick="filterByStage(4)" title="Stage 4 · Live Pilot: 0 Klien">
+            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-lg transition-all h-[15%] relative flex items-center justify-center text-slate-400 text-[10px] font-semibold">
+              <span>0</span>
+            </div>
+          </div>
+
+          <!-- Bar 5: Handover -->
+          <div class="h-full flex flex-col justify-end group cursor-pointer" onclick="filterByStage(5)" title="Stage 5 · Handover: 1 Klien (Pak Siswoko)">
+            <div class="w-full bg-emerald-500 hover:bg-emerald-600 rounded-lg transition-all h-[95%] relative flex items-center justify-center text-white text-xs font-bold shadow-sm ring-2 ring-emerald-300 dark:ring-emerald-700 ring-offset-1">
+              <span class="text-[11px] font-black">1 Handover</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 4 Active Client Cards (Rich Status Rows Inside This Section) -->
+        <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Daftar Klien Berjalan:</span>
+              <span id="active-filter-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Menampilkan Semua (4)</span>
+            </div>
+            <button onclick="filterByStage('all')" class="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline">
+              Tampilkan Semua
+            </button>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3" id="client-cards-grid">
+            
+            <!-- Client 1: Pak Siswoko (Handover) -->
+            <div class="client-card p-3.5 rounded-xl border border-emerald-200/80 dark:border-emerald-800/80 bg-emerald-50/40 dark:bg-emerald-950/20 hover:shadow-sm transition" data-stage="5">
+              <div class="flex items-start justify-between gap-2">
+                <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300/60">
+                  5 · HANDOVER
+                </span>
+                <span class="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400">95%</span>
+              </div>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-1.5 leading-snug">Pak Siswoko Unggas</h4>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Tier 1 Ops · Rp 10M</p>
+              
+              <div class="mt-2.5 pt-2 border-t border-emerald-100 dark:border-emerald-900/40 space-y-1">
+                <div class="text-[11px] font-medium text-slate-700 dark:text-slate-300">
+                  📍 <strong>Next:</strong> Sesi Zoom serah terima SOP &amp; penyerahan akses mandiri
+                </div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1">
+                  <span>Target: <strong class="text-slate-600 dark:text-slate-300">2 hari lagi</strong></span>
+                  <span class="text-emerald-600 font-bold">Siap Signoff</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Client 2: drg. Hendra (Kalibrasi) -->
+            <div class="client-card p-3.5 rounded-xl border border-amber-200/80 dark:border-amber-800/80 bg-amber-50/40 dark:bg-amber-950/20 hover:shadow-sm transition" data-stage="3">
+              <div class="flex items-start justify-between gap-2">
+                <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-300/60">
+                  3 · KALIBRASI
+                </span>
+                <span class="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400">70%</span>
+              </div>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-1.5 leading-snug">drg. Hendra Dental</h4>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Tier 1 Ops · Rp 8.5M</p>
+              
+              <div class="mt-2.5 pt-2 border-t border-amber-100 dark:border-amber-900/40 space-y-1">
+                <div class="text-[11px] font-medium text-slate-700 dark:text-slate-300">
+                  📍 <strong>Next:</strong> Uji batas Level 3 Telegram &amp; 3 skenario komplain
+                </div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1">
+                  <span>Target: <strong class="text-slate-600 dark:text-slate-300">9 hari lagi</strong></span>
+                  <span class="text-amber-600 font-bold">17/20 Uji Lulus</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Client 3: Resto Makmur (Setup) -->
+            <div class="client-card p-3.5 rounded-xl border border-purple-200/80 dark:border-purple-800/80 bg-purple-50/40 dark:bg-purple-950/20 hover:shadow-sm transition" data-stage="2">
+              <div class="flex items-start justify-between gap-2">
+                <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300 border border-purple-300/60">
+                  2 · SETUP SKILLS
+                </span>
+                <span class="text-[10px] font-mono font-bold text-purple-600 dark:text-purple-400">45%</span>
+              </div>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-1.5 leading-snug">Resto Makmur Katering</h4>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Tier 2 Growth · Rp 28M</p>
+              
+              <div class="mt-2.5 pt-2 border-t border-purple-100 dark:border-purple-900/40 space-y-1">
+                <div class="text-[11px] font-medium text-slate-700 dark:text-slate-300">
+                  📍 <strong>Next:</strong> Webhook WhatsApp Business &amp; draf 6 reels
+                </div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1">
+                  <span>Target: <strong class="text-slate-600 dark:text-slate-300">18 hari lagi</strong></span>
+                  <span class="text-purple-600 font-bold">In Setup</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Client 4: Akademi Ekspor (Intake) -->
+            <div class="client-card p-3.5 rounded-xl border border-blue-200/80 dark:border-blue-800/80 bg-blue-50/40 dark:bg-blue-950/20 hover:shadow-sm transition" data-stage="1">
+              <div class="flex items-start justify-between gap-2">
+                <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-300/60">
+                  1 · INTAKE &amp; SCOPE
+                </span>
+                <span class="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400">20%</span>
+              </div>
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-1.5 leading-snug">Akademi Ekspor Mandiri</h4>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Tier 3 Academy · Rp 65M</p>
+              
+              <div class="mt-2.5 pt-2 border-t border-blue-100 dark:border-blue-900/40 space-y-1">
+                <div class="text-[11px] font-medium text-slate-700 dark:text-slate-300">
+                  📍 <strong>Next:</strong> Ingest 8 modul kurikulum ke knowledge base &amp; setup LMS
+                </div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1">
+                  <span>Target: <strong class="text-slate-600 dark:text-slate-300">28 hari lagi</strong></span>
+                  <span class="text-blue-600 font-bold">Kickoff Done</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- ══════════════════════════════════════════════════════════════════════════════
+         END OF NEW SECTION
+    ══════════════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Sales & Qualification Funnel (Original Funnel Below it) -->
+    <div id="overview-qualification-funnel-card" class="bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/85 dark:border-slate-800 p-6 shadow-card" data-purpose="sales-funnel-pipeline">
+      <!-- Funnel Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-5 border-b border-slate-100 dark:border-slate-800 gap-3">
+        <div>
+          <div class="flex items-center gap-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white tracking-tight uppercase">
+              Sales &amp; Qualification Funnel (Marketing &amp; Akuisisi)
+            </h3>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+              6.5% Final Conversion
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Funnel akuisisi calon pembeli dari traffic konten hingga menjadi transaksi Won.
+          </p>
+        </div>
+        <button class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 group transition-colors cursor-pointer" type="button">
+          <span>Pipeline Details</span>
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Horizontal Multi-Stage Desktop Funnel Grid -->
+      <div class="pt-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-3 text-left">
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#182e28] border border-slate-200/60 dark:border-[#213c34]">
+            <div class="text-[11px] font-semibold text-[#183e36] dark:text-[#a4e5c4] uppercase">1. Views</div>
+            <div class="mt-1 flex items-baseline justify-between"><span class="text-base font-extrabold">144,600</span><span class="text-[11px] font-bold">100%</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#182e28] border border-slate-200/60 dark:border-[#213c34]">
+            <div class="text-[11px] font-semibold text-[#183e36] dark:text-[#a4e5c4] uppercase">2. Engagement</div>
+            <div class="mt-1 flex items-baseline justify-between"><span class="text-base font-extrabold">18,200</span><span class="text-[11px] font-bold">12.6%</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#182e28] border border-slate-200/60 dark:border-[#213c34]">
+            <div class="text-[11px] font-semibold text-[#183e36] dark:text-[#a4e5c4] uppercase">3. Leads</div>
+            <div class="mt-1 flex items-baseline justify-between"><span class="text-base font-extrabold">1,420</span><span class="text-[11px] font-bold">7.8%</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#182e28] border border-slate-200/60 dark:border-[#213c34]">
+            <div class="text-[11px] font-semibold text-[#183e36] dark:text-[#a4e5c4] uppercase">4. Qualified</div>
+            <div class="mt-1 flex items-baseline justify-between"><span class="text-base font-extrabold">482</span><span class="text-[11px] font-bold">33.9%</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-[#182e28] border border-slate-200/60 dark:border-[#213c34]">
+            <div class="text-[11px] font-semibold text-[#183e36] dark:text-[#a4e5c4] uppercase">5. Booked</div>
+            <div class="mt-1 flex items-baseline justify-between"><span class="text-base font-extrabold">44</span><span class="text-[11px] font-bold">9.1%</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-[#fff2e8] dark:bg-[#2e1e14] border border-[#fed7aa] dark:border-[#522b16]">
+            <div class="text-[11px] font-semibold text-[#ea8341] dark:text-[#fba76d] uppercase">6. Won</div>
+            <div class="mt-1 flex items-baseline justify-between"><span class="text-base font-extrabold text-[#183e36] dark:text-white">6 Won</span><span class="text-[11px] font-black text-[#ea8341]">13.6%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function filterByStage(stageId) {
+      const cards = document.querySelectorAll('.client-card');
+      const badge = document.getElementById('active-filter-badge');
+      if (stageId === 'all') {
+        cards.forEach(c => c.style.display = 'block');
+        badge.textContent = 'Menampilkan Semua (4)';
+      } else {
+        let count = 0;
+        cards.forEach(c => {
+          if (c.getAttribute('data-stage') === String(stageId)) {
+            c.style.display = 'block';
+            count++;
+          } else {
+            c.style.display = 'none';
+          }
+        });
+        const stageNames = {1:'1 · Intake', 2:'2 · Setup Skills', 3:'3 · Kalibrasi', 4:'4 · Live Pilot', 5:'5 · Handover'};
+        badge.textContent = `Filter: ${stageNames[stageId]} (${count})`;
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        localStorage.setItem('engo-theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        localStorage.setItem('engo-theme', 'dark_mode_explicit');
+      }
+    }
+
+    if (localStorage.getItem('engo-theme') === 'dark_mode_explicit') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
+  </script>
+</body>
+</html>
