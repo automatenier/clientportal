@@ -1113,10 +1113,14 @@
       const file = e.target.files[0];
       if (!file) return;
       const url = URL.createObjectURL(file);
-      const reel = reels[currentModalIndex];
+      const targetIndex = quickUploadTargetIndex !== null ? quickUploadTargetIndex : currentModalIndex;
+      const reel = reels[targetIndex];
+      quickUploadTargetIndex = null;
       reel.videoSrc = url;
       $('cinemaVideo').src = url;
-      $('cinemaVideo').play().catch(() => {});
+      if ($('cinemaModal').classList.contains('open')) {
+        $('cinemaVideo').play().catch(() => {});
+      }
       saveReels();
       renderCatalog();
       alert(`File video "${file.name}" berhasil dimuat ke reel ini!`);
