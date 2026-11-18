@@ -1,0 +1,44 @@
+/* Shared AGentZ / ClientPortal Design Tokens (60-30-10 Light Palette) */
+:root {
+  color-scheme: light;
+
+  /* 60% Warm Botanical Cream Canvas */
+  --bg-canvas: #FAF8F4;
+  --paper: #FAF8F4;
+
+  /* 30% Pure White Card Surfaces & Subtle Borders */
+  --bg-surface: #FFFFFF;
+  --white: #FFFFFF;
+  --bg-muted: #F2EFE8;
+  --border-subtle: #E6E2D8;
+  --line: #E6E2D8;
+
+  /* Warm Ink Typography */
+  --text-primary: #1C1F1D;
+  --ink: #1C1F1D;
+  --text-secondary: #5C635E;
+  --muted: #5C635E;
+
+  /* 10% Deep Forest Pine & Terracotta Accents */
+  --accent-pine: #1B4332;
+  --green: #1B4332;
+  --accent-pine-soft: #E8F0EB;
+  --accent-terracotta: #C85A32;
+  --orange: #C85A32;
+  --accent-terracotta-soft: #F9EDE8;
+
+  /* Typography (2-weight rule: 400 / 600; JetBrains Mono removed from client HTML) */
+  --font-sans: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --weight-regular: 400;
+  --weight-semibold: 600;
+
+  /* Architectural Radii */
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-pill: 999px;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
